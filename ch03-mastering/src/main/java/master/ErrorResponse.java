@@ -19,4 +19,9 @@ public class ErrorResponse implements Response {
     public Exception getOriginalException() {
         return this.originalException;
     }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 }
