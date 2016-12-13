@@ -17,11 +17,9 @@
 
 package com.manning.junitbook.ch12.selenium;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.SeleneseTestCase;
+import com.thoughtworks.selenium.Selenium;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,9 +27,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.SeleneseTestCase;
-import com.thoughtworks.selenium.Selenium;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test methods are run for IE and FF. The Selenium server is not managed from
@@ -39,49 +38,14 @@ import com.thoughtworks.selenium.Selenium;
  * <p>
  * Maven will pick up this test so it must be excluded in pom.xml.
  * </p>
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id$
  */
 @RunWith(value = Parameterized.class)
 public class UnmanagedAllBrowsersTester {
     private static Map<String, Selenium> SeleniumMap;
-
-    @Parameters
-    public static Collection<String[]> getBrowsers() {
-        return Arrays.asList(new String[][] { { "*iexplore" }, { "*firefox" } });
-    }
-
-    private static Selenium getSelenium(String key) {
-        Selenium s = getSeleniumMap().get(key);
-        if (s != null) {
-            return s;
-        }
-        stopDrivers(); // only let one driver run
-        s = new DefaultSelenium("localhost", 4444, key, "http://www.google.com/");
-        getSeleniumMap().put(key, s);
-        s.start();
-        return s;
-    }
-
-    private static Map<String, Selenium> getSeleniumMap() {
-        if (SeleniumMap == null) {
-            SeleniumMap = new HashMap<String, Selenium>();
-        }
-        return SeleniumMap;
-    }
-
-    @AfterClass
-    public static void stopDrivers() {
-        // System.out.println("@AfterClass");
-        for (Selenium s : getSeleniumMap().values()) {
-            s.stop();
-        }
-        SeleniumMap = null;
-    }
-
     private String browserStartCommand;
-
     private Selenium selenium;
 
     public UnmanagedAllBrowsersTester(String browserStartCommand) {
@@ -111,5 +75,38 @@ public class UnmanagedAllBrowsersTester {
         this.selenium.click("link=Manning Publications Co.");
         this.selenium.waitForPageToLoad("30000");
         SeleneseTestCase.assertEquals("Manning Publications Co.", this.selenium.getTitle());
+    }
+
+    @Parameters
+    public static Collection<String[]> getBrowsers() {
+        return Arrays.asList(new String[][]{{"*iexplore"}, {"*firefox"}});
+    }
+
+    private static Selenium getSelenium(String key) {
+        Selenium s = getSeleniumMap().get(key);
+        if (s != null) {
+            return s;
+        }
+        stopDrivers(); // only let one driver run
+        s = new DefaultSelenium("localhost", 4444, key, "http://www.google.com/");
+        getSeleniumMap().put(key, s);
+        s.start();
+        return s;
+    }
+
+    private static Map<String, Selenium> getSeleniumMap() {
+        if (SeleniumMap == null) {
+            SeleniumMap = new HashMap<String, Selenium>();
+        }
+        return SeleniumMap;
+    }
+
+    @AfterClass
+    public static void stopDrivers() {
+        // System.out.println("@AfterClass");
+        for (Selenium s : getSeleniumMap().values()) {
+            s.stop();
+        }
+        SeleniumMap = null;
     }
 }

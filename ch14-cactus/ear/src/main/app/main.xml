@@ -18,18 +18,18 @@
 		under the License.   
 -->
 <assembly>
-   <id>bin</id>
-   <formats>
-      <format>ear</format>
-   </formats>
-   <includeBaseDirectory>false</includeBaseDirectory>
-   <fileSets>
-      <fileSet>
-         <directory>target</directory>
-         <outputDirectory>/</outputDirectory>
-         <includes>
-            <include>ch14-cactus-ear-2.0-SNAPSHOT.jar</include>
-         </includes>
-      </fileSet>
-   </fileSets>
+    <id>bin</id>
+    <formats>
+        <format>ear</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>target</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>ch14-cactus-ear-2.0-SNAPSHOT.jar</include>
+            </includes>
+        </fileSet>
+    </fileSets>
 </assembly>

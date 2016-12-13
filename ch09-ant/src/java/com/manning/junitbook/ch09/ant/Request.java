@@ -22,10 +22,9 @@ package com.manning.junitbook.ch09.ant;
 
 /**
  * Request interface.
- * 
+ *
  * @version $Id$
  */
-public interface Request
-{
+public interface Request {
     String getName();
 }

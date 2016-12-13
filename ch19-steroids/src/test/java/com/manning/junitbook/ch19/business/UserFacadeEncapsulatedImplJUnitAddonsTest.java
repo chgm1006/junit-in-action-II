@@ -24,9 +24,9 @@ import junitx.util.PrivateAccessor;
 
 public class UserFacadeEncapsulatedImplJUnitAddonsTest extends AbstractUserFacadeEncapsulatedImplTestCase {
 
-  @Override
-  protected void injectDaoIntoFacade() throws NoSuchFieldException {
-    PrivateAccessor.setField(facade, "userDao", dao);
-  }
-  
+    @Override
+    protected void injectDaoIntoFacade() throws NoSuchFieldException {
+        PrivateAccessor.setField(facade, "userDao", dao);
+    }
+
 }

@@ -1,31 +1,23 @@
 package com.manning.junitbook.ch12.servlets;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import org.apache.cactus.ServletTestCase;
-
 import com.gargoylesoftware.htmlunit.WebAssert;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.html.HTMLParser;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+import org.apache.cactus.ServletTestCase;
+
+import javax.servlet.ServletException;
+import java.io.IOException;
 
 /**
- * 
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: HtmlUnitServletTestCase.java 397 2009-04-30 19:00:19Z
  *          garydgregory $
  */
 public class HtmlUnitServletTestCase extends ServletTestCase {
-    public static Test suite() {
-        return new TestSuite(HtmlUnitServletTestCase.class);
-    }
-
     public HtmlUnitServletTestCase(String name) {
         super(name);
     }
@@ -45,5 +37,9 @@ public class HtmlUnitServletTestCase extends ServletTestCase {
         servlet.init(this.config);
         // call servlet methods
         // asserts
+    }
+
+    public static Test suite() {
+        return new TestSuite(HtmlUnitServletTestCase.class);
     }
 }

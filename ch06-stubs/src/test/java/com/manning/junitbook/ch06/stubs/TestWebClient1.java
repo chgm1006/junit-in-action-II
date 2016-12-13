@@ -20,59 +20,52 @@
  */
 package com.manning.junitbook.ch06.stubs;
 
-import static org.junit.Assert.assertEquals;
-
-import java.net.URL;
-import java.net.URLStreamHandlerFactory;
-import java.net.URLStreamHandler;
-import java.net.URLConnection;
-import java.io.IOException;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLStreamHandler;
+import java.net.URLStreamHandlerFactory;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * A test case that tests the WebClient class by stubbing the HTTP connection.
- * 
+ *
  * @version $Id$
  */
-public class TestWebClient1
-{
-
-    @BeforeClass
-    public static void setUp()
-    {
-
-        TestWebClient1 t = new TestWebClient1();
-
-        URL.setURLStreamHandlerFactory( t.new StubStreamHandlerFactory() );
-    }
+public class TestWebClient1 {
 
     private class StubStreamHandlerFactory
-        implements URLStreamHandlerFactory
-    {
-        public URLStreamHandler createURLStreamHandler( String protocol )
-        {
+            implements URLStreamHandlerFactory {
+        public URLStreamHandler createURLStreamHandler(String protocol) {
             return new StubHttpURLStreamHandler();
         }
     }
 
     private class StubHttpURLStreamHandler
-        extends URLStreamHandler
-    {
-        protected URLConnection openConnection( URL url )
-            throws IOException
-        {
-            return new StubHttpURLConnection( url );
+            extends URLStreamHandler {
+        protected URLConnection openConnection(URL url)
+                throws IOException {
+            return new StubHttpURLConnection(url);
         }
     }
 
     @Test
     public void testGetContentOk()
-        throws Exception
-    {
+            throws Exception {
         WebClient client = new WebClient();
-        String result = client.getContent( new URL( "http://localhost/" ) );
-        assertEquals( "It works", result );
+        String result = client.getContent(new URL("http://localhost/"));
+        assertEquals("It works", result);
+    }
+
+    @BeforeClass
+    public static void setUp() {
+
+        TestWebClient1 t = new TestWebClient1();
+
+        URL.setURLStreamHandlerFactory(t.new StubStreamHandlerFactory());
     }
 }

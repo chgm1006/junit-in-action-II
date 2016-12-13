@@ -20,27 +20,23 @@
  */
 package com.manning.junitbook.ch08.incontainer;
 
-import javax.servlet.http.HttpServletRequest;
-import static org.easymock.EasyMock.createStrictMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.easymock.EasyMock.eq;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import javax.servlet.http.HttpSession;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * This test-case tests the SampleServlet class using the EasyMock mock-objects library.
- * 
+ *
  * @version $Id$
  */
-public class TestSampleServletWithEasyMock
-{
+public class TestSampleServletWithEasyMock {
 
     private SampleServlet servlet;
 
@@ -49,52 +45,47 @@ public class TestSampleServletWithEasyMock
     private HttpSession mockHttpSession;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         servlet = new SampleServlet();
-        mockHttpServletRequest = createStrictMock( HttpServletRequest.class );
-        mockHttpSession = createStrictMock( HttpSession.class );
+        mockHttpServletRequest = createStrictMock(HttpServletRequest.class);
+        mockHttpSession = createStrictMock(HttpSession.class);
     }
 
     @After
-    public void tearDown()
-    {
-        verify( mockHttpServletRequest );
-        verify( mockHttpSession );
+    public void tearDown() {
+        verify(mockHttpServletRequest);
+        verify(mockHttpSession);
     }
 
     @Test
-    public void testIsAuthenticatedAuthenticated()
-    {
-        expect( mockHttpServletRequest.getSession( eq( false ) ) ).andReturn( mockHttpSession );
-        expect( mockHttpSession.getAttribute( eq( "authenticated" ) ) ).andReturn( "true" );
+    public void testIsAuthenticatedAuthenticated() {
+        expect(mockHttpServletRequest.getSession(eq(false))).andReturn(mockHttpSession);
+        expect(mockHttpSession.getAttribute(eq("authenticated"))).andReturn("true");
 
-        replay( mockHttpServletRequest );
-        replay( mockHttpSession );
+        replay(mockHttpServletRequest);
+        replay(mockHttpSession);
 
-        assertTrue( servlet.isAuthenticated( mockHttpServletRequest ) );
+        assertTrue(servlet.isAuthenticated(mockHttpServletRequest));
     }
 
     @Test
-    public void testIsAuthenticatedNotAuthenticated()
-    {
-        expect( mockHttpSession.getAttribute( eq( "authenticated" ) ) ).andReturn( "false" );
-        replay( mockHttpSession );
+    public void testIsAuthenticatedNotAuthenticated() {
+        expect(mockHttpSession.getAttribute(eq("authenticated"))).andReturn("false");
+        replay(mockHttpSession);
 
-        expect( mockHttpServletRequest.getSession( eq( false ) ) ).andReturn( mockHttpSession );
-        replay( mockHttpServletRequest );
+        expect(mockHttpServletRequest.getSession(eq(false))).andReturn(mockHttpSession);
+        replay(mockHttpServletRequest);
 
-        assertFalse( servlet.isAuthenticated( mockHttpServletRequest ) );
+        assertFalse(servlet.isAuthenticated(mockHttpServletRequest));
     }
 
     @Test
-    public void testIsAuthenticatedNoSession()
-    {
-        expect( mockHttpServletRequest.getSession( eq( false ) ) ).andReturn( null );
+    public void testIsAuthenticatedNoSession() {
+        expect(mockHttpServletRequest.getSession(eq(false))).andReturn(null);
 
-        replay( mockHttpServletRequest );
-        replay( mockHttpSession );
+        replay(mockHttpServletRequest);
+        replay(mockHttpSession);
 
-        assertFalse( servlet.isAuthenticated( mockHttpServletRequest ) );
+        assertFalse(servlet.isAuthenticated(mockHttpServletRequest));
     }
 }

@@ -22,46 +22,40 @@ package com.manning.junitbook.ch16.service;
 
 /**
  * Implementation of the calculator service.
- * 
+ *
  * @version $Id: CalculatorImpl.java 538 2009-08-17 09:08:14Z paranoid12 $
  */
 public class CalculatorImpl
-    implements CalculatorService
-{
+        implements CalculatorService {
 
-    public double add( double... numbers )
-    {
+    public double add(double... numbers) {
         double result = 0;
-        for ( double number : numbers )
+        for (double number : numbers)
             result += number;
         return result;
     }
 
-    public double multiply( double... numbers )
-    {
+    public double multiply(double... numbers) {
         double result = 1;
-        for ( double number : numbers )
+        for (double number : numbers)
             result *= number;
         return result;
     }
 
-    public double[] parseUserInput( String str )
-        throws NumberFormatException
-    {
-        String[] numbers = str.split( " " );
+    public double[] parseUserInput(String str)
+            throws NumberFormatException {
+        String[] numbers = str.split(" ");
 
         double[] result = new double[numbers.length];
 
-        for ( int i = 0; i < numbers.length; i++ )
-        {
-            result[i] = Double.parseDouble( numbers[i] );
+        for (int i = 0; i < numbers.length; i++) {
+            result[i] = Double.parseDouble(numbers[i]);
         }
 
         return result;
     }
 
-    public void printResult( double result )
-    {
-        System.out.println( "The result is: " + result );
+    public void printResult(double result) {
+        System.out.println("The result is: " + result);
     }
 }

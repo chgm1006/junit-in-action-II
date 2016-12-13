@@ -20,47 +20,42 @@
  */
 package com.manning.junitbook.ch15.beans;
 
-import java.io.IOException;
-
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
 import org.apache.cactus.ServletTestCase;
 import org.jboss.jsfunit.jsfsession.JSFClientSession;
 import org.jboss.jsfunit.jsfsession.JSFServerSession;
 import org.jboss.jsfunit.jsfsession.JSFSession;
 import org.xml.sax.SAXException;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.io.IOException;
 
 /**
  * Test the AJAX support of RichFaces.
- * 
+ *
  * @version $Id: TestPurchaseAlbum.java 530 2009-08-16 19:01:19Z paranoid12 $
  */
 public class TestPurchaseAlbum
-    extends ServletTestCase
-{
-    public static Test suite()
-    {
-        return new TestSuite( TestPurchaseAlbum.class );
-    }
-
+        extends ServletTestCase {
     public void testCommandButton()
-        throws IOException, SAXException
-    {
-        JSFSession jsfSession = new JSFSession( "/album_details.jsp" );
-        
+            throws IOException, SAXException {
+        JSFSession jsfSession = new JSFSession("/album_details.jsp");
+
         JSFServerSession server = jsfSession.getJSFServerSession();
         JSFClientSession client = jsfSession.getJSFClientSession();
 
-        client.click( "PurchaseButton" );
+        client.click("PurchaseButton");
 
-        Object userBeanValue = server.getManagedBeanValue( "#{albumDetailsBean.status}" );
-        assertEquals( "Successfully purchased: ", userBeanValue );
-        
-        String spanContent =((HtmlPage)client.getContentPage()).getElementsByTagName( "span" ).item( 0 ).getTextContent(); 
+        Object userBeanValue = server.getManagedBeanValue("#{albumDetailsBean.status}");
+        assertEquals("Successfully purchased: ", userBeanValue);
+
+        String spanContent = ((HtmlPage) client.getContentPage()).getElementsByTagName("span").item(0).getTextContent();
 
         assertEquals(spanContent, "Successfully purchased:");
+    }
+
+    public static Test suite() {
+        return new TestSuite(TestPurchaseAlbum.class);
     }
 }

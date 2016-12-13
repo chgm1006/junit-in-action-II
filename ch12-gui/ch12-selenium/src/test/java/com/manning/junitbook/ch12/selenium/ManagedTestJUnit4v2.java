@@ -17,12 +17,10 @@
 
 package com.manning.junitbook.ch12.selenium;
 
+import com.thoughtworks.selenium.SeleneseTestCase;
 import org.junit.Test;
 
-import com.thoughtworks.selenium.SeleneseTestCase;
-
 /**
- * 
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id$
  */

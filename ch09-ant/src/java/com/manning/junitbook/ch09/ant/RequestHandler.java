@@ -22,11 +22,10 @@ package com.manning.junitbook.ch09.ant;
 
 /**
  * Request handler interface.
- * 
+ *
  * @version $Id$
  */
-public interface RequestHandler
-{
-    Response process( Request request )
-        throws Exception;
+public interface RequestHandler {
+    Response process(Request request)
+            throws Exception;
 }

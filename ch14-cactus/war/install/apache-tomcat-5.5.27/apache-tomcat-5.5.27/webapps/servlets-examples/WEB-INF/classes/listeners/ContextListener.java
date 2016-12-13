@@ -18,11 +18,7 @@
 package listeners;
 
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletContextAttributeListener;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.*;
 
 
 /**
@@ -36,7 +32,7 @@ import javax.servlet.ServletContextListener;
  */
 
 public final class ContextListener
-    implements ServletContextAttributeListener, ServletContextListener {
+        implements ServletContextAttributeListener, ServletContextListener {
 
 
     // ----------------------------------------------------- Instance Variables
@@ -58,8 +54,8 @@ public final class ContextListener
      */
     public void attributeAdded(ServletContextAttributeEvent event) {
 
-	log("attributeAdded('" + event.getName() + "', '" +
-	    event.getValue() + "')");
+        log("attributeAdded('" + event.getName() + "', '" +
+                event.getValue() + "')");
 
     }
 
@@ -71,8 +67,8 @@ public final class ContextListener
      */
     public void attributeRemoved(ServletContextAttributeEvent event) {
 
-	log("attributeRemoved('" + event.getName() + "', '" +
-	    event.getValue() + "')");
+        log("attributeRemoved('" + event.getName() + "', '" +
+                event.getValue() + "')");
 
     }
 
@@ -84,8 +80,8 @@ public final class ContextListener
      */
     public void attributeReplaced(ServletContextAttributeEvent event) {
 
-	log("attributeReplaced('" + event.getName() + "', '" +
-	    event.getValue() + "')");
+        log("attributeReplaced('" + event.getName() + "', '" +
+                event.getValue() + "')");
 
     }
 
@@ -97,8 +93,8 @@ public final class ContextListener
      */
     public void contextDestroyed(ServletContextEvent event) {
 
-	log("contextDestroyed()");
-	this.context = null;
+        log("contextDestroyed()");
+        this.context = null;
 
     }
 
@@ -110,8 +106,8 @@ public final class ContextListener
      */
     public void contextInitialized(ServletContextEvent event) {
 
-	this.context = event.getServletContext();
-	log("contextInitialized()");
+        this.context = event.getServletContext();
+        log("contextInitialized()");
 
     }
 
@@ -126,10 +122,10 @@ public final class ContextListener
      */
     private void log(String message) {
 
-	if (context != null)
-	    context.log("ContextListener: " + message);
-	else
-	    System.out.println("ContextListener: " + message);
+        if (context != null)
+            context.log("ContextListener: " + message);
+        else
+            System.out.println("ContextListener: " + message);
 
     }
 
@@ -138,17 +134,17 @@ public final class ContextListener
      * Log a message and associated exception to the servlet context
      * application log.
      *
-     * @param message Message to be logged
+     * @param message   Message to be logged
      * @param throwable Exception to be logged
      */
     private void log(String message, Throwable throwable) {
 
-	if (context != null)
-	    context.log("ContextListener: " + message, throwable);
-	else {
-	    System.out.println("ContextListener: " + message);
-	    throwable.printStackTrace(System.out);
-	}
+        if (context != null)
+            context.log("ContextListener: " + message, throwable);
+        else {
+            System.out.println("ContextListener: " + message);
+            throwable.printStackTrace(System.out);
+        }
 
     }
 

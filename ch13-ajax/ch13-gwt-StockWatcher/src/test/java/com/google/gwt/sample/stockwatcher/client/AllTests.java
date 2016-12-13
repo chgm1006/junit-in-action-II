@@ -1,14 +1,11 @@
 package com.google.gwt.sample.stockwatcher.client;
 
+import com.google.gwt.junit.tools.GWTTestSuite;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import com.google.gwt.junit.tools.GWTTestSuite;
-
 /**
- * 
  * @author ggregory
- * 
  */
 public class AllTests extends GWTTestSuite {
 

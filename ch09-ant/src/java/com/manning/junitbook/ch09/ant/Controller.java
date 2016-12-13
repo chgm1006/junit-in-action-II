@@ -22,12 +22,11 @@ package com.manning.junitbook.ch09.ant;
 
 /**
  * The controller interface for the different implementations.
- * 
+ *
  * @version $Id$
  */
-public interface Controller
-{
-    Response processRequest( Request request );
+public interface Controller {
+    Response processRequest(Request request);
 
-    void addHandler( Request request, RequestHandler requestHandler );
+    void addHandler(Request request, RequestHandler requestHandler);
 }

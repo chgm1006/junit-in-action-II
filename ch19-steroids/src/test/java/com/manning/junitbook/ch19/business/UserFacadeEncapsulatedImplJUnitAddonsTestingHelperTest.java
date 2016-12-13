@@ -20,19 +20,18 @@
  */
 package com.manning.junitbook.ch19.business;
 
-import junit.framework.Assert;
-
 import com.manning.junitbook.ch19.dao.UserDao;
 import com.manning.junitbook.ch19.util.TestingHelperJUnitAddons;
+import junit.framework.Assert;
 
 public class UserFacadeEncapsulatedImplJUnitAddonsTestingHelperTest extends AbstractUserFacadeEncapsulatedImplTestCase {
 
-  @Override
-  protected void injectDaoIntoFacade() throws NoSuchFieldException {
-    TestingHelperJUnitAddons.set(facade, "userDao", dao);
-    // sanity check
-    UserDao set = TestingHelperJUnitAddons.get(facade, "userDao");
-    Assert.assertSame(dao, set);
-  }
-  
+    @Override
+    protected void injectDaoIntoFacade() throws NoSuchFieldException {
+        TestingHelperJUnitAddons.set(facade, "userDao", dao);
+        // sanity check
+        UserDao set = TestingHelperJUnitAddons.get(facade, "userDao");
+        Assert.assertSame(dao, set);
+    }
+
 }

@@ -17,19 +17,15 @@
 package examples;
 
 
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
-
 import java.io.IOException;
 
 /**
- * Log the contents of the body. Could be used to handle errors etc. 
+ * Log the contents of the body. Could be used to handle errors etc.
  */
-public class LogTag 
-    extends ExampleTagBase
-{
+public class LogTag
+        extends ExampleTagBase {
     boolean toBrowser = false;
-    
+
     public void setToBrowser(String value) {
         if (value == null)
             toBrowser = false;
@@ -42,7 +38,7 @@ public class LogTag
     public int doStartTag() throws JspException {
         return EVAL_BODY_TAG;
     }
-    
+
     public int doAfterBody() throws JspException {
         try {
             String s = bodyOut.getString();

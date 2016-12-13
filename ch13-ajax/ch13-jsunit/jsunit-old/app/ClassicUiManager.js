@@ -1,10 +1,10 @@
-JsUnit.ClassicUiManager = function(testManager) {
+JsUnit.ClassicUiManager = function (testManager) {
     this._testManager = testManager;
 }
 
 JsUnit.Util.inherit(JsUnit.BaseUiManager, JsUnit.ClassicUiManager);
 
-JsUnit.ClassicUiManager.prototype.onLoad = function(mainFrame) {
+JsUnit.ClassicUiManager.prototype.onLoad = function (mainFrame) {
     var mainData = mainFrame.frames.mainData;
 
     // form elements on mainData frame
@@ -37,15 +37,15 @@ JsUnit.ClassicUiManager.prototype.onLoad = function(mainFrame) {
     this.popupWindowsBlocked = false;
 }
 
-JsUnit.ClassicUiManager.prototype.getUiFrameUrl = function() {
+JsUnit.ClassicUiManager.prototype.getUiFrameUrl = function () {
     return './app/main-frame.html';
 }
 
-JsUnit.ClassicUiManager.prototype.getTestFileName = function() {
+JsUnit.ClassicUiManager.prototype.getTestFileName = function () {
     return this.testFileName.value;
 }
 
-JsUnit.ClassicUiManager.prototype.getTraceLevel = function() {
+JsUnit.ClassicUiManager.prototype.getTraceLevel = function () {
     var levelNumber = eval(this.traceLevel.value);
     return JsUnitTraceLevel.findByLevelNumber(levelNumber);
 }
@@ -73,20 +73,20 @@ JsUnit.ClassicUiManager.prototype.submittingResults = function () {
     this.stopButton.disabled = true;
 }
 
-JsUnit.ClassicUiManager.prototype.initializeTracer = function() {
+JsUnit.ClassicUiManager.prototype.initializeTracer = function () {
     if (this._traceWindow != null && this.closeTraceWindowOnNewRun.checked)
         this._traceWindow.close();
     this._traceWindow = null;
 }
 
-JsUnit.ClassicUiManager.prototype.finalizeTracer = function() {
+JsUnit.ClassicUiManager.prototype.finalizeTracer = function () {
     if (this._traceWindow != null) {
         this._traceWindow.document.write('<\/body>\n<\/html>');
         this._traceWindow.document.close();
     }
 }
 
-JsUnit.ClassicUiManager.prototype.openTracer = function() {
+JsUnit.ClassicUiManager.prototype.openTracer = function () {
     var traceWindow = this._getTraceWindow();
     if (traceWindow) {
         traceWindow.focus();
@@ -201,7 +201,7 @@ JsUnit.ClassicUiManager.prototype.showMessagesForAllProblemTests = function () {
     this._windowForAllProblemMessages = this._createWindow("Tests with problems", body);
 }
 
-JsUnit.ClassicUiManager.prototype.showLog = function() {
+JsUnit.ClassicUiManager.prototype.showLog = function () {
     this._tryToCloseWindow(this.logWindow);
 
     var body = "<pre>";
@@ -217,14 +217,14 @@ JsUnit.ClassicUiManager.prototype.showLog = function() {
     this.logWindow = this._createWindow("Log", body);
 }
 
-JsUnit.ClassicUiManager.prototype._tryToCloseWindow = function(w) {
+JsUnit.ClassicUiManager.prototype._tryToCloseWindow = function (w) {
     try {
         if (w && !w.closed) w.close();
-    } catch(e) {
+    } catch (e) {
     }
 }
 
-JsUnit.ClassicUiManager.prototype._createWindow = function(title, body) {
+JsUnit.ClassicUiManager.prototype._createWindow = function (title, body) {
     var w = window.open('', '', 'width=600, height=350,status=no,resizable=yes,scrollbars=yes');
     var resDoc = w.document;
     resDoc.write('<html><head><link rel="stylesheet" href="../css/jsUnitStyle.css"><title>');
@@ -236,21 +236,21 @@ JsUnit.ClassicUiManager.prototype._createWindow = function(title, body) {
 }
 
 
-JsUnit.ClassicUiManager.prototype.fatalError = function(aMessage) {
+JsUnit.ClassicUiManager.prototype.fatalError = function (aMessage) {
     if (this._testManager._params.shouldSuppressDialogs()) // todo: huh?
         this.setStatus(aMessage);
     else
         alert(aMessage);
 }
 
-JsUnit.ClassicUiManager.prototype.userConfirm = function(aMessage) {
+JsUnit.ClassicUiManager.prototype.userConfirm = function (aMessage) {
     if (this._testManager._params.shouldSuppressDialogs()) // todo: huh?
         return false;
     else
         return confirm(aMessage);
 }
 
-JsUnit.ClassicUiManager.prototype.addedTraceData = function(theTest, traceMessage) {
+JsUnit.ClassicUiManager.prototype.addedTraceData = function (theTest, traceMessage) {
     if (this.getTraceLevel().matches(traceMessage.traceLevel)) {
         var traceString = traceMessage.message;
         if (traceMessage.value)
@@ -260,12 +260,12 @@ JsUnit.ClassicUiManager.prototype.addedTraceData = function(theTest, traceMessag
     }
 }
 
-JsUnit.ClassicUiManager.prototype._writeToTraceWindow = function(prefix, traceString, traceLevel) {
+JsUnit.ClassicUiManager.prototype._writeToTraceWindow = function (prefix, traceString, traceLevel) {
     var htmlToAppend = '<p class="jsUnitDefault">' + prefix + '<font color="' + traceLevel.getColor() + '">' + traceString + '</font><\/p>\n';
     this._getTraceWindow().document.write(htmlToAppend);
 }
 
-JsUnit.ClassicUiManager.prototype._getTraceWindow = function() {
+JsUnit.ClassicUiManager.prototype._getTraceWindow = function () {
     if (this._traceWindow == null && !this._testManager._params.shouldSubmitResults() && !this.popupWindowsBlocked) {
         this._traceWindow = window.open('', '', 'width=600, height=350,status=no,resizable=yes,scrollbars=yes');
         if (!this._traceWindow)
@@ -284,5 +284,5 @@ JsUnit.ClassicUiManager.prototype._getTraceWindow = function() {
     return this._traceWindow;
 }
 
-JsUnit.ClassicUiManager.prototype.learnedOfTestPage = function() {
+JsUnit.ClassicUiManager.prototype.learnedOfTestPage = function () {
 }

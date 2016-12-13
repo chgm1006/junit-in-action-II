@@ -20,34 +20,32 @@
  */
 package com.manning.junitbook.ch15.beans;
 
-import java.io.IOException;
-
-import javax.faces.event.PhaseId;
-
 import org.apache.cactus.ServletTestCase;
 import org.jboss.jsfunit.framework.JSFTimer;
 import org.jboss.jsfunit.jsfsession.JSFClientSession;
 import org.jboss.jsfunit.jsfsession.JSFSession;
 
+import javax.faces.event.PhaseId;
+import java.io.IOException;
+
 /**
  * Tests the purchase performance of AlbumDetails bean.
  * We have put a lag of a second and a half.
- * 
+ *
  * @version $Id: TestPerformanceOfPurchaseBean.java 530 2009-08-16 19:01:19Z paranoid12 $
  */
-public class TestPerformanceOfPurchaseBean extends ServletTestCase
-{
+public class TestPerformanceOfPurchaseBean extends ServletTestCase {
 
     public void testPerformance() throws IOException {
-        JSFSession jsfSession = new JSFSession( "/album_details.jsp" );
-        
+        JSFSession jsfSession = new JSFSession("/album_details.jsp");
+
         JSFClientSession client = jsfSession.getJSFClientSession();
 
-        client.click( "PurchaseButton" );
-        
+        client.click("PurchaseButton");
+
         JSFTimer timer = JSFTimer.getTimer();
-        assertTrue( "Total time to get the response should not be more than 1600 ms.", timer.getTotalTime() < 1600 );
+        assertTrue("Total time to get the response should not be more than 1600 ms.", timer.getTotalTime() < 1600);
         PhaseId appPhase = PhaseId.INVOKE_APPLICATION;
-        assertTrue( "Execution should not be more than 1600 ms.", timer.getPhaseTime( appPhase ) < 1600 );
+        assertTrue("Execution should not be more than 1600 ms.", timer.getPhaseTime(appPhase) < 1600);
     }
 }

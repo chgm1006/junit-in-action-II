@@ -20,12 +20,6 @@
  */
 package com.manning.junitbook.ch07.mocks.web;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -34,78 +28,78 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 /**
  * Test the WebClient class using the JMock mocking library.
- * 
+ *
  * @version $Id: TestWebClientJMock.java 505 2009-08-16 17:58:38Z paranoid12 $
  */
-@RunWith( JMock.class )
-public class TestWebClientJMock
-{
-    private Mockery context = new JUnit4Mockery()
-    {
+@RunWith(JMock.class)
+public class TestWebClientJMock {
+    private Mockery context = new JUnit4Mockery() {
         {
-            setImposteriser( ClassImposteriser.INSTANCE );
+            setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
 
     @Test
     public void testGetContentOk()
-        throws Exception
-    {
-        final ConnectionFactory factory = context.mock( ConnectionFactory.class );
-        final InputStream mockStream = context.mock( InputStream.class );
+            throws Exception {
+        final ConnectionFactory factory = context.mock(ConnectionFactory.class);
+        final InputStream mockStream = context.mock(InputStream.class);
 
-        context.checking( new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                oneOf( factory ).getData();
-                will( returnValue( mockStream ) );
+                oneOf(factory).getData();
+                will(returnValue(mockStream));
 
-                oneOf( mockStream ).read();
-                will( onConsecutiveCalls( returnValue( new Integer( (byte) 'W' ) ),
-                                          returnValue( new Integer( (byte) 'o' ) ),
-                                          returnValue( new Integer( (byte) 'r' ) ),
-                                          returnValue( new Integer( (byte) 'k' ) ),
-                                          returnValue( new Integer( (byte) 's' ) ),
-                                          returnValue( new Integer( (byte) '!' ) ), 
-                                          returnValue( -1 ) ) );
+                oneOf(mockStream).read();
+                will(onConsecutiveCalls(returnValue(new Integer((byte) 'W')),
+                        returnValue(new Integer((byte) 'o')),
+                        returnValue(new Integer((byte) 'r')),
+                        returnValue(new Integer((byte) 'k')),
+                        returnValue(new Integer((byte) 's')),
+                        returnValue(new Integer((byte) '!')),
+                        returnValue(-1)));
 
-                oneOf( mockStream ).close();
+                oneOf(mockStream).close();
             }
-        } );
+        });
 
         WebClient2 client = new WebClient2();
 
-        String result = client.getContent( factory );
+        String result = client.getContent(factory);
 
-        assertEquals( "Works!", result );
+        assertEquals("Works!", result);
     }
 
     @Test
     public void testGetContentCannotCloseInputStream()
-        throws Exception
-    {
+            throws Exception {
 
-        final ConnectionFactory factory = context.mock( ConnectionFactory.class );
-        final InputStream mockStream = context.mock( InputStream.class );
+        final ConnectionFactory factory = context.mock(ConnectionFactory.class);
+        final InputStream mockStream = context.mock(InputStream.class);
 
-        context.checking( new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                oneOf( factory ).getData();
-                will( returnValue( mockStream ) );
-                oneOf( mockStream ).read();
-                will( returnValue( -1 ) );
-                oneOf( mockStream ).close();
-                will( throwException( new IOException( "cannot close" ) ) );
+                oneOf(factory).getData();
+                will(returnValue(mockStream));
+                oneOf(mockStream).read();
+                will(returnValue(-1));
+                oneOf(mockStream).close();
+                will(throwException(new IOException("cannot close")));
             }
-        } );
+        });
 
         WebClient2 client = new WebClient2();
 
-        String result = client.getContent( factory );
+        String result = client.getContent(factory);
 
-        assertNull( result );
+        assertNull(result);
     }
 }

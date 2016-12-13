@@ -23,7 +23,7 @@ package com.manning.junitbook.ch19.business;
 import com.manning.junitbook.ch19.model.UserDto;
 
 public interface UserFacade {
-  
-  UserDto getUserById(long id);
-  
+
+    UserDto getUserById(long id);
+
 }

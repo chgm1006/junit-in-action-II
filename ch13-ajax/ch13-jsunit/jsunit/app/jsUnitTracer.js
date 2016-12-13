@@ -3,20 +3,24 @@ function JsUnitTraceLevel(levelNumber, color) {
     this._color = color;
 }
 
-JsUnitTraceLevel.prototype.matches = function(otherTraceLevel) {
+JsUnitTraceLevel.prototype.matches = function (otherTraceLevel) {
     return this._levelNumber >= otherTraceLevel._levelNumber;
 }
 
-JsUnitTraceLevel.prototype.getColor = function() {
+JsUnitTraceLevel.prototype.getColor = function () {
     return this._color;
 }
 
-JsUnitTraceLevel.findByLevelNumber = function(levelNumber) {
+JsUnitTraceLevel.findByLevelNumber = function (levelNumber) {
     switch (levelNumber) {
-        case 0: return JsUnitTraceLevel.NONE;
-        case 1: return JsUnitTraceLevel.WARNING;
-        case 2: return JsUnitTraceLevel.INFO;
-        case 3: return JsUnitTraceLevel.DEBUG;
+        case 0:
+            return JsUnitTraceLevel.NONE;
+        case 1:
+            return JsUnitTraceLevel.WARNING;
+        case 2:
+            return JsUnitTraceLevel.INFO;
+        case 3:
+            return JsUnitTraceLevel.DEBUG;
     }
     return null;
 }
@@ -31,18 +35,18 @@ function JsUnitTracer(testManager, params) {
     this._params = params;
 }
 
-JsUnitTracer.prototype.warn = function() {
+JsUnitTracer.prototype.warn = function () {
     this._trace(arguments[0], arguments[1], JsUnitTraceLevel.WARNING);
 }
 
-JsUnitTracer.prototype.inform = function() {
+JsUnitTracer.prototype.inform = function () {
     this._trace(arguments[0], arguments[1], JsUnitTraceLevel.INFO);
 }
 
-JsUnitTracer.prototype.debug = function() {
+JsUnitTracer.prototype.debug = function () {
     this._trace(arguments[0], arguments[1], JsUnitTraceLevel.DEBUG);
 }
 
-JsUnitTracer.prototype._trace = function(message, value, traceLevel) {
+JsUnitTracer.prototype._trace = function (message, value, traceLevel) {
     this._testManager.addTraceData(message, value, traceLevel);
 }

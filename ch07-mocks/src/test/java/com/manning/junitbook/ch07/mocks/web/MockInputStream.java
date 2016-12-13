@@ -25,12 +25,11 @@ import java.io.InputStream;
 
 /**
  * A custom mock input stream to use in our tests.
- * 
+ *
  * @version $Id: MockInputStream.java 505 2009-08-16 17:58:38Z paranoid12 $
  */
 public class MockInputStream
-    extends InputStream
-{
+        extends InputStream {
     /**
      * Buffer to read in.
      */
@@ -48,51 +47,45 @@ public class MockInputStream
 
     /**
      * Sets the buffer.
-     * 
+     *
      * @param buffer
      */
-    public void setBuffer( String buffer )
-    {
+    public void setBuffer(String buffer) {
         this.buffer = buffer;
     }
 
     /**
      * Reads from the stream.
-     * 
+     *
      * @return
      */
     public int read()
-        throws IOException
-    {
-        if ( position == this.buffer.length() )
-        {
+            throws IOException {
+        if (position == this.buffer.length()) {
             return -1;
         }
 
-        return this.buffer.charAt( this.position++ );
+        return this.buffer.charAt(this.position++);
     }
 
     /**
      * Close the stream.
      */
     public void close()
-        throws IOException
-    {
+            throws IOException {
         closeCount++;
         super.close();
     }
 
     /**
      * Verify how many times the close method was called.
-     * 
+     *
      * @throws java.lang.AssertionError
      */
     public void verify()
-        throws java.lang.AssertionError
-    {
-        if ( closeCount != 1 )
-        {
-            throw new AssertionError( "close() should " + "have been called once and once only" );
+            throws java.lang.AssertionError {
+        if (closeCount != 1) {
+            throw new AssertionError("close() should " + "have been called once and once only");
         }
     }
 }

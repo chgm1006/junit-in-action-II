@@ -20,15 +20,12 @@
  */
 package com.manning.junitbook.ch12.container;
 
+import com.manning.junitbook.ch12.servlets.HtmlUnitServletTestCase;
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
 import org.apache.cactus.extension.jetty.Jetty5xTestSetup;
 
-import com.manning.junitbook.ch12.servlets.HtmlUnitServletTestCase;
-
 /**
- * 
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: TestAllWithJetty.java 397 2009-04-30 19:00:19Z garydgregory $
  */

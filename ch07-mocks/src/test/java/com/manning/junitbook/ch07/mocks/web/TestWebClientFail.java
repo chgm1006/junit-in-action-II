@@ -20,32 +20,30 @@
  */
 package com.manning.junitbook.ch07.mocks.web;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Another test-case to test the WebClient.
- * 
+ *
  * @version $Id: TestWebClientFail.java 505 2009-08-16 17:58:38Z paranoid12 $
  */
-public class TestWebClientFail
-{
+public class TestWebClientFail {
     @Test
     public void testGetContentOk()
-        throws Exception
-    {
+            throws Exception {
         MockConnectionFactory mockConnectionFactory = new MockConnectionFactory();
         MockInputStream mockStream = new MockInputStream();
-        mockStream.setBuffer( "It works" );
+        mockStream.setBuffer("It works");
 
-        mockConnectionFactory.setData( mockStream );
+        mockConnectionFactory.setData(mockStream);
 
         WebClient2 client = new WebClient2();
 
-        String result = client.getContent( mockConnectionFactory );
+        String result = client.getContent(mockConnectionFactory);
 
-        assertEquals( "It works", result );
+        assertEquals("It works", result);
         mockStream.verify();
     }
 }

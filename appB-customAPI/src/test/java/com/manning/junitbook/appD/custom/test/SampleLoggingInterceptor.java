@@ -24,26 +24,23 @@ import com.manning.junitbook.appD.custom.model.Interceptor;
 
 /**
  * A sample logging interceptor that logs messages right before and after every test.
- * 
+ *
  * @version $Id: SampleLoggingInterceptor.java 201 2009-02-15 19:18:09Z paranoid12 $
  */
 public class SampleLoggingInterceptor
-    implements Interceptor
-{
+        implements Interceptor {
 
     /**
      * The method to execute before the test.
      */
-    public void interceptBefore()
-    {
-        System.out.println( "Before-test" );
+    public void interceptBefore() {
+        System.out.println("Before-test");
     }
 
     /**
      * The method to execute after the test.
      */
-    public void interceptAfter()
-    {
-        System.out.println( "After-test" );
+    public void interceptAfter() {
+        System.out.println("After-test");
     }
 }

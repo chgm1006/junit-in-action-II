@@ -1,4 +1,4 @@
-JsUnit.Params = function(string) {
+JsUnit.Params = function (string) {
     this.hash = new Object();
 
     if (!string) return;
@@ -22,67 +22,67 @@ JsUnit.Params = function(string) {
     }
 }
 
-JsUnit.Params.prototype.get = function(name) {
+JsUnit.Params.prototype.get = function (name) {
     if (typeof(this.hash[name]) != 'undefined') {
         return this.hash[name];
     }
     return null;
 }
 
-JsUnit.Params.prototype.getTestPage = function() {
+JsUnit.Params.prototype.getTestPage = function () {
     return this.get('testpage');
 }
 
-JsUnit.Params.prototype.shouldKickOffTestsAutomatically = function() {
+JsUnit.Params.prototype.shouldKickOffTestsAutomatically = function () {
     return this.get('autorun') == "true";
 }
 
-JsUnit.Params.prototype.shouldShowTestFrame = function() {
+JsUnit.Params.prototype.shouldShowTestFrame = function () {
     return this.get('showtestframe');
 }
 
-JsUnit.Params.prototype.getShowTestFrameHeight = function() {
+JsUnit.Params.prototype.getShowTestFrameHeight = function () {
     var param = this.get('showtestframe');
     return param == "true" ? JsUnitTestManager.DEFAULT_TEST_FRAME_HEIGHT : param;
 }
 
-JsUnit.Params.prototype.shouldSuppressDialogs = function() {
+JsUnit.Params.prototype.shouldSuppressDialogs = function () {
     return this.shouldSubmitResults() || this.get('suppressdialogs');
 }
 
-JsUnit.Params.prototype.getPageLoadTimeout = function() {
+JsUnit.Params.prototype.getPageLoadTimeout = function () {
     return this.get('pageloadtimeout') || JsUnitTestManager.TESTPAGE_WAIT_SEC;
 }
 
-JsUnit.Params.prototype.getSetupPageTimeout = function() {
+JsUnit.Params.prototype.getSetupPageTimeout = function () {
     return this.get('setuppagetimeout') || JsUnitTestManager.SETUPPAGE_TIMEOUT;
 }
 
-JsUnit.Params.prototype.getResultId = function() {
+JsUnit.Params.prototype.getResultId = function () {
     if (this.get('resultid'))
         return this.get('resultid');
     return "";
 }
 
-JsUnit.Params.prototype.getBrowserId = function() {
+JsUnit.Params.prototype.getBrowserId = function () {
     if (this.get('browserid'))
         return this.get('browserid');
     return "";
 }
 
-JsUnit.Params.prototype.shouldSubmitResults = function() {
+JsUnit.Params.prototype.shouldSubmitResults = function () {
     return this.get('submitresults');
 }
 
-JsUnit.Params.prototype.getSpecifiedResultUrl = function() {
+JsUnit.Params.prototype.getSpecifiedResultUrl = function () {
     return this.get('submitresults');
 }
 
-JsUnit.Params.prototype.wasResultUrlSpecified = function() {
+JsUnit.Params.prototype.wasResultUrlSpecified = function () {
     return this.shouldSubmitResults() && this.get('submitresults') != 'true';
 }
 
-JsUnit.Params.prototype.constructTestParams = function() {
+JsUnit.Params.prototype.constructTestParams = function () {
     var parms = '';
 
     for (var p in this.hash) {

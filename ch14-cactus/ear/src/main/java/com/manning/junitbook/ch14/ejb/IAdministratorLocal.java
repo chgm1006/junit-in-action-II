@@ -20,22 +20,21 @@
  */
 package com.manning.junitbook.ch14.ejb;
 
-import java.util.Collection;
-
 import javax.ejb.Local;
+import java.util.Collection;
 
 /**
  * The EJB3 Local interface to declare the methods for our EJB.
  */
 @Local
 public interface IAdministratorLocal {
-	/**
-	 * This is the method that will execute the given command and will construct
-	 * a java.util.Collection from the result.
-	 * 
-	 * @param query
-	 * @return
-	 * @throws Exception
-	 */
-	public Collection execute(String query) throws Exception;
+    /**
+     * This is the method that will execute the given command and will construct
+     * a java.util.Collection from the result.
+     *
+     * @param query
+     * @return
+     * @throws Exception
+     */
+    public Collection execute(String query) throws Exception;
 }

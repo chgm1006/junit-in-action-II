@@ -26,4 +26,4 @@
 -->
 
 
-<Context privileged="true" antiResourceLocking="false" antiJARLocking="false" />
+<Context privileged="true" antiResourceLocking="false" antiJARLocking="false"/>

@@ -23,11 +23,11 @@ package com.manning.junitbook.ch19.dao;
 import com.manning.junitbook.ch19.model.User;
 
 public interface UserDao {
-  
-  void addUser( User user );
 
-  User getUserById( long id );
-  
-  void deleteUser( long id );
-  
+    void addUser(User user);
+
+    User getUserById(long id);
+
+    void deleteUser(long id);
+
 }

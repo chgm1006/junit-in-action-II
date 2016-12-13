@@ -17,29 +17,27 @@
 
 package com.manning.junitbook.ch12.htmlunit;
 
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import junit.framework.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import junit.framework.Assert;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 /**
  * Demonstrates testing with XPath.
- * 
+ * <p>
  * It turns out that packages and classes on
  * http://java.sun.com/javase/6/docs/api/index.html are not in alphabetical
  * order because of the way Javadoc sorts the underscore character.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: XPathTest.java 580 2010-04-11 02:41:57Z garydgregory $
  */
@@ -68,14 +66,6 @@ public class XPathTest extends ManagedWebClient {
         }
     }
 
-    /**
-     * Make logging pretty quiet, do not log warnings.
-     */
-    @BeforeClass
-    public static void setUpLogging() {
-        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.SEVERE);
-    }
-
     @Before
     public void initWebClient() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
         this.webClient.setThrowExceptionOnScriptError(false);
@@ -97,5 +87,13 @@ public class XPathTest extends ManagedWebClient {
         List<DomNode> anchors = (List<DomNode>) packageListPage
                 .getByXPath("//a[contains(@href, 'package-frame.html') and @target='packageFrame']");
         this.assertAlphabeticalOrder(anchors);
+    }
+
+    /**
+     * Make logging pretty quiet, do not log warnings.
+     */
+    @BeforeClass
+    public static void setUpLogging() {
+        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.SEVERE);
     }
 }

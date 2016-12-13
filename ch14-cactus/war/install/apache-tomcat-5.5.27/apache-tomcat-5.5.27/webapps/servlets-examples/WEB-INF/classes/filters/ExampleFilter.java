@@ -18,14 +18,8 @@
 package filters;
 
 
+import javax.servlet.*;
 import java.io.IOException;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 
 
 /**
@@ -33,12 +27,12 @@ import javax.servlet.ServletResponse;
  * or to a URL pattern.  This filter performs the following functions:
  * <ul>
  * <li>Attaches itself as a request attribute, under the attribute name
- *     defined by the value of the <code>attribute</code> initialization
- *     parameter.</li>
+ * defined by the value of the <code>attribute</code> initialization
+ * parameter.</li>
  * <li>Calculates the number of milliseconds required to perform the
- *     servlet processing required by this request, including any
- *     subsequently defined filters, and logs the result to the servlet
- *     context log for this application.
+ * servlet processing required by this request, including any
+ * subsequently defined filters, and logs the result to the servlet
+ * context log for this application.
  * </ul>
  *
  * @author Craig McClanahan
@@ -83,27 +77,26 @@ public final class ExampleFilter implements Filter {
      * current filter stack, including the ultimately invoked servlet.
      *
      * @param request The servlet request we are processing
-     * @param result The servlet response we are creating
-     * @param chain The filter chain we are processing
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
+     * @param result  The servlet response we are creating
+     * @param chain   The filter chain we are processing
+     * @throws IOException      if an input/output error occurs
+     * @throws ServletException if a servlet error occurs
      */
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain)
-	throws IOException, ServletException {
+            throws IOException, ServletException {
 
-	// Store ourselves as a request attribute (if requested)
-	if (attribute != null)
-	    request.setAttribute(attribute, this);
+        // Store ourselves as a request attribute (if requested)
+        if (attribute != null)
+            request.setAttribute(attribute, this);
 
-	// Time and log the subsequent processing
-	long startTime = System.currentTimeMillis();
+        // Time and log the subsequent processing
+        long startTime = System.currentTimeMillis();
         chain.doFilter(request, response);
-	long stopTime = System.currentTimeMillis();
-	filterConfig.getServletContext().log
-	    (this.toString() + ": " + (stopTime - startTime) +
-	     " milliseconds");
+        long stopTime = System.currentTimeMillis();
+        filterConfig.getServletContext().log
+                (this.toString() + ": " + (stopTime - startTime) +
+                        " milliseconds");
 
     }
 
@@ -115,7 +108,7 @@ public final class ExampleFilter implements Filter {
      */
     public void init(FilterConfig filterConfig) throws ServletException {
 
-	this.filterConfig = filterConfig;
+        this.filterConfig = filterConfig;
         this.attribute = filterConfig.getInitParameter("attribute");
 
     }
@@ -126,12 +119,12 @@ public final class ExampleFilter implements Filter {
      */
     public String toString() {
 
-	if (filterConfig == null)
-	    return ("InvokerFilter()");
-	StringBuffer sb = new StringBuffer("InvokerFilter(");
-	sb.append(filterConfig);
-	sb.append(")");
-	return (sb.toString());
+        if (filterConfig == null)
+            return ("InvokerFilter()");
+        StringBuffer sb = new StringBuffer("InvokerFilter(");
+        sb.append(filterConfig);
+        sb.append(")");
+        return (sb.toString());
 
     }
 

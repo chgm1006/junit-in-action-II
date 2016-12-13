@@ -26,9 +26,10 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * A test-suite that calls two other test-suites.
- * 
+ *
  * @version $Id: MasterTestSuite.java 552 2010-03-06 11:48:47Z paranoid12 $
  */
 @RunWith(value = Suite.class)
-@SuiteClasses(value = { TestSuiteA.class, TestSuiteB.class })
-public class MasterTestSuite {}
+@SuiteClasses(value = {TestSuiteA.class, TestSuiteB.class})
+public class MasterTestSuite {
+}

@@ -1,27 +1,17 @@
 package com.google.gwt.sample.stockwatcher.client;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.*;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class StockWatcher implements EntryPoint {
 
@@ -90,8 +80,16 @@ public class StockWatcher implements EntryPoint {
         return this.lastRefreshThrowable;
     }
 
+    void setLastRefreshThrowable(Throwable lastRefreshThrowable) {
+        this.lastRefreshThrowable = lastRefreshThrowable;
+    }
+
     ArrayList<String> getStocks() {
         return this.stocks;
+    }
+
+    void setStocks(ArrayList<String> stocks) {
+        this.stocks = stocks;
     }
 
     FlexTable getStocksFlexTable() {
@@ -111,6 +109,10 @@ public class StockWatcher implements EntryPoint {
             this.stocksFlexTable.getCellFormatter().addStyleName(0, 3, "watchListRemoveColumn");
         }
         return this.stocksFlexTable;
+    }
+
+    void setStocksFlexTable(FlexTable stocksFlexTable) {
+        this.stocksFlexTable = stocksFlexTable;
     }
 
     /**
@@ -181,23 +183,10 @@ public class StockWatcher implements EntryPoint {
         this.stockPriceSvc.getPrices(this.getStocks().toArray(new String[0]), callback);
     }
 
-    void setLastRefreshThrowable(Throwable lastRefreshThrowable) {
-        this.lastRefreshThrowable = lastRefreshThrowable;
-    }
-
-    void setStocks(ArrayList<String> stocks) {
-        this.stocks = stocks;
-    }
-
-    void setStocksFlexTable(FlexTable stocksFlexTable) {
-        this.stocksFlexTable = stocksFlexTable;
-    }
-
     /**
      * Update a single row in the stock table.
-     * 
-     * @param price
-     *            Stock data for a single row.
+     *
+     * @param price Stock data for a single row.
      */
     private void updateTable(StockPrice price) {
         // Make sure the stock is still in the stock table.
@@ -232,9 +221,8 @@ public class StockWatcher implements EntryPoint {
 
     /**
      * Update the Price and Change fields all the rows in the stock table.
-     * 
-     * @param prices
-     *            Stock data for all rows.
+     *
+     * @param prices Stock data for all rows.
      */
     void updateTable(StockPrice[] prices) {
         for (StockPrice price : prices) {

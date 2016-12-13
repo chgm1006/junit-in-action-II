@@ -27,33 +27,28 @@ import org.hamcrest.Matcher;
 
 /**
  * A custom hamcrest matcher that checks whether a string is null ot empty.
- * 
+ *
  * @version $Id: IsNotNullOrEmpty.java 201 2009-02-15 19:18:09Z paranoid12 $
  */
 public class IsNotNullOrEmpty
-    extends BaseMatcher<String>
-{
+        extends BaseMatcher<String> {
 
-    public boolean matches( Object string )
-    {
+    public boolean matches(Object string) {
         String str = (String) string;
-        return ( str != null ) && !str.equals( "" );
+        return (str != null) && !str.equals("");
     }
 
-    public void describeTo( Description description )
-    {
-        description.appendText( "a string that is not null and not empty" );
+    public void describeTo(Description description) {
+        description.appendText("a string that is not null and not empty");
     }
 
     @Factory
-    public static <T> Matcher<String> isNotNullOrEmpty()
-    {
+    public static <T> Matcher<String> isNotNullOrEmpty() {
         return new IsNotNullOrEmpty();
     }
 
     @Factory
-    public static <T> Matcher<String> notNullOrEmpty()
-    {
+    public static <T> Matcher<String> notNullOrEmpty() {
         return new IsNotNullOrEmpty();
     }
 

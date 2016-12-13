@@ -20,19 +20,18 @@
  */
 package com.manning.junitbook.ch15.beans;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import com.manning.junitbook.ch15.manager.AlbumManager;
 import com.manning.junitbook.ch15.model.Album;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * A bean that we use to list the details for a given bean.
- * 
+ *
  * @version $Id: AlbumDetailsBean.java 529 2009-08-16 18:59:05Z paranoid12 $
  */
-public class AlbumDetailsBean
-{
+public class AlbumDetailsBean {
 
     private String status = null;
 
@@ -43,98 +42,85 @@ public class AlbumDetailsBean
      */
     private Album album = null;
 
-    public Album getAlbum()
-    {
+    public Album getAlbum() {
         return album;
     }
 
-    public void setAlbum( Album album )
-    {
+    public void setAlbum(Album album) {
         this.album = album;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus( String status )
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
     /**
      * The method that sets the desired album.
-     * 
+     *
      * @param album
      * @return
      */
-    public String showAlbumDetails()
-    {
+    public String showAlbumDetails() {
         HttpServletRequest request = getRequest();
 
-        String name = request.getParameter( "albumName" );
+        String name = request.getParameter("albumName");
 
-        if ( name == null )
-        {
+        if (name == null) {
             return "";
         }
 
-        setAlbum( AlbumManager.getAlbumByTitle( name ) );
+        setAlbum(AlbumManager.getAlbumByTitle(name));
 
         return "showAlbumDetails";
     }
 
     /**
      * Return the request.
-     * 
+     *
      * @return
      */
-    protected HttpServletRequest getRequest()
-    {
-        if ( this.request == null )
-        {
+    protected HttpServletRequest getRequest() {
+        if (this.request == null) {
             return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        }
-        else
-        {
+        } else {
             return this.request;
         }
     }
 
     /**
      * Sets the request. We use this method from our tests to set the mock request.
-     * 
+     *
      * @param request
      */
-    public void setRequest( HttpServletRequest request )
-    {
+    public void setRequest(HttpServletRequest request) {
         this.request = request;
     }
 
     /**
      * Go back to the listing page.
-     * 
+     *
      * @return
      * @throws InterruptedException
      */
-    public String cancel()
-    {
+    public String cancel() {
         return "cancel";
     }
 
     /**
      * Purchase the given album.
-     * 
+     *
      * @return
      * @throws InterruptedException
      */
     public void purchase()
-        throws InterruptedException
-    {
-        Thread.sleep( 1500 );
+            throws InterruptedException {
+        Thread.sleep(1500);
         // empty implementation
-        System.out.println( "Here we must implement the purchase logic." );
+        System.out.println("Here we must implement the purchase logic.");
     }
 
 }

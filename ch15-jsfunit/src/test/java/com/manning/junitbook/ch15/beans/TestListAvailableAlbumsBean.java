@@ -20,38 +20,28 @@
  */
 package com.manning.junitbook.ch15.beans;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.faces.component.UIComponent;
-
+import com.manning.junitbook.ch15.model.Album;
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
 import org.jboss.jsfunit.jsfsession.JSFServerSession;
 import org.jboss.jsfunit.jsfsession.JSFSession;
 import org.xml.sax.SAXException;
 
-import com.manning.junitbook.ch15.model.Album;
+import javax.faces.component.UIComponent;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Test the ListAvailableAlbumsBean.
- * 
+ *
  * @version $Id: TestListAvailableAlbumsBean.java 530 2009-08-16 19:01:19Z paranoid12 $
  */
 public class TestListAvailableAlbumsBean
-    extends org.apache.cactus.ServletTestCase
-{
-    public static Test suite()
-    {
-        return new TestSuite( TestListAvailableAlbumsBean.class );
-    }
-
+        extends org.apache.cactus.ServletTestCase {
     public void testInitialPage()
-        throws IOException, SAXException
-    {
+            throws IOException, SAXException {
         // Send an HTTP request for the initial page
-        JSFSession jsfSession = new JSFSession( "/" );
+        JSFSession jsfSession = new JSFSession("/");
 
         // A JSFClientSession emulates the browser and lets you test HTML
         // JSFClientSession client = jsfSession.getJSFClientSession();
@@ -60,14 +50,18 @@ public class TestListAvailableAlbumsBean
         JSFServerSession server = jsfSession.getJSFServerSession();
 
         // Test navigation to initial viewID
-        assertEquals( "/list_albums.jsp", server.getCurrentViewID() );
+        assertEquals("/list_albums.jsp", server.getCurrentViewID());
 
         // Assert that the prompt component is in the component tree and rendered
-        UIComponent label = server.findComponent( "list_albums_label" );
-        assertEquals( label.getParent().getId(), "list_albums" );
+        UIComponent label = server.findComponent("list_albums_label");
+        assertEquals(label.getParent().getId(), "list_albums");
 
         // Test a managed bean
-        assertEquals( 5, ( (List<Album>) server.getManagedBeanValue( "#{listAlbumsBean.albums}" ) ).size() );
+        assertEquals(5, ((List<Album>) server.getManagedBeanValue("#{listAlbumsBean.albums}")).size());
+    }
+
+    public static Test suite() {
+        return new TestSuite(TestListAvailableAlbumsBean.class);
     }
 }
     

@@ -20,40 +20,38 @@
  */
 package com.manning.junitbook.ch15.beans;
 
-import java.io.IOException;
-
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import org.apache.cactus.ServletTestCase;
 import org.jboss.jsfunit.jsfsession.JSFClientSession;
 import org.jboss.jsfunit.jsfsession.JSFSession;
 
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
+import java.io.IOException;
 
 /**
  * Demonstrate how to test the ListAvailableAlbums bean by using the
  * HTMLUnit.
- * 
+ *
  * @version $Id: TestListAvailableAlbumsWithHTMLUnit.java 530 2009-08-16 19:01:19Z paranoid12 $
  */
-public class TestListAvailableAlbumsWithHTMLUnit extends ServletTestCase
-{
+public class TestListAvailableAlbumsWithHTMLUnit extends ServletTestCase {
 
     public void testIntialPage() throws IOException {
         JSFSession jsfSession = new JSFSession("/");
         JSFClientSession client = jsfSession.getJSFClientSession();
-        HtmlPage page = (HtmlPage)client.getContentPage();
+        HtmlPage page = (HtmlPage) client.getContentPage();
         HtmlTable table = (HtmlTable) page.getFirstByXPath("/html/body/form/table");
-        
-        assertNotNull("table should not be null",table);
+
+        assertNotNull("table should not be null", table);
         //Five albums + one header
-        assertEquals( 6, table.getRowCount() );
-        
-        HtmlAnchor link  = table.getRow( 1 ).getCell( 0 ).getFirstByXPath( "a" );
+        assertEquals(6, table.getRowCount());
+
+        HtmlAnchor link = table.getRow(1).getCell(0).getFirstByXPath("a");
         assertNotNull("link should not be null", link);
-        
+
         HtmlPage newPage = link.click();
-        
+
         //we should be now on the next page
         assertEquals(newPage.getTitleText(), "Album details");
     }

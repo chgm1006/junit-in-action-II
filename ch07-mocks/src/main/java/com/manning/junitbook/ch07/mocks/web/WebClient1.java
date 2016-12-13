@@ -27,34 +27,28 @@ import java.net.URL;
 
 /**
  * A WebClient implementation that retrieves the content from a URL.
- * 
+ *
  * @version $Id: WebClient1.java 503 2009-08-16 17:47:12Z paranoid12 $
  */
-public class WebClient1
-{
+public class WebClient1 {
     /**
      * A method to retrieve the content from the given URL.
-     * 
+     *
      * @param url
      * @return
      */
-    public String getContent( URL url )
-    {
+    public String getContent(URL url) {
         StringBuffer content = new StringBuffer();
 
-        try
-        {
-            HttpURLConnection connection = createHttpURLConnection( url );
+        try {
+            HttpURLConnection connection = createHttpURLConnection(url);
             InputStream is = connection.getInputStream();
 
             int count;
-            while ( -1 != ( count = is.read() ) )
-            {
-                content.append( new String( Character.toChars( count ) ) );
+            while (-1 != (count = is.read())) {
+                content.append(new String(Character.toChars(count)));
             }
-        }
-        catch ( IOException e )
-        {
+        } catch (IOException e) {
             return null;
         }
 
@@ -63,14 +57,13 @@ public class WebClient1
 
     /**
      * Creates an HTTP connection.
-     * 
+     *
      * @param url
      * @return
      * @throws IOException
      */
-    protected HttpURLConnection createHttpURLConnection( URL url )
-        throws IOException
-    {
+    protected HttpURLConnection createHttpURLConnection(URL url)
+            throws IOException {
         return (HttpURLConnection) url.openConnection();
     }
 }

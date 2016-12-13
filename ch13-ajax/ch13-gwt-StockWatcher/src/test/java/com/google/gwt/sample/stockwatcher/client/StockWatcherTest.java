@@ -1,11 +1,11 @@
 package com.google.gwt.sample.stockwatcher.client;
 
-import java.util.ArrayList;
-
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.StatusCodeException;
 import com.google.gwt.user.client.ui.FlexTable;
+
+import java.util.ArrayList;
 
 /**
  * GWT JUnit tests must extend GWTTestCase.

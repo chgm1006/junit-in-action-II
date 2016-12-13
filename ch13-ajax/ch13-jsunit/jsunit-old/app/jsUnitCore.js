@@ -30,27 +30,33 @@ var isTestPageLoaded = false;
 /**
  * Predicate used for testing JavaScript == (i.e. equality excluding type)
  */
-JsUnit.DOUBLE_EQUALITY_PREDICATE = function(var1, var2) {return var1 == var2;};
+JsUnit.DOUBLE_EQUALITY_PREDICATE = function (var1, var2) {
+    return var1 == var2;
+};
 
 /**
  * Predicate used for testing JavaScript === (i.e. equality including type)
  */
-JsUnit.TRIPLE_EQUALITY_PREDICATE = function(var1, var2) {return var1 === var2;};
+JsUnit.TRIPLE_EQUALITY_PREDICATE = function (var1, var2) {
+    return var1 === var2;
+};
 
 /**
  * Predicate used for testing whether two obects' toStrings are equal
  */
-JsUnit.TO_STRING_EQUALITY_PREDICATE = function(var1, var2) {return var1.toString() === var2.toString();};
+JsUnit.TO_STRING_EQUALITY_PREDICATE = function (var1, var2) {
+    return var1.toString() === var2.toString();
+};
 
 /**
  * Hash of predicates for testing equality by primitive type
  */
 JsUnit.PRIMITIVE_EQUALITY_PREDICATES = {
-    'String':   JsUnit.DOUBLE_EQUALITY_PREDICATE,
-    'Number':   JsUnit.DOUBLE_EQUALITY_PREDICATE,
-    'Boolean':  JsUnit.DOUBLE_EQUALITY_PREDICATE,
-    'Date':     JsUnit.TRIPLE_EQUALITY_PREDICATE,
-    'RegExp':   JsUnit.TO_STRING_EQUALITY_PREDICATE,
+    'String': JsUnit.DOUBLE_EQUALITY_PREDICATE,
+    'Number': JsUnit.DOUBLE_EQUALITY_PREDICATE,
+    'Boolean': JsUnit.DOUBLE_EQUALITY_PREDICATE,
+    'Date': JsUnit.TRIPLE_EQUALITY_PREDICATE,
+    'RegExp': JsUnit.TO_STRING_EQUALITY_PREDICATE,
     'Function': JsUnit.TO_STRING_EQUALITY_PREDICATE
 }
 
@@ -58,7 +64,7 @@ JsUnit.PRIMITIVE_EQUALITY_PREDICATES = {
  * Hack for NS62 bug
  * @private
  */
-JsUnit._fixTop = function() {
+JsUnit._fixTop = function () {
     var tempTop = top;
     if (!tempTop) {
         tempTop = window;
@@ -83,7 +89,7 @@ JsUnit._fixTop();
  * @return String - the type of the given object
  * @private
  */
-JsUnit._trueTypeOf = function(something) {
+JsUnit._trueTypeOf = function (something) {
     var result = typeof something;
     try {
         switch (result) {
@@ -136,7 +142,7 @@ JsUnit._trueTypeOf = function(something) {
 /**
  * @private
  */
-JsUnit._displayStringForValue = function(aVar) {
+JsUnit._displayStringForValue = function (aVar) {
     var result = '<' + aVar + '>';
     if (!(aVar === null || aVar === JSUNIT_UNDEFINED_VALUE)) {
         result += ' (' + JsUnit._trueTypeOf(aVar) + ')';
@@ -147,13 +153,13 @@ JsUnit._displayStringForValue = function(aVar) {
 /**
  * @private
  */
-JsUnit._argumentsIncludeComments = function(expectedNumberOfNonCommentArgs, args) {
+JsUnit._argumentsIncludeComments = function (expectedNumberOfNonCommentArgs, args) {
     return args.length == expectedNumberOfNonCommentArgs + 1;
 }
 /**
  * @private
  */
-JsUnit._commentArg = function(expectedNumberOfNonCommentArgs, args) {
+JsUnit._commentArg = function (expectedNumberOfNonCommentArgs, args) {
     if (JsUnit._argumentsIncludeComments(expectedNumberOfNonCommentArgs, args))
         return args[0];
 
@@ -162,39 +168,39 @@ JsUnit._commentArg = function(expectedNumberOfNonCommentArgs, args) {
 /**
  * @private
  */
-JsUnit._nonCommentArg = function(desiredNonCommentArgIndex, expectedNumberOfNonCommentArgs, args) {
+JsUnit._nonCommentArg = function (desiredNonCommentArgIndex, expectedNumberOfNonCommentArgs, args) {
     return JsUnit._argumentsIncludeComments(expectedNumberOfNonCommentArgs, args) ?
-           args[desiredNonCommentArgIndex] :
-           args[desiredNonCommentArgIndex - 1];
+        args[desiredNonCommentArgIndex] :
+        args[desiredNonCommentArgIndex - 1];
 }
 
 /**
  * @private
  */
-JsUnit._validateArguments = function(expectedNumberOfNonCommentArgs, args) {
+JsUnit._validateArguments = function (expectedNumberOfNonCommentArgs, args) {
     if (!( args.length == expectedNumberOfNonCommentArgs ||
-           (args.length == expectedNumberOfNonCommentArgs + 1 && (typeof(args[0]) == 'string') || args[0] == null)))
+        (args.length == expectedNumberOfNonCommentArgs + 1 && (typeof(args[0]) == 'string') || args[0] == null)))
         throw new JsUnit.AssertionArgumentError('Incorrect arguments passed to assert function');
 }
 
 /**
  * @private
  */
-JsUnit._checkEquals = function(var1, var2) {
+JsUnit._checkEquals = function (var1, var2) {
     return var1 === var2;
 }
 
 /**
  * @private
  */
-JsUnit._checkNotUndefined = function(aVar) {
+JsUnit._checkNotUndefined = function (aVar) {
     return aVar !== JSUNIT_UNDEFINED_VALUE;
 }
 
 /**
  * @private
  */
-JsUnit._checkNotNull = function(aVar) {
+JsUnit._checkNotNull = function (aVar) {
     return aVar !== null;
 }
 
@@ -202,7 +208,7 @@ JsUnit._checkNotNull = function(aVar) {
  * All assertions ultimately go through this method.
  * @private
  */
-JsUnit._assert = function(comment, booleanValue, failureMessage) {
+JsUnit._assert = function (comment, booleanValue, failureMessage) {
     if (!booleanValue)
         throw new JsUnit.Failure(comment, failureMessage);
 }
@@ -599,7 +605,7 @@ function error(errorMessage) {
  * @param comment an optional comment about the failure
  * @param message the reason for the failure
  */
-JsUnit.Failure = function(comment, message) {
+JsUnit.Failure = function (comment, message) {
     /**
      * Declaration that this is a JsUnit.Failure
      * @ignore
@@ -629,7 +635,7 @@ JsUnitFailure = JsUnit.Failure;
  * A JsUnitError represents an error (an exception or a call to error()) during the execution of a Test Function
  * @param description the reason for the failure
  */
-JsUnit.Error = function(description) {
+JsUnit.Error = function (description) {
     /**
      * The description of the error
      */
@@ -651,7 +657,7 @@ JsUnitError = JsUnit.Error;
  * or an incorrect number of arguments
  * @param description a description of the argument error
  */
-JsUnit.AssertionArgumentError = function(description) {
+JsUnit.AssertionArgumentError = function (description) {
     /**
      * A description of the argument error
      */
@@ -781,11 +787,11 @@ function jsUnitGetParm(name) {
     return top.params.get(name);
 }
 
-JsUnit._newOnLoadEvent = function() {
+JsUnit._newOnLoadEvent = function () {
     isTestPageLoaded = true;
 }
 
-JsUnit._setOnLoad = function(windowRef, onloadHandler) {
+JsUnit._setOnLoad = function (windowRef, onloadHandler) {
     var isKonqueror = navigator.userAgent.indexOf('Konqueror/') != -1;
 
     if (typeof(windowRef.attachEvent) != 'undefined') {
@@ -801,7 +807,7 @@ JsUnit._setOnLoad = function(windowRef, onloadHandler) {
         windowRef.document.addEventListener("load", onloadHandler, false);
     } else if (typeof(windowRef.onload) != 'undefined' && windowRef.onload) {
         windowRef.jsunit_original_onload = windowRef.onload;
-        windowRef.onload = function() {
+        windowRef.onload = function () {
             windowRef.jsunit_original_onload();
             onloadHandler();
         };
@@ -824,7 +830,7 @@ JsUnit.Util = {};
  * the innerHTML back
  * @param html
  */
-JsUnit.Util.standardizeHTML = function(html) {
+JsUnit.Util.standardizeHTML = function (html) {
     var translator = document.createElement("DIV");
     translator.innerHTML = html;
     return JsUnit.Util.trim(translator.innerHTML);
@@ -834,7 +840,7 @@ JsUnit.Util.standardizeHTML = function(html) {
  * Returns whether the given string is blank after being trimmed of whitespace
  * @param string
  */
-JsUnit.Util.isBlank = function(string) {
+JsUnit.Util.isBlank = function (string) {
     return JsUnit.Util.trim(string) == '';
 }
 
@@ -843,7 +849,7 @@ JsUnit.Util.isBlank = function(string) {
  * @param anArray the array onto which to push
  * @param anObject the object to push onto the array
  */
-JsUnit.Util.push = function(anArray, anObject) {
+JsUnit.Util.push = function (anArray, anObject) {
     anArray[anArray.length] = anObject;
 }
 
@@ -862,10 +868,10 @@ JsUnit.Util.pop = function pop(anArray) {
  * Returns the name of the given function, or 'anonymous' if it has no name
  * @param aFunction
  */
-JsUnit.Util.getFunctionName = function(aFunction) {
+JsUnit.Util.getFunctionName = function (aFunction) {
     var regexpResult = aFunction.toString().match(/function(\s*)(\w*)/);
     if (regexpResult && regexpResult.length >= 2 && regexpResult[2]) {
-            return regexpResult[2];
+        return regexpResult[2];
     }
     return 'anonymous';
 }
@@ -873,7 +879,7 @@ JsUnit.Util.getFunctionName = function(aFunction) {
 /**
  * Returns the current stack trace
  */
-JsUnit.Util.getStackTrace = function() {
+JsUnit.Util.getStackTrace = function () {
     var result = '';
 
     if (typeof(arguments.caller) != 'undefined') { // IE, not ECMA
@@ -887,15 +893,12 @@ JsUnit.Util.getStackTrace = function() {
     }
     else { // Mozilla, not ECMA
         // fake an exception so we can get Mozilla's error stack
-        try
-        {
+        try {
             foo.bar;
         }
-        catch(exception)
-        {
+        catch (exception) {
             var stack = JsUnit.Util.parseErrorStack(exception);
-            for (var i = 1; i < stack.length; i++)
-            {
+            for (var i = 1; i < stack.length; i++) {
                 result += '> ' + stack[i] + '\n';
             }
         }
@@ -908,7 +911,7 @@ JsUnit.Util.getStackTrace = function() {
  * Returns an array of stack trace elements from the given exception
  * @param exception
  */
-JsUnit.Util.parseErrorStack = function(exception) {
+JsUnit.Util.parseErrorStack = function (exception) {
     var stack = [];
     var name;
 
@@ -940,7 +943,7 @@ JsUnit.Util.parseErrorStack = function(exception) {
  * Strips whitespace from either end of the given string
  * @param string
  */
-JsUnit.Util.trim = function(string) {
+JsUnit.Util.trim = function (string) {
     if (string == null)
         return null;
 
@@ -960,7 +963,7 @@ JsUnit.Util.trim = function(string) {
     return string.substring(startingIndex, endingIndex + 1);
 }
 
-JsUnit.Util.getKeys = function(obj) {
+JsUnit.Util.getKeys = function (obj) {
     var keys = [];
     for (var key in obj) {
         JsUnit.Util.push(keys, key);
@@ -968,8 +971,9 @@ JsUnit.Util.getKeys = function(obj) {
     return keys;
 }
 
-JsUnit.Util.inherit = function(superclass, subclass) {
-    var x = function() {};
+JsUnit.Util.inherit = function (superclass, subclass) {
+    var x = function () {
+    };
     x.prototype = superclass.prototype;
     subclass.prototype = new x();
 }

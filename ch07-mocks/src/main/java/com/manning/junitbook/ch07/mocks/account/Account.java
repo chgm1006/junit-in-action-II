@@ -22,11 +22,10 @@ package com.manning.junitbook.ch07.mocks.account;
 
 /**
  * Account POJO to hold the bank account object.
- * 
+ *
  * @version $Id: Account.java 503 2009-08-16 17:47:12Z paranoid12 $
  */
-public class Account
-{
+public class Account {
     /**
      * The id of the account.
      */
@@ -39,43 +38,39 @@ public class Account
 
     /**
      * A constructor.
-     * 
+     *
      * @param accountId
      * @param initialBalance
      */
-    public Account( String accountId, long initialBalance )
-    {
+    public Account(String accountId, long initialBalance) {
         this.accountId = accountId;
         this.balance = initialBalance;
     }
 
     /**
      * Withdraw the amount from the account.
-     * 
+     *
      * @param amount
      */
-    public void debit( long amount )
-    {
+    public void debit(long amount) {
         this.balance -= amount;
     }
 
     /**
      * Add the amount of money in the account.
-     * 
+     *
      * @param amount
      */
-    public void credit( long amount )
-    {
+    public void credit(long amount) {
         this.balance += amount;
     }
 
     /**
      * What's the balance of the account?
-     * 
+     *
      * @return
      */
-    public long getBalance()
-    {
+    public long getBalance() {
         return this.balance;
     }
 }

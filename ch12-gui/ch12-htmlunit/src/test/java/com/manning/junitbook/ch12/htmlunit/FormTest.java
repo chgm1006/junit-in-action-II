@@ -17,13 +17,6 @@
 
 package com.manning.junitbook.ch12.htmlunit;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.gargoylesoftware.htmlunit.CollectingAlertHandler;
 import com.gargoylesoftware.htmlunit.WebAssert;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -31,10 +24,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Demonstrates testing a form.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: FormTest.java 410 2009-05-20 21:37:55Z garydgregory $
  */

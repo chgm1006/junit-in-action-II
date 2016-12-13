@@ -18,12 +18,6 @@
  *
  */
 
-import java.io.*;
-import java.text.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-
 import util.HTMLFilter;
 
 /**
@@ -35,11 +29,10 @@ import util.HTMLFilter;
 public class RequestHeaderExample extends HttpServlet {
 
     ResourceBundle rb = ResourceBundle.getBundle("LocalStrings");
-    
+
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
-        throws IOException, ServletException
-    {
+            throws IOException, ServletException {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
@@ -52,24 +45,24 @@ public class RequestHeaderExample extends HttpServlet {
         out.println("</head>");
         out.println("<body>");
 
-	// all links relative
+        // all links relative
 
         // XXX
         // making these absolute till we work out the
         // addition of a PathInfo issue 
-	
+
         out.println("<a href=\"../reqheaders.html\">");
         out.println("<img src=\"../images/code.gif\" height=24 " +
-                    "width=24 align=right border=0 alt=\"view code\"></a>");
+                "width=24 align=right border=0 alt=\"view code\"></a>");
         out.println("<a href=\"../index.html\">");
         out.println("<img src=\"../images/return.gif\" height=24 " +
-                    "width=24 align=right border=0 alt=\"return\"></a>");
+                "width=24 align=right border=0 alt=\"return\"></a>");
 
         out.println("<h3>" + title + "</h3>");
         out.println("<table border=0>");
         Enumeration e = request.getHeaderNames();
         while (e.hasMoreElements()) {
-            String headerName = (String)e.nextElement();
+            String headerName = (String) e.nextElement();
             String headerValue = request.getHeader(headerName);
             out.println("<tr><td bgcolor=\"#CCCCCC\">");
             out.println(HTMLFilter.filter(headerName));
@@ -81,9 +74,8 @@ public class RequestHeaderExample extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request,
-                      HttpServletResponse response)
-        throws IOException, ServletException
-    {
+                       HttpServletResponse response)
+            throws IOException, ServletException {
         doGet(request, response);
     }
 

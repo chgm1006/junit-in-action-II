@@ -20,19 +20,18 @@
  */
 package com.manning.junitbook.ch19.business;
 
-import junit.framework.Assert;
-
 import com.manning.junitbook.ch19.dao.UserDao;
 import com.manning.junitbook.ch19.util.TestingHelperFESTReflect;
+import junit.framework.Assert;
 
 public class UserFacadeEncapsulatedImplFESTReflectTestingHelperTest extends AbstractUserFacadeEncapsulatedImplTestCase {
-  
-  @Override
-  protected void injectDaoIntoFacade() {
-    TestingHelperFESTReflect.set(facade, "userDao", UserDao.class, dao);
-    // sanity check
-    UserDao set = TestingHelperFESTReflect.get(facade, "userDao", UserDao.class);
-    Assert.assertSame(dao, set);
-  }
-  
+
+    @Override
+    protected void injectDaoIntoFacade() {
+        TestingHelperFESTReflect.set(facade, "userDao", UserDao.class, dao);
+        // sanity check
+        UserDao set = TestingHelperFESTReflect.get(facade, "userDao", UserDao.class);
+        Assert.assertSame(dao, set);
+    }
+
 }

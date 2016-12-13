@@ -20,23 +20,21 @@
  */
 package com.manning.junitbook.ch10.maven;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test for simple App.
- * 
+ *
  * @version $Id$
  */
-public class AppTest
-{
+public class AppTest {
     /**
      * Rigourous Test :-)
      */
     @Test
-    public void testApp()
-    {
-        assertTrue( true );
+    public void testApp() {
+        assertTrue(true);
     }
 }

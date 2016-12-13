@@ -19,51 +19,52 @@
  * ========================================================================
  */
 package com.manning.junitbook.ch18.model;
-import static com.manning.junitbook.ch18.model.EntitiesHelper.*;
-
-import org.junit.Test;
 
 import com.manning.junitbook.ch18.AbstractJpaDbUnitELTemplateTestCaseJUnit44;
 import com.manning.junitbook.ch18.DataSets;
 import com.manning.junitbook.ch18.ELFunctionMapperImpl;
+import org.junit.Test;
+
+import static com.manning.junitbook.ch18.model.EntitiesHelper.assertUserWithTelephone;
+import static com.manning.junitbook.ch18.model.EntitiesHelper.newUserWithTelephone;
 
 public class EntitiesMappingTest extends AbstractJpaDbUnitELTemplateTestCaseJUnit44 {
-  
-  @Test
-  @DataSets(setUpDataSet="/user-with-telephone.xml")
-  public void testLoadUserWithTelephone() {
-    beginTransaction();
-    long id = ELFunctionMapperImpl.getId(User.class);
-    User user = em.find(User.class, id);
-    commitTransaction();
-    assertUserWithTelephone(user);
-  }
 
-  @Test
-  @DataSets(assertDataSet="/user-with-telephone.xml")
-  public void testSaveUserWithTelephoneAgain() throws Exception {
-    testSaveUserWithTelephone();
-  }
-  
-  @Test
-  @DataSets(setUpDataSet="/user-with-telephone.xml")
-  public void testLoadUserWithTelephoneOneMoreTime() {
-    testLoadUserWithTelephone();
-  }
-  
-  @Test
-  @DataSets(assertDataSet="/user-with-telephone.xml")
-  public void testSaveUserWithTelephone() throws Exception {
-    User user = newUserWithTelephone();
-    beginTransaction();
-    em.persist(user);
-    commitTransaction();
-  }
-  
-  @Test
-  @DataSets(assertDataSet="/user-with-telephone.xml")
-  public void testSaveUserWithTelephoneOneMoreTime() throws Exception {
-    testSaveUserWithTelephone();
-  }
-  
+    @Test
+    @DataSets(setUpDataSet = "/user-with-telephone.xml")
+    public void testLoadUserWithTelephone() {
+        beginTransaction();
+        long id = ELFunctionMapperImpl.getId(User.class);
+        User user = em.find(User.class, id);
+        commitTransaction();
+        assertUserWithTelephone(user);
+    }
+
+    @Test
+    @DataSets(assertDataSet = "/user-with-telephone.xml")
+    public void testSaveUserWithTelephoneAgain() throws Exception {
+        testSaveUserWithTelephone();
+    }
+
+    @Test
+    @DataSets(setUpDataSet = "/user-with-telephone.xml")
+    public void testLoadUserWithTelephoneOneMoreTime() {
+        testLoadUserWithTelephone();
+    }
+
+    @Test
+    @DataSets(assertDataSet = "/user-with-telephone.xml")
+    public void testSaveUserWithTelephone() throws Exception {
+        User user = newUserWithTelephone();
+        beginTransaction();
+        em.persist(user);
+        commitTransaction();
+    }
+
+    @Test
+    @DataSets(assertDataSet = "/user-with-telephone.xml")
+    public void testSaveUserWithTelephoneOneMoreTime() throws Exception {
+        testSaveUserWithTelephone();
+    }
+
 }

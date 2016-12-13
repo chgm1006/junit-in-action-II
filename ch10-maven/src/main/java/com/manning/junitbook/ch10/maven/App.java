@@ -22,13 +22,11 @@ package com.manning.junitbook.ch10.maven;
 
 /**
  * Hello world!
- * 
+ *
  * @version $Id: App.java 519 2009-08-16 18:35:35Z paranoid12 $
  */
-public class App
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
     }
 }

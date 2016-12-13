@@ -20,45 +20,47 @@
  */
 package com.manning.junitbook.ch19.business;
 
-import static com.manning.junitbook.ch19.model.EntitiesHelper.*;
-import static org.easymock.EasyMock.*;
-
+import com.manning.junitbook.ch19.dao.UserDao;
+import com.manning.junitbook.ch19.model.User;
+import com.manning.junitbook.ch19.model.UserDto;
 import org.fest.mocks.EasyMockTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.manning.junitbook.ch19.dao.UserDao;
-import com.manning.junitbook.ch19.model.User;
-import com.manning.junitbook.ch19.model.UserDto;
+import static com.manning.junitbook.ch19.model.EntitiesHelper.assertUser;
+import static com.manning.junitbook.ch19.model.EntitiesHelper.newUserWithTelephones;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
 
 public class UserFacadeImplFESTTest {
-  
-  private UserFacadeImpl facade;
-  private UserDao dao;
-  
-  @Before
-  public void setFixtures() {
-    facade = new UserFacadeImpl();
-    dao = createMock(UserDao.class);
-    facade.setUserDao(dao);
-  }
 
-  @Test
-  public void testGetUserById() {
-    final int id = 666;
-    final User user = newUserWithTelephones();
-    new EasyMockTemplate(dao) {
-      @Override
-      protected void expectations() throws Throwable {
-        expect(dao.getUserById(id)).andReturn(user);
-      }
-      @Override
-      protected void codeToTest() throws Throwable {
-        UserDto dto = facade.getUserById(id);
-        assertUser(dto);
-      }
-    }.run();
+    private UserFacadeImpl facade;
+    private UserDao dao;
+
+    @Before
+    public void setFixtures() {
+        facade = new UserFacadeImpl();
+        dao = createMock(UserDao.class);
+        facade.setUserDao(dao);
+    }
+
+    @Test
+    public void testGetUserById() {
+        final int id = 666;
+        final User user = newUserWithTelephones();
+        new EasyMockTemplate(dao) {
+            @Override
+            protected void expectations() throws Throwable {
+                expect(dao.getUserById(id)).andReturn(user);
+            }
+
+            @Override
+            protected void codeToTest() throws Throwable {
+                UserDto dto = facade.getUserById(id);
+                assertUser(dto);
+            }
+        }.run();
 //    verify(); // not necessary - FEST automatically does it (by default)
-  }
+    }
 
 }

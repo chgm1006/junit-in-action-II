@@ -20,27 +20,23 @@
  */
 package com.manning.junitbook.ch15.mock;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.manning.junitbook.ch15.beans.AlbumDetailsBean;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.manning.junitbook.ch15.beans.AlbumDetailsBean;
+import javax.servlet.http.HttpServletRequest;
+
+import static org.junit.Assert.*;
 
 /**
  * Test the AlbumDetailsBean by using the JMock mocking framework.
- * 
+ *
  * @version $Id: TestAlbumDetailsBeanMock.java 530 2009-08-16 19:01:19Z paranoid12 $
  */
-public class TestAlbumDetailsBeanMock
-{
+public class TestAlbumDetailsBeanMock {
 
     /**
      * The mockery context that we use to create our mocks.
@@ -53,68 +49,61 @@ public class TestAlbumDetailsBeanMock
     private HttpServletRequest mockRequest;
 
     @Before
-    public void setUp()
-    {
-        mockRequest = context.mock( HttpServletRequest.class );
+    public void setUp() {
+        mockRequest = context.mock(HttpServletRequest.class);
     }
 
     @Test
-    public void testShowAlbumDetailsRealAlbum()
-    {
-        context.checking( new Expectations()
-        {
+    public void testShowAlbumDetailsRealAlbum() {
+        context.checking(new Expectations() {
             {
-                oneOf( mockRequest ).getParameter( "albumName" );
-                will( returnValue( "Achtung Baby" ) );
+                oneOf(mockRequest).getParameter("albumName");
+                will(returnValue("Achtung Baby"));
             }
-        } );
+        });
 
         AlbumDetailsBean albumDetailsBean = new AlbumDetailsBean();
-        albumDetailsBean.setRequest( mockRequest );
+        albumDetailsBean.setRequest(mockRequest);
 
         String forwardString = albumDetailsBean.showAlbumDetails();
-        assertEquals( "The return string must match 'showAlbumDetails'", forwardString, "showAlbumDetails" );
+        assertEquals("The return string must match 'showAlbumDetails'", forwardString, "showAlbumDetails");
 
-        assertNotNull( "The album must not be null", albumDetailsBean.getAlbum() );
-        assertEquals( "The author must be U2", albumDetailsBean.getAlbum().getAuthor(), "U2" );
-        assertEquals( "The year of the album must be 1991", albumDetailsBean.getAlbum().getYear(), 1991 );
+        assertNotNull("The album must not be null", albumDetailsBean.getAlbum());
+        assertEquals("The author must be U2", albumDetailsBean.getAlbum().getAuthor(), "U2");
+        assertEquals("The year of the album must be 1991", albumDetailsBean.getAlbum().getYear(), 1991);
     }
 
     @Test
-    public void testShowAlbumDetailsNoParameterAlbum()
-    {
-        context.checking( new Expectations()
-        {
+    public void testShowAlbumDetailsNoParameterAlbum() {
+        context.checking(new Expectations() {
             {
-                oneOf( mockRequest ).getParameter( "albumName" );
-                will( returnValue( null ) );
+                oneOf(mockRequest).getParameter("albumName");
+                will(returnValue(null));
             }
-        } );
+        });
 
         AlbumDetailsBean albumDetailsBean = new AlbumDetailsBean();
-        albumDetailsBean.setRequest( mockRequest );
+        albumDetailsBean.setRequest(mockRequest);
 
         String forwardString = albumDetailsBean.showAlbumDetails();
-        assertEquals( forwardString, "" );
-        assertNull( "The album must be null", albumDetailsBean.getAlbum() );
+        assertEquals(forwardString, "");
+        assertNull("The album must be null", albumDetailsBean.getAlbum());
     }
 
     @Test
-    public void testShowAlbumDetailsNoRealAlbum()
-    {
-        context.checking( new Expectations()
-        {
+    public void testShowAlbumDetailsNoRealAlbum() {
+        context.checking(new Expectations() {
             {
-                oneOf( mockRequest ).getParameter( "albumName" );
-                will( returnValue( "No-real-album" ) );
+                oneOf(mockRequest).getParameter("albumName");
+                will(returnValue("No-real-album"));
             }
-        } );
+        });
 
         AlbumDetailsBean albumDetailsBean = new AlbumDetailsBean();
-        albumDetailsBean.setRequest( mockRequest );
+        albumDetailsBean.setRequest(mockRequest);
 
         String forwardString = albumDetailsBean.showAlbumDetails();
-        assertEquals( "The return string must match 'showAlbumDetails'", forwardString, "showAlbumDetails" );
-        assertNull( "The album must be null", albumDetailsBean.getAlbum() );
+        assertEquals("The return string must match 'showAlbumDetails'", forwardString, "showAlbumDetails");
+        assertNull("The album must be null", albumDetailsBean.getAlbum());
     }
 }

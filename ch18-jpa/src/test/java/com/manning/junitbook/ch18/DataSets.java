@@ -29,8 +29,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface DataSets {
 
-  String setUpDataSet() default "/empty.xml";
-  
-  String assertDataSet() default "";
+    String setUpDataSet() default "/empty.xml";
+
+    String assertDataSet() default "";
 
 }

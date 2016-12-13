@@ -17,12 +17,11 @@
 
 package com.manning.junitbook.ch12.selenium;
 
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.Selenium;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.server.SeleniumServer;
-
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.Selenium;
 
 /**
  * Subclasses inherit a managed Selenium server.
@@ -30,7 +29,7 @@ import com.thoughtworks.selenium.Selenium;
  * Maven will not pick up this class because it does not start or end with
  * "Test" or end with "TestCase".
  * </p>
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id$
  */
@@ -38,6 +37,20 @@ public class ManagedSeleniumServer {
     protected static Selenium selenium;
 
     private static SeleniumServer seleniumServer;
+
+    protected void captureScreenshot(Throwable t) throws Throwable {
+        if (selenium != null) {
+            String filename = this.getClass().getName() + ".png";
+            try {
+                selenium.captureScreenshot(filename);
+                System.err.println("Saved screenshot " + filename + " for " + t.toString());
+            } catch (Exception e) {
+                System.err.println("Exception saving screenshot " + filename + " for " + t.toString() + ": " + e.toString());
+                e.printStackTrace();
+            }
+            throw t;
+        }
+    }
 
     @BeforeClass
     public static void setUpOnce() throws Exception {
@@ -73,20 +86,6 @@ public class ManagedSeleniumServer {
     public static void tearDownOnce() throws Exception {
         ManagedSeleniumServer.stopSeleniumClient();
         ManagedSeleniumServer.stopSeleniumServer();
-    }
-
-    protected void captureScreenshot(Throwable t) throws Throwable {
-        if (selenium != null) {
-            String filename = this.getClass().getName() + ".png";
-            try {
-                selenium.captureScreenshot(filename);
-                System.err.println("Saved screenshot " + filename + " for " + t.toString());
-            } catch (Exception e) {
-                System.err.println("Exception saving screenshot " + filename + " for " + t.toString() + ": " + e.toString());
-                e.printStackTrace();
-            }
-            throw t;
-        }
     }
 
 }

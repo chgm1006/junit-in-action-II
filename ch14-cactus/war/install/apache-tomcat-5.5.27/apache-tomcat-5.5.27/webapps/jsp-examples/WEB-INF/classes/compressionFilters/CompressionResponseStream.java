@@ -17,11 +17,11 @@
 
 package compressionFilters;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -34,28 +34,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 public class CompressionResponseStream
-    extends ServletOutputStream {
+        extends ServletOutputStream {
 
 
     // ----------------------------------------------------------- Constructors
-
-
-    /**
-     * Construct a servlet output stream associated with the specified Response.
-     *
-     * @param response The associated response
-     */
-    public CompressionResponseStream(HttpServletResponse response) throws IOException{
-
-        super();
-        closed = false;
-        this.response = response;
-        this.output = response.getOutputStream();
-
-    }
-
-
-    // ----------------------------------------------------- Instance Variables
 
 
     /**
@@ -64,46 +46,55 @@ public class CompressionResponseStream
      */
     protected int compressionThreshold = 0;
 
+
+    // ----------------------------------------------------- Instance Variables
+    /**
+     * The buffer through which all of our output bytes are passed.
+     */
+    protected byte[] buffer = null;
+    /**
+     * The number of data bytes currently in the buffer.
+     */
+    protected int bufferCount = 0;
+    /**
+     * The underlying gzip output stream to which we should write data.
+     */
+    protected OutputStream gzipstream = null;
+    /**
+     * Has this stream been closed?
+     */
+    protected boolean closed = false;
+    /**
+     * The content length past which we will not write, or -1 if there is
+     * no defined content length.
+     */
+    protected int length = -1;
+    /**
+     * The response with which this servlet output stream is associated.
+     */
+    protected HttpServletResponse response = null;
+    /**
+     * The underlying servket output stream to which we should write data.
+     */
+    protected ServletOutputStream output = null;
     /**
      * Debug level
      */
     private int debug = 0;
 
     /**
-     * The buffer through which all of our output bytes are passed.
+     * Construct a servlet output stream associated with the specified Response.
+     *
+     * @param response The associated response
      */
-    protected byte[] buffer = null;
+    public CompressionResponseStream(HttpServletResponse response) throws IOException {
 
-    /**
-     * The number of data bytes currently in the buffer.
-     */
-    protected int bufferCount = 0;
+        super();
+        closed = false;
+        this.response = response;
+        this.output = response.getOutputStream();
 
-    /**
-     * The underlying gzip output stream to which we should write data.
-     */
-    protected OutputStream gzipstream = null;
-
-    /**
-     * Has this stream been closed?
-     */
-    protected boolean closed = false;
-
-    /**
-     * The content length past which we will not write, or -1 if there is
-     * no defined content length.
-     */
-    protected int length = -1;
-
-    /**
-     * The response with which this servlet output stream is associated.
-     */
-    protected HttpServletResponse response = null;
-
-    /**
-     * The underlying servket output stream to which we should write data.
-     */
-    protected ServletOutputStream output = null;
+    }
 
 
     // --------------------------------------------------------- Public Methods
@@ -123,7 +114,7 @@ public class CompressionResponseStream
         compressionThreshold = threshold;
         buffer = new byte[compressionThreshold];
         if (debug > 1) {
-            System.out.println("buffer is set to "+compressionThreshold);
+            System.out.println("buffer is set to " + compressionThreshold);
         }
     }
 
@@ -199,13 +190,12 @@ public class CompressionResponseStream
      * Write the specified byte to our output stream.
      *
      * @param b The byte to be written
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     public void write(int b) throws IOException {
 
         if (debug > 1) {
-            System.out.println("write "+b+" in CompressionResponseStream ");
+            System.out.println("write " + b + " in CompressionResponseStream ");
         }
         if (closed)
             throw new IOException("Cannot write to a closed output stream");
@@ -224,8 +214,7 @@ public class CompressionResponseStream
      * to our output stream.
      *
      * @param b The byte array to be written
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     public void write(byte b[]) throws IOException {
 
@@ -238,11 +227,10 @@ public class CompressionResponseStream
      * Write <code>len</code> bytes from the specified byte array, starting
      * at the specified offset, to our output stream.
      *
-     * @param b The byte array containing the bytes to be written
+     * @param b   The byte array containing the bytes to be written
      * @param off Zero-relative starting offset of the bytes to be written
      * @param len The number of bytes to be written
-     *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     public void write(byte b[], int off, int len) throws IOException {
 

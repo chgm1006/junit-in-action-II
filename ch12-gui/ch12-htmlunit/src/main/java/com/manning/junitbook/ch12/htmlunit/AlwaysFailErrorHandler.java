@@ -23,7 +23,7 @@ import org.w3c.css.sac.ErrorHandler;
 
 /**
  * This error handler fails on any error, fatal error, or warning.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: AlwaysFailErrorHandler.java 390 2009-04-28 23:34:07Z garydgregory $
  */

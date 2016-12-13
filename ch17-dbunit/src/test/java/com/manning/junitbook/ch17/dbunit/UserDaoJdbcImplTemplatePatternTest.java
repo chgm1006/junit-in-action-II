@@ -20,63 +20,86 @@
  */
 package com.manning.junitbook.ch17.dbunit;
 
-import static org.junit.Assert.*;
-import static com.manning.junitbook.ch17.dbunit.EntitiesHelper.*;
-
 import org.dbunit.Assertion;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Test;
 
+import static com.manning.junitbook.ch17.dbunit.EntitiesHelper.assertUser;
+import static com.manning.junitbook.ch17.dbunit.EntitiesHelper.newUser;
+import static org.junit.Assert.assertTrue;
+
 public class UserDaoJdbcImplTemplatePatternTest extends AbstractDbUnitTestCase {
-  
-  protected interface TemplateHandler {
-    long getId();
-    void doIt() throws Exception;
-    String getSetupDataSet();
-    String getAssertDataSet();
-  }
-  
-  protected void runTemplateTest(TemplateHandler worker) throws Exception {    
-    IDataSet setupDataSet = getReplacedDataSet(worker.getSetupDataSet(), worker.getId() );
-    DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, setupDataSet);
-    worker.doIt();
-    String comparisonDataSetName = worker.getAssertDataSet();
-    if ( comparisonDataSetName != null ) {
-      IDataSet expectedDataSet = getReplacedDataSet(comparisonDataSetName, worker.getId());
-      IDataSet actualDataSet = dbunitConnection.createDataSet();
-      Assertion.assertEquals( expectedDataSet, actualDataSet );
+
+    protected interface TemplateHandler {
+        long getId();
+
+        void doIt() throws Exception;
+
+        String getSetupDataSet();
+
+        String getAssertDataSet();
     }
-  }
-  
-  @Test
-  public void testGetUserById() throws Exception {
-    final long id = 42; // value here does not matter
-    TemplateHandler worker = new TemplateHandler() {
-      public void doIt() throws Exception {
-        User user = dao.getUserById(id);
-        assertUser( user );
-      }
-      public String getSetupDataSet() { return "/user-token.xml"; }
-      public String getAssertDataSet() { return null; }
-      public long getId() { return id; }
-    };
-    runTemplateTest(worker);
-  }
-  
-  @Test
-  public void testAddUser() throws Exception {
-    TemplateHandler worker = new TemplateHandler() {
-      private long id = -1;
-      public void doIt() throws Exception {
-        User user = newUser();
-        id = dao.addUser(user);
-        assertTrue(id>0);
-      }
-      public String getSetupDataSet() { return "/empty.xml"; }
-      public String getAssertDataSet() { return "/user-token.xml"; }
-      public long getId() { return id; }
-    };
-    runTemplateTest(worker);
-  }
+
+    protected void runTemplateTest(TemplateHandler worker) throws Exception {
+        IDataSet setupDataSet = getReplacedDataSet(worker.getSetupDataSet(), worker.getId());
+        DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, setupDataSet);
+        worker.doIt();
+        String comparisonDataSetName = worker.getAssertDataSet();
+        if (comparisonDataSetName != null) {
+            IDataSet expectedDataSet = getReplacedDataSet(comparisonDataSetName, worker.getId());
+            IDataSet actualDataSet = dbunitConnection.createDataSet();
+            Assertion.assertEquals(expectedDataSet, actualDataSet);
+        }
+    }
+
+    @Test
+    public void testGetUserById() throws Exception {
+        final long id = 42; // value here does not matter
+        TemplateHandler worker = new TemplateHandler() {
+            public void doIt() throws Exception {
+                User user = dao.getUserById(id);
+                assertUser(user);
+            }
+
+            public String getSetupDataSet() {
+                return "/user-token.xml";
+            }
+
+            public String getAssertDataSet() {
+                return null;
+            }
+
+            public long getId() {
+                return id;
+            }
+        };
+        runTemplateTest(worker);
+    }
+
+    @Test
+    public void testAddUser() throws Exception {
+        TemplateHandler worker = new TemplateHandler() {
+            private long id = -1;
+
+            public void doIt() throws Exception {
+                User user = newUser();
+                id = dao.addUser(user);
+                assertTrue(id > 0);
+            }
+
+            public String getSetupDataSet() {
+                return "/empty.xml";
+            }
+
+            public String getAssertDataSet() {
+                return "/user-token.xml";
+            }
+
+            public long getId() {
+                return id;
+            }
+        };
+        runTemplateTest(worker);
+    }
 }

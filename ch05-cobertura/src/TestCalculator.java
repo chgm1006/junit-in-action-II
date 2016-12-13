@@ -18,45 +18,42 @@
  * 
  * ========================================================================
  */
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.junit.Assert.assertEquals;
+
 /**
  * A sample test-case that demonstrates the parameterized feature of JUnit.
- * 
+ *
  * @version $Id$
  */
-@RunWith( value = Parameterized.class )
-public class TestCalculator
-{
+@RunWith(value = Parameterized.class)
+public class TestCalculator {
 
     private int expected;
 
     private int actual;
 
-    @Parameters
-    public static Collection<Integer[]> data()
-    {
-        return Arrays.asList( new Integer[][] { { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, } );
-    }
-
-    public TestCalculator( int expected, int actual )
-    {
+    public TestCalculator(int expected, int actual) {
         this.expected = expected;
         this.actual = actual;
     }
 
     @Test
-    public void squareRoot()
-    {
+    public void squareRoot() {
         Calculator calculator = new Calculator();
-        assertEquals( expected, calculator.squareRoot( actual ) );
+        assertEquals(expected, calculator.squareRoot(actual));
+    }
+
+    @Parameters
+    public static Collection<Integer[]> data() {
+        return Arrays.asList(new Integer[][]{{1, 1}, {2, 4}, {3, 9}, {4, 16}, {5, 25},});
     }
 }

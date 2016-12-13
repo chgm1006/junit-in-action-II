@@ -20,28 +20,26 @@
  */
 package com.manning.junitbook.ch15.analysis;
 
+import org.jboss.jsfunit.analysis.AbstractFacesConfigTestCase;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jboss.jsfunit.analysis.AbstractFacesConfigTestCase;
 /**
  * A static-analusys test-case for your faces-config.xml
- * 
+ *
  * @version $Id: FacesConfigTestCase.java 530 2009-08-16 19:01:19Z paranoid12 $
  */
 public class FacesConfigTestCase
-    extends AbstractFacesConfigTestCase
-{
+        extends AbstractFacesConfigTestCase {
 
-    private static Set<String> paths = new HashSet<String>()
-    {
+    private static Set<String> paths = new HashSet<String>() {
         {
-            add( "src/main/webapp/WEB-INF/faces-config.xml" );
+            add("src/main/webapp/WEB-INF/faces-config.xml");
         }
     };
 
-    public FacesConfigTestCase()
-    {
-        super( paths );
+    public FacesConfigTestCase() {
+        super(paths);
     }
 }

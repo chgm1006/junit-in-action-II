@@ -22,45 +22,23 @@ package com.manning.junitbook.ch15.model;
 
 /**
  * A model class that represents an Album.
- * 
+ *
  * @version $Id: Album.java 529 2009-08-16 18:59:05Z paranoid12 $
  */
-public class Album
-{
+public class Album {
     private String name = null;
-    
+
     private String author = null;
-    
+
     private double price = 0;
-    
+
     private int year = 0;
-    
+
     private String style = null;
-    
+
     private String imageURL = null;
-    
-    public String getStyle()
-    {
-        return style;
-    }
 
-    public void setStyle( String style )
-    {
-        this.style = style;
-    }
-
-    public String getImageURL()
-    {
-        return imageURL;
-    }
-
-    public void setImageURL( String imageURL )
-    {
-        this.imageURL = imageURL;
-    }
-    
-    public Album(String name, String author, double price, int year, String style, String imageURL)
-    {
+    public Album(String name, String author, double price, int year, String style, String imageURL) {
         this.name = name;
         this.author = author;
         this.price = price;
@@ -69,43 +47,51 @@ public class Album
         this.imageURL = imageURL;
     }
 
-    public String getName()
-    {
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setName( String name )
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getAuthor()
-    {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor( String author )
-    {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    public double getPrice()
-    {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice( double price )
-    {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getYear()
-    {
+    public int getYear() {
         return year;
     }
 
-    public void setYear( int year )
-    {
+    public void setYear(int year) {
         this.year = year;
     }
 }

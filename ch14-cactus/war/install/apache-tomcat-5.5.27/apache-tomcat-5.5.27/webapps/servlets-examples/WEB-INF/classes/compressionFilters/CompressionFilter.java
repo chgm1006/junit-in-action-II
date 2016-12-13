@@ -17,16 +17,11 @@
 
 package compressionFilters;
 
-import java.io.IOException;
-import java.util.Enumeration;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Enumeration;
 
 
 /**
@@ -38,25 +33,21 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision: 466607 $, $Date: 2006-10-21 17:09:50 -0600 (Sat, 21 Oct 2006) $
  */
 
-public class CompressionFilter implements Filter{
-
-    /**
-     * The filter configuration object we are associated with.  If this value
-     * is null, this filter instance is not currently configured.
-     */
-    private FilterConfig config = null;
-
-    /**
-     * Minimal reasonable threshold
-     */
-    private int minThreshold = 128;
-
+public class CompressionFilter implements Filter {
 
     /**
      * The threshold number to compress
      */
     protected int compressionThreshold;
-
+    /**
+     * The filter configuration object we are associated with.  If this value
+     * is null, this filter instance is not currently configured.
+     */
+    private FilterConfig config = null;
+    /**
+     * Minimal reasonable threshold
+     */
+    private int minThreshold = 128;
     /**
      * Debug level for this filter
      */
@@ -73,13 +64,13 @@ public class CompressionFilter implements Filter{
         config = filterConfig;
         if (filterConfig != null) {
             String value = filterConfig.getInitParameter("debug");
-            if (value!=null) {
+            if (value != null) {
                 debug = Integer.parseInt(value);
             } else {
                 debug = 0;
             }
             String str = filterConfig.getInitParameter("compressionThreshold");
-            if (str!=null) {
+            if (str != null) {
                 compressionThreshold = Integer.parseInt(str);
                 if (compressionThreshold != 0 && compressionThreshold < minThreshold) {
                     if (debug > 0) {
@@ -99,8 +90,8 @@ public class CompressionFilter implements Filter{
     }
 
     /**
-    * Take this filter out of service.
-    */
+     * Take this filter out of service.
+     */
     public void destroy() {
 
         this.config = null;
@@ -124,8 +115,8 @@ public class CompressionFilter implements Filter{
      * (<code>chain.doFilter()</code>), <br>
      **/
 
-    public void doFilter ( ServletRequest request, ServletResponse response,
-                        FilterChain chain ) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response,
+                         FilterChain chain) throws IOException, ServletException {
 
         if (debug > 0) {
             System.out.println("@doFilter");
@@ -142,11 +133,11 @@ public class CompressionFilter implements Filter{
         boolean supportCompression = false;
         if (request instanceof HttpServletRequest) {
             if (debug > 1) {
-                System.out.println("requestURI = " + ((HttpServletRequest)request).getRequestURI());
+                System.out.println("requestURI = " + ((HttpServletRequest) request).getRequestURI());
             }
 
             // Are we allowed to compress ?
-            String s = (String) ((HttpServletRequest)request).getParameter("gzip");
+            String s = (String) ((HttpServletRequest) request).getParameter("gzip");
             if ("false".equals(s)) {
                 if (debug > 0) {
                     System.out.println("got parameter gzip=false --> don't compress, just chain filter");
@@ -156,9 +147,9 @@ public class CompressionFilter implements Filter{
             }
 
             Enumeration e =
-                ((HttpServletRequest)request).getHeaders("Accept-Encoding");
+                    ((HttpServletRequest) request).getHeaders("Accept-Encoding");
             while (e.hasMoreElements()) {
-                String name = (String)e.nextElement();
+                String name = (String) e.nextElement();
                 if (name.indexOf("gzip") != -1) {
                     if (debug > 0) {
                         System.out.println("supports compression");
@@ -181,7 +172,7 @@ public class CompressionFilter implements Filter{
         } else {
             if (response instanceof HttpServletResponse) {
                 CompressionServletResponseWrapper wrappedResponse =
-                    new CompressionServletResponseWrapper((HttpServletResponse)response);
+                        new CompressionServletResponseWrapper((HttpServletResponse) response);
                 wrappedResponse.setDebugLevel(debug);
                 wrappedResponse.setCompressionThreshold(compressionThreshold);
                 if (debug > 0) {
@@ -198,6 +189,14 @@ public class CompressionFilter implements Filter{
     }
 
     /**
+     * Return filter config
+     * Required by Weblogic 6.1
+     */
+    public FilterConfig getFilterConfig() {
+        return config;
+    }
+
+    /**
      * Set filter config
      * This function is equivalent to init. Required by Weblogic 6.1
      *
@@ -205,14 +204,6 @@ public class CompressionFilter implements Filter{
      */
     public void setFilterConfig(FilterConfig filterConfig) {
         init(filterConfig);
-    }
-
-    /**
-     * Return filter config
-     * Required by Weblogic 6.1
-     */
-    public FilterConfig getFilterConfig() {
-        return config;
     }
 
 }

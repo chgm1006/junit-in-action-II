@@ -16,14 +16,11 @@
 */
 package examples;
 
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
-
 public abstract class ExampleTagBase extends BodyTagSupport {
 
-    public void setParent(Tag parent) {
-        this.parent = parent;
-    }
+    protected BodyContent bodyOut;
+    protected PageContext pageContext;
+    protected Tag parent;
 
     public void setBodyContent(BodyContent bodyOut) {
         this.bodyOut = bodyOut;
@@ -36,7 +33,11 @@ public abstract class ExampleTagBase extends BodyTagSupport {
     public Tag getParent() {
         return this.parent;
     }
-    
+
+    public void setParent(Tag parent) {
+        this.parent = parent;
+    }
+
     public int doStartTag() throws JspException {
         return SKIP_BODY;
     }
@@ -44,7 +45,6 @@ public abstract class ExampleTagBase extends BodyTagSupport {
     public int doEndTag() throws JspException {
         return EVAL_PAGE;
     }
-    
 
     // Default implementations for BodyTag methods as well
     // just in case a tag decides to implement BodyTag.
@@ -60,8 +60,4 @@ public abstract class ExampleTagBase extends BodyTagSupport {
         pageContext = null;
         parent = null;
     }
-    
-    protected BodyContent bodyOut;
-    protected PageContext pageContext;
-    protected Tag parent;
 }

@@ -13,25 +13,25 @@
 
         function testGetStatus() {
             assertEquals("noTestsYet",
-                    createTestPage(0, false, 0, 0, 0).getStatus());
+                createTestPage(0, false, 0, 0, 0).getStatus());
 
             assertEquals("ready",
-                    createTestPage(2, false, 0, 0, 0).getStatus());
+                createTestPage(2, false, 0, 0, 0).getStatus());
 
             assertEquals("running",
-                    createTestPage(2, true, 0, 0, 0).getStatus());
+                createTestPage(2, true, 0, 0, 0).getStatus());
 
             assertEquals("running",
-                    createTestPage(2, true, 1, 1, 1).getStatus());
+                createTestPage(2, true, 1, 1, 1).getStatus());
 
             assertEquals("success",
-                    createTestPage(2, false, 1, 0, 0).getStatus());
+                createTestPage(2, false, 1, 0, 0).getStatus());
 
             assertEquals("failure",
-                    createTestPage(2, false, 1, 1, 0).getStatus());
+                createTestPage(2, false, 1, 1, 0).getStatus());
 
             assertEquals("error",
-                    createTestPage(2, false, 1, 1, 1).getStatus());
+                createTestPage(2, false, 1, 1, 1).getStatus());
         }
 
         function createTestPage(testCount, isRunning, successCount, failureCount, errorCount) {
@@ -50,6 +50,6 @@
 </head>
 
 <body>
-    <h1>TestPage Tests</h1>
+<h1>TestPage Tests</h1>
 </body>
 </html>

@@ -54,7 +54,7 @@
             this.foo = 'bar';
         }
 
-        FooBarThingy.prototype.bar = function() {
+        FooBarThingy.prototype.bar = function () {
             return this.foo;
         }
 
@@ -71,7 +71,8 @@
             assertEquals('Using new', 'String', JsUnit._trueTypeOf(new String('foo')));
 
             assertEquals('Using new', 'Function', JsUnit._trueTypeOf(new Function()));
-            var f = function foo() {};
+            var f = function foo() {
+            };
             assertEquals('Function', JsUnit._trueTypeOf(f));
             assertEquals('Function', JsUnit._trueTypeOf(testTrueTypeOf));
 

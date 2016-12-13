@@ -21,25 +21,22 @@
 package com.manning.junitbook.ch07.mocks.configurations;
 
 public class DefaultConfiguration
-    implements Configuration
-{
+        implements Configuration {
 
     /**
      * Constructor.
-     * 
+     *
      * @param configurationName
      */
-    public DefaultConfiguration( String configurationName )
-    {
+    public DefaultConfiguration(String configurationName) {
     }
 
     /**
      * Getter method to get the sql that we want to execute.
-     * 
+     *
      * @return
      */
-    public String getSQL( String sqlString )
-    {
+    public String getSQL(String sqlString) {
         return null;
     }
 }

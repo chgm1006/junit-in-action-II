@@ -17,18 +17,13 @@
 
 package com.manning.junitbook.ch12.htmlunit;
 
-import org.junit.Test;
-
 import com.gargoylesoftware.htmlunit.WebAssert;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.*;
+import org.junit.Test;
 
 /**
  * Tests the Google search page.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: GoogleSearchTest.java 410 2009-05-20 21:37:55Z garydgregory $
  */

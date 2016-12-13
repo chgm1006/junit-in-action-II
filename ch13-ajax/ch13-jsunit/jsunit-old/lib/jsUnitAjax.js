@@ -23,7 +23,7 @@ function MockXmlHttpRequest() {
  * @param userName
  * @param password
  */
-MockXmlHttpRequest.prototype.open = function(method, url, isAsync, userName, password) {
+MockXmlHttpRequest.prototype.open = function (method, url, isAsync, userName, password) {
     this.method = method;
     this.url = url;
     this.isAsync = isAsync;
@@ -35,7 +35,7 @@ MockXmlHttpRequest.prototype.open = function(method, url, isAsync, userName, pas
  * Implements send by noting that send was called and storing the data given
  * @param data
  */
-MockXmlHttpRequest.prototype.send = function(data) {
+MockXmlHttpRequest.prototype.send = function (data) {
     this.sendCalled = true;
     this.data = data;
 }
@@ -45,7 +45,7 @@ MockXmlHttpRequest.prototype.send = function(data) {
  * @param label
  * @param value
  */
-MockXmlHttpRequest.prototype.setRequestHeader = function(label, value) {
+MockXmlHttpRequest.prototype.setRequestHeader = function (label, value) {
     this.requestHeaderNamesToValues[label] = value;
 }
 

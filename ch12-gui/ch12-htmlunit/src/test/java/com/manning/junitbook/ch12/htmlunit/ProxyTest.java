@@ -17,17 +17,15 @@
 
 package com.manning.junitbook.ch12.htmlunit;
 
-import junit.framework.Assert;
-
-import org.junit.Test;
-
 import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.ProxyConfig;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import junit.framework.Assert;
+import org.junit.Test;
 
 /**
  * Demonstrates using a proxy server.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: ProxyTest.java 586 2010-04-12 16:29:20Z garydgregory $
  */

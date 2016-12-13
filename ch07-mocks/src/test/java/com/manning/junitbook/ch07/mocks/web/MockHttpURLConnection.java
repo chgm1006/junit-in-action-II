@@ -27,12 +27,11 @@ import java.net.URL;
 
 /**
  * The mock implementation of the HttpURLConnection.
- * 
+ *
  * @version $Id: MockHttpURLConnection.java 505 2009-08-16 17:58:38Z paranoid12 $
  */
 public class MockHttpURLConnection
-    extends HttpURLConnection
-{
+        extends HttpURLConnection {
     /**
      * The input stream for the connection.
      */
@@ -41,67 +40,60 @@ public class MockHttpURLConnection
     /**
      * Constructor.
      */
-    public MockHttpURLConnection()
-    {
-        super( null );
+    public MockHttpURLConnection() {
+        super(null);
     }
 
     /**
      * Constructor that accepts the URL of the connection as a parameter.
-     * 
+     *
      * @param url
      */
-    protected MockHttpURLConnection( URL url )
-    {
-        super( url );
+    protected MockHttpURLConnection(URL url) {
+        super(url);
     }
 
     /**
      * Setup the input stream expectation.
-     * 
+     *
      * @param stream
      */
-    public void setExpectedInputStream( InputStream stream )
-    {
+    public void setExpectedInputStream(InputStream stream) {
         this.stream = stream;
     }
 
     /**
      * Return the input stream
-     * 
+     *
      * @return
      * @throws IOException
      */
     public InputStream getInputStream()
-        throws IOException
-    {
+            throws IOException {
         return this.stream;
     }
 
     /**
      * Disconnect the connection.
      */
-    public void disconnect()
-    {
+    public void disconnect() {
     }
 
     /**
      * Connect the connection.
-     * 
+     *
      * @throws IOException
      */
     public void connect()
-        throws IOException
-    {
+            throws IOException {
     }
 
     /**
      * Are we using a proxy?
-     * 
+     *
      * @return
      */
-    public boolean usingProxy()
-    {
+    public boolean usingProxy() {
         return false;
     }
 }

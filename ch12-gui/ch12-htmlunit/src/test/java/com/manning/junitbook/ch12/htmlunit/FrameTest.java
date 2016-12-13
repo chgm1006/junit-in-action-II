@@ -17,17 +17,15 @@
 
 package com.manning.junitbook.ch12.htmlunit;
 
-import java.io.IOException;
-
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import junit.framework.Assert;
-
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.io.IOException;
 
 /**
  * Demonstrates testing frames.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: FrameTest.java 410 2009-05-20 21:37:55Z garydgregory $
  */

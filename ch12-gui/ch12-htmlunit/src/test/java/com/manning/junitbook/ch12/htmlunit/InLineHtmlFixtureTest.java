@@ -17,17 +17,16 @@
 
 package com.manning.junitbook.ch12.htmlunit;
 
-import java.net.URL;
-
+import com.gargoylesoftware.htmlunit.MockWebConnection;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.MockWebConnection;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.net.URL;
 
 /**
  * Demonstrates using in-line HTML fixtures in test methods.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: InLineHtmlFixtureTest.java 392 2009-04-28 23:38:33Z
  *          garydgregory $

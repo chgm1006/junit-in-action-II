@@ -20,28 +20,27 @@
  */
 package com.manning.junitbook.ch08.incontainer;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * A JUnit4 TestCase for the SampleServlet object, using JMock mocking library.
- * 
+ *
  * @version $Id$
  */
-@RunWith( JMock.class )
-public class TestSampleServletWithJMock
-{
+@RunWith(JMock.class)
+public class TestSampleServletWithJMock {
 
     private Mockery context = new JUnit4Mockery();
 
@@ -52,75 +51,66 @@ public class TestSampleServletWithJMock
     private SampleServlet servlet;
 
     @Before
-    public void setUp()
-    {
-        request = context.mock( HttpServletRequest.class );
-        session = context.mock( HttpSession.class );
+    public void setUp() {
+        request = context.mock(HttpServletRequest.class);
+        session = context.mock(HttpSession.class);
 
         servlet = new SampleServlet();
     }
 
     @Test
-    public void testIsAuthenticatedAuthenticated()
-    {
+    public void testIsAuthenticatedAuthenticated() {
         // expectations
-        context.checking( new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                oneOf( request ).getSession( false );
-                will( returnValue( session ) );
+                oneOf(request).getSession(false);
+                will(returnValue(session));
             }
-        } );
+        });
 
-        context.checking( new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                oneOf( session ).getAttribute( "authenticated" );
-                will( returnValue( "true" ) );
+                oneOf(session).getAttribute("authenticated");
+                will(returnValue("true"));
             }
-        } );
+        });
 
         // execute
-        assertTrue( servlet.isAuthenticated( request ) );
+        assertTrue(servlet.isAuthenticated(request));
     }
 
     @Test
-    public void testIsAuthenticatedNotAuthenticated()
-    {
+    public void testIsAuthenticatedNotAuthenticated() {
         // expectations
-        context.checking( new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                oneOf( request ).getSession( false );
-                will( returnValue( session ) );
+                oneOf(request).getSession(false);
+                will(returnValue(session));
             }
-        } );
+        });
 
-        context.checking( new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                oneOf( session ).getAttribute( "authenticated" );
-                will( returnValue( "false" ) );
+                oneOf(session).getAttribute("authenticated");
+                will(returnValue("false"));
             }
-        } );
+        });
 
         // execute
-        assertFalse( servlet.isAuthenticated( request ) );
+        assertFalse(servlet.isAuthenticated(request));
     }
 
     @Test
-    public void testIsAuthenticatedNoSession()
-    {
+    public void testIsAuthenticatedNoSession() {
         // expectations
-        context.checking( new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                oneOf( request ).getSession( false );
-                will( returnValue( null ) );
+                oneOf(request).getSession(false);
+                will(returnValue(null));
             }
-        } );
+        });
 
         // execute
-        assertFalse( servlet.isAuthenticated( request ) );
+        assertFalse(servlet.isAuthenticated(request));
     }
 }

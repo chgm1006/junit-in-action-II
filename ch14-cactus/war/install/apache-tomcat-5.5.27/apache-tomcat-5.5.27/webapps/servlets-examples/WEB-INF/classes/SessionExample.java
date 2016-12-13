@@ -18,12 +18,6 @@
  *
  */
 
-import java.io.*;
-import java.text.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-
 import util.HTMLFilter;
 
 /**
@@ -35,11 +29,10 @@ import util.HTMLFilter;
 public class SessionExample extends HttpServlet {
 
     ResourceBundle rb = ResourceBundle.getBundle("LocalStrings");
-    
+
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
-        throws IOException, ServletException
-    {
+            throws IOException, ServletException {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
@@ -53,18 +46,18 @@ public class SessionExample extends HttpServlet {
         out.println("<body>");
 
         // img stuff not req'd for source code html showing
-	// relative links everywhere!
+        // relative links everywhere!
 
         // XXX
         // making these absolute till we work out the
         // addition of a PathInfo issue 
-	
+
         out.println("<a href=\"../sessions.html\">");
         out.println("<img src=\"../images/code.gif\" height=24 " +
-                    "width=24 align=right border=0 alt=\"view code\"></a>");
+                "width=24 align=right border=0 alt=\"view code\"></a>");
         out.println("<a href=\"../index.html\">");
         out.println("<img src=\"../images/return.gif\" height=24 " +
-                    "width=24 align=right border=0 alt=\"return\"></a>");
+                "width=24 align=right border=0 alt=\"return\"></a>");
 
         out.println("<h3>" + title + "</h3>");
 
@@ -86,15 +79,15 @@ public class SessionExample extends HttpServlet {
         out.println(rb.getString("sessions.data") + "<br>");
         Enumeration names = session.getAttributeNames();
         while (names.hasMoreElements()) {
-            String name = (String) names.nextElement(); 
+            String name = (String) names.nextElement();
             String value = session.getAttribute(name).toString();
-            out.println(HTMLFilter.filter(name) + " = " 
-                        + HTMLFilter.filter(value) + "<br>");
+            out.println(HTMLFilter.filter(name) + " = "
+                    + HTMLFilter.filter(value) + "<br>");
         }
 
         out.println("<P>");
         out.print("<form action=\"");
-	out.print(response.encodeURL("SessionExample"));
+        out.print(response.encodeURL("SessionExample"));
         out.print("\" ");
         out.println("method=POST>");
         out.println(rb.getString("sessions.dataname"));
@@ -108,7 +101,7 @@ public class SessionExample extends HttpServlet {
 
         out.println("<P>GET based form:<br>");
         out.print("<form action=\"");
-	out.print(response.encodeURL("SessionExample"));
+        out.print(response.encodeURL("SessionExample"));
         out.print("\" ");
         out.println("method=GET>");
         out.println(rb.getString("sessions.dataname"));
@@ -121,20 +114,19 @@ public class SessionExample extends HttpServlet {
         out.println("</form>");
 
         out.print("<p><a href=\"");
-	out.print(response.encodeURL("SessionExample?dataname=foo&datavalue=bar"));
-	out.println("\" >URL encoded </a>");
-	
+        out.print(response.encodeURL("SessionExample?dataname=foo&datavalue=bar"));
+        out.println("\" >URL encoded </a>");
+
         out.println("</body>");
         out.println("</html>");
-        
+
         out.println("</body>");
         out.println("</html>");
     }
 
     public void doPost(HttpServletRequest request,
-                      HttpServletResponse response)
-        throws IOException, ServletException
-    {
+                       HttpServletResponse response)
+            throws IOException, ServletException {
         doGet(request, response);
     }
 

@@ -20,48 +20,48 @@
  */
 package com.manning.junitbook.ch19.business;
 
-import static com.manning.junitbook.ch19.model.EntitiesHelper.*;
-
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.manning.junitbook.ch19.dao.UserDao;
 import com.manning.junitbook.ch19.model.User;
 import com.manning.junitbook.ch19.model.UserDto;
 import com.mycila.testing.core.TestSetup;
 import com.mycila.testing.plugin.jmock.Mock;
 import com.mycila.testing.plugin.jmock.MockContext;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.junit.Before;
+import org.junit.Test;
+
+import static com.manning.junitbook.ch19.model.EntitiesHelper.assertUser;
+import static com.manning.junitbook.ch19.model.EntitiesHelper.newUserWithTelephones;
 
 public class UserFacadeImplMycilaJMockTest {
-  
-  private UserFacadeImpl facade;
-  
-  @MockContext
-  private Mockery context;
-  
-  @Mock
-  private UserDao dao;
-  
-  @Before
-  public void setFixtures() {
-    facade = new UserFacadeImpl();
-    TestSetup.setup(this);
-    facade.setUserDao(dao);
-  }
 
-  @Test
-  public void testGetUserById() {
-    final int id = 666;
-    final User user = newUserWithTelephones();
-    context.checking(new Expectations() {{
-      one(dao).getUserById(id);
-      will(returnValue(user));
-    }});
-    UserDto dto = facade.getUserById(id);
-    assertUser(dto);
-    context.assertIsSatisfied();
-  }
+    private UserFacadeImpl facade;
+
+    @MockContext
+    private Mockery context;
+
+    @Mock
+    private UserDao dao;
+
+    @Before
+    public void setFixtures() {
+        facade = new UserFacadeImpl();
+        TestSetup.setup(this);
+        facade.setUserDao(dao);
+    }
+
+    @Test
+    public void testGetUserById() {
+        final int id = 666;
+        final User user = newUserWithTelephones();
+        context.checking(new Expectations() {{
+            one(dao).getUserById(id);
+            will(returnValue(user));
+        }});
+        UserDto dto = facade.getUserById(id);
+        assertUser(dto);
+        context.assertIsSatisfied();
+    }
 
 }

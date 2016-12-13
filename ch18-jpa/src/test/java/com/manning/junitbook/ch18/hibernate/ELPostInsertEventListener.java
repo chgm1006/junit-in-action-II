@@ -20,19 +20,18 @@
  */
 package com.manning.junitbook.ch18.hibernate;
 
+import com.manning.junitbook.ch18.ELFunctionMapperImpl;
 import org.hibernate.event.PostInsertEvent;
 import org.hibernate.event.PostInsertEventListener;
 
-import com.manning.junitbook.ch18.ELFunctionMapperImpl;
-
 public class ELPostInsertEventListener implements PostInsertEventListener {
-  
-  private static final long serialVersionUID = 1L;
 
-  public void onPostInsert(PostInsertEvent event) {
-    String className = event.getEntity().getClass().getSimpleName();
-    Long id = (Long) event.getId();
-    ELFunctionMapperImpl.setId(className, id);
-  }
+    private static final long serialVersionUID = 1L;
+
+    public void onPostInsert(PostInsertEvent event) {
+        String className = event.getEntity().getClass().getSimpleName();
+        Long id = (Long) event.getId();
+        ELFunctionMapperImpl.setId(className, id);
+    }
 
 }

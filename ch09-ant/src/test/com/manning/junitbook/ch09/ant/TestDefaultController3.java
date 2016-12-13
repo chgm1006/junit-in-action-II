@@ -20,73 +20,59 @@
  */
 package com.manning.junitbook.ch09.ant;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * Test-case for defaultController3.
- * 
+ *
  * @version $Id$
  */
-public class TestDefaultController3
-{
-    private DefaultController controller;
-
-    private Request request;
-
-    private RequestHandler handler;
-
-    @Before
-    public void setUp()
-        throws Exception
-    {
-        controller = new DefaultController();
-        request = new TestRequest();
-        handler = new TestHandler();
-        controller.addHandler( request, handler );
-    }
-
+public class TestDefaultController3 {
     private class TestRequest
-        implements Request
-    {
-        public String getName()
-        {
+            implements Request {
+        public String getName() {
             return "Test";
         }
     }
 
     private class TestHandler
-        implements RequestHandler
-    {
-        public Response process( Request request )
-            throws Exception
-        {
+            implements RequestHandler {
+        public Response process(Request request)
+                throws Exception {
             return new TestResponse();
         }
     }
 
     private class TestResponse
-        implements Response
-    {
+            implements Response {
         // empty
     }
+    private DefaultController controller;
+    private Request request;
+    private RequestHandler handler;
 
-    @Test
-    public void testAddHandler()
-    {
-        RequestHandler handler2 = controller.getHandler( request );
-        assertSame( handler2, handler );
+    @Before
+    public void setUp()
+            throws Exception {
+        controller = new DefaultController();
+        request = new TestRequest();
+        handler = new TestHandler();
+        controller.addHandler(request, handler);
     }
 
     @Test
-    public void testProcessRequest()
-    {
-        Response response = controller.processRequest( request );
-        assertNotNull( "Must not return a null response", response );
-        assertEquals( TestResponse.class, response.getClass() );
+    public void testAddHandler() {
+        RequestHandler handler2 = controller.getHandler(request);
+        assertSame(handler2, handler);
+    }
+
+    @Test
+    public void testProcessRequest() {
+        Response response = controller.processRequest(request);
+        assertNotNull("Must not return a null response", response);
+        assertEquals(TestResponse.class, response.getClass());
     }
 }

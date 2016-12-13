@@ -14,80 +14,80 @@
         the specific language governing permissions and limitations under the
         License.
     -->
-<project name="ch09-ant" default="test" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="ch09-ant" default="test">
 
-  <property file="build.properties"/>
+    <property file="build.properties"/>
 
-  <property name="src.dir" location="src"/>
-  <property name="src.java.dir" location="${src.dir}/java"/>
-  <property name="src.test.dir" location="${src.dir}/test"/>
+    <property name="src.dir" location="src"/>
+    <property name="src.java.dir" location="${src.dir}/java"/>
+    <property name="src.test.dir" location="${src.dir}/test"/>
 
-  <property name="target.dir" location="target"/>
-  <property name="target.classes.java.dir" 
-      location="${target.dir}/classes/java"/>
-  <property name="target.classes.test.dir" 
-      location="${target.dir}/classes/test"/>
+    <property name="target.dir" location="target"/>
+    <property name="target.classes.java.dir"
+              location="${target.dir}/classes/java"/>
+    <property name="target.classes.test.dir"
+              location="${target.dir}/classes/test"/>
 
-  <property name="target.report.dir" 
-      location="${target.dir}/report"/>
+    <property name="target.report.dir"
+              location="${target.dir}/report"/>
 
-  <ivy:retrieve file="./ivy.xml" sync="true"/>
-  
-  <property name="junit.jar" location="lib/junit-4.6.jar"/>
+    <ivy:retrieve file="./ivy.xml" sync="true"/>
 
-  <target name="compile.java">
-    <mkdir dir="${target.classes.java.dir}"/>
-    <javac destdir="${target.classes.java.dir}">
-      <src path="${src.java.dir}"/>
-    </javac>
-  </target>
+    <property name="junit.jar" location="lib/junit-4.6.jar"/>
 
-  <target name="compile.test" depends="compile.java">
-    <mkdir dir="${target.classes.test.dir}"/>
-    <javac destdir="${target.classes.test.dir}">
-      <src path="${src.test.dir}"/>
-      <classpath>
-        <pathelement location="${target.classes.java.dir}"/>
-        <pathelement location="${junit.jar}"/>
-      </classpath>
-    </javac>
-  </target>
+    <target name="compile.java">
+        <mkdir dir="${target.classes.java.dir}"/>
+        <javac destdir="${target.classes.java.dir}">
+            <src path="${src.java.dir}"/>
+        </javac>
+    </target>
 
-  <target name="compile" depends="compile.java,compile.test"/>
+    <target name="compile.test" depends="compile.java">
+        <mkdir dir="${target.classes.test.dir}"/>
+        <javac destdir="${target.classes.test.dir}">
+            <src path="${src.test.dir}"/>
+            <classpath>
+                <pathelement location="${target.classes.java.dir}"/>
+                <pathelement location="${junit.jar}"/>
+            </classpath>
+        </javac>
+    </target>
 
-  <target name="test" depends="compile">
-    <mkdir dir="${target.report.dir}"/>
-    <property name="tests" value="TestDefaultController"/>
-    <junit printsummary="yes" haltonerror="yes" haltonfailure="yes">
-      <formatter type="plain" usefile="false"/>
-      <formatter type="xml"/>
-      <batchtest todir="${target.report.dir}">
-        <fileset dir="${src.test.dir}">
-          <include name="**/${tests}.java"/>
-          <exclude name="**/Test*All.java"/>
-        </fileset>
-      </batchtest>
-      <classpath>
-        <pathelement location="${target.classes.java.dir}"/>
-        <pathelement location="${target.classes.test.dir}"/>
-        <pathelement path="${ant.home}/lib/clover.jar"/>
-        <path location="${junit.jar}"/>
-      </classpath>
-    </junit>
-  </target>
+    <target name="compile" depends="compile.java,compile.test"/>
 
-  <target name="report" depends="test">
-    <mkdir dir="${target.report.dir}/html"/>
-    <junitreport todir="${target.report.dir}">
-      <fileset dir="${target.report.dir}">
-        <include name="TEST-*.xml"/>
-      </fileset>
-      <report todir="${target.report.dir}/html"/>
-    </junitreport>
-  </target>
+    <target name="test" depends="compile">
+        <mkdir dir="${target.report.dir}"/>
+        <property name="tests" value="TestDefaultController"/>
+        <junit printsummary="yes" haltonerror="yes" haltonfailure="yes">
+            <formatter type="plain" usefile="false"/>
+            <formatter type="xml"/>
+            <batchtest todir="${target.report.dir}">
+                <fileset dir="${src.test.dir}">
+                    <include name="**/${tests}.java"/>
+                    <exclude name="**/Test*All.java"/>
+                </fileset>
+            </batchtest>
+            <classpath>
+                <pathelement location="${target.classes.java.dir}"/>
+                <pathelement location="${target.classes.test.dir}"/>
+                <pathelement path="${ant.home}/lib/clover.jar"/>
+                <path location="${junit.jar}"/>
+            </classpath>
+        </junit>
+    </target>
 
-  <target name="clean">
-    <delete dir="${target.dir}"/>
-  </target>
+    <target name="report" depends="test">
+        <mkdir dir="${target.report.dir}/html"/>
+        <junitreport todir="${target.report.dir}">
+            <fileset dir="${target.report.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report todir="${target.report.dir}/html"/>
+        </junitreport>
+    </target>
+
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
 
 </project>

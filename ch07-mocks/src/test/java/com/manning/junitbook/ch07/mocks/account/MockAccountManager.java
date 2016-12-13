@@ -20,17 +20,16 @@
  */
 package com.manning.junitbook.ch07.mocks.account;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A mock implementation of the AccountManager interface.
- * 
+ *
  * @version $Id: MockAccountManager.java 505 2009-08-16 17:58:38Z paranoid12 $
  */
 public class MockAccountManager
-    implements AccountManager
-{
+        implements AccountManager {
     /**
      * A Map to hold all the <userId, account> values.
      */
@@ -38,29 +37,26 @@ public class MockAccountManager
 
     /**
      * A method to add an account to the manager.
-     * 
+     *
      * @param userId
      * @param account
      */
-    public void addAccount( String userId, Account account )
-    {
-        this.accounts.put( userId, account );
+    public void addAccount(String userId, Account account) {
+        this.accounts.put(userId, account);
     }
 
     /**
      * A method to find an account for the user with the given ID.
      */
-    public Account findAccountForUser( String userId )
-    {
-        return this.accounts.get( userId );
+    public Account findAccountForUser(String userId) {
+        return this.accounts.get(userId);
     }
 
     /**
      * A method to update the given account. Notice that we don't need this method and that's why we leave it with a
      * blank implementation.
      */
-    public void updateAccount( Account account )
-    {
+    public void updateAccount(Account account) {
         // do nothing
     }
 }

@@ -20,9 +20,8 @@
  */
 package com.manning.junitbook.ch16.service.test;
 
-import junit.framework.TestCase;
-
 import com.manning.junitbook.ch16.service.CalculatorImpl;
+import junit.framework.TestCase;
 
 /**
  * JUnit 3.8 test for the CalculatorService. We are going to include this test in the build process, so it will be
@@ -30,21 +29,18 @@ import com.manning.junitbook.ch16.service.CalculatorImpl;
  * Felix command line.
  */
 public class CalculatorServiceTest
-    extends TestCase
-{
+        extends TestCase {
 
     /**
      * CalculatorImpl service implementation that we want to test.
      */
     private CalculatorImpl calc = null;
 
-    public void setUp()
-    {
+    public void setUp() {
         calc = new CalculatorImpl();
     }
 
-    public void testAdd()
-    {
-        assertEquals( "1+2 must equal 3.0", 3.0, calc.add( calc.parseUserInput( "1 2" ) ), 0 );
+    public void testAdd() {
+        assertEquals("1+2 must equal 3.0", 3.0, calc.add(calc.parseUserInput("1 2")), 0);
     }
 }

@@ -21,10 +21,10 @@
 package com.manning.junitbook.ch17.dbunit;
 
 public class DatabaseCreator {
-  
-  public static void main(String[] args) throws Exception {
-    UserDaoJdbcImpl dao = new UserDaoJdbcImpl();
-    dao.createTables();
-  }
+
+    public static void main(String[] args) throws Exception {
+        UserDaoJdbcImpl dao = new UserDaoJdbcImpl();
+        dao.createTables();
+    }
 
 }

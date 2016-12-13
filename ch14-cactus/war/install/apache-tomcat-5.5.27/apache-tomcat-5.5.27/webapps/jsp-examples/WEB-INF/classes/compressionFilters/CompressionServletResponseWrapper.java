@@ -17,12 +17,12 @@
 
 package compressionFilters;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 /**
  * Implementation of <b>HttpServletResponseWrapper</b> that works with
@@ -38,6 +38,44 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
     // ----------------------------------------------------- Constructor
 
     /**
+     * Descriptive information about this Response implementation.
+     */
+
+    protected static final String info = "CompressionServletResponseWrapper";
+
+
+    // ----------------------------------------------------- Instance Variables
+    /**
+     * Original response
+     */
+
+    protected HttpServletResponse origResponse = null;
+    /**
+     * The ServletOutputStream that has been returned by
+     * <code>getOutputStream()</code>, if any.
+     */
+
+    protected ServletOutputStream stream = null;
+    /**
+     * The PrintWriter that has been returned by
+     * <code>getWriter()</code>, if any.
+     */
+
+    protected PrintWriter writer = null;
+    /**
+     * The threshold number to compress
+     */
+    protected int threshold = 0;
+    /**
+     * Content type
+     */
+    protected String contentType = null;
+    /**
+     * Debug level
+     */
+    private int debug = 0;
+
+    /**
      * Calls the parent constructor which creates a ServletResponse adaptor
      * wrapping the given response object.
      */
@@ -50,60 +88,14 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
         }
     }
 
-
-    // ----------------------------------------------------- Instance Variables
-
-    /**
-     * Original response
-     */
-
-    protected HttpServletResponse origResponse = null;
-
-    /**
-     * Descriptive information about this Response implementation.
-     */
-
-    protected static final String info = "CompressionServletResponseWrapper";
-
-    /**
-     * The ServletOutputStream that has been returned by
-     * <code>getOutputStream()</code>, if any.
-     */
-
-    protected ServletOutputStream stream = null;
-
-
-    /**
-     * The PrintWriter that has been returned by
-     * <code>getWriter()</code>, if any.
-     */
-
-    protected PrintWriter writer = null;
-
-    /**
-     * The threshold number to compress
-     */
-    protected int threshold = 0;
-
-    /**
-     * Debug level
-     */
-    private int debug = 0;
-
-    /**
-     * Content type
-     */
-    protected String contentType = null;
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Set content type
      */
     public void setContentType(String contentType) {
         if (debug > 1) {
-            System.out.println("setContentType to "+contentType);
+            System.out.println("setContentType to " + contentType);
         }
         this.contentType = contentType;
         origResponse.setContentType(contentType);
@@ -133,7 +125,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
      * Create and return a ServletOutputStream to write the content
      * associated with this Response.
      *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     public ServletOutputStream createOutputStream() throws IOException {
         if (debug > 1) {
@@ -171,22 +163,22 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
     /**
      * Flush the buffer and commit this response.
      *
-     * @exception IOException if an input/output error occurs
+     * @throws IOException if an input/output error occurs
      */
     public void flushBuffer() throws IOException {
         if (debug > 1) {
             System.out.println("flush buffer @ CompressionServletResponseWrapper");
         }
-        ((CompressionResponseStream)stream).flush();
+        ((CompressionResponseStream) stream).flush();
 
     }
 
     /**
      * Return the servlet output stream associated with this Response.
      *
-     * @exception IllegalStateException if <code>getWriter</code> has
-     *  already been called for this response
-     * @exception IOException if an input/output error occurs
+     * @throws IllegalStateException if <code>getWriter</code> has
+     *                               already been called for this response
+     * @throws IOException           if an input/output error occurs
      */
     public ServletOutputStream getOutputStream() throws IOException {
 
@@ -196,7 +188,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
         if (stream == null)
             stream = createOutputStream();
         if (debug > 1) {
-            System.out.println("stream is set to "+stream+" in getOutputStream");
+            System.out.println("stream is set to " + stream + " in getOutputStream");
         }
 
         return (stream);
@@ -206,9 +198,9 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
     /**
      * Return the writer associated with this Response.
      *
-     * @exception IllegalStateException if <code>getOutputStream</code> has
-     *  already been called for this response
-     * @exception IOException if an input/output error occurs
+     * @throws IllegalStateException if <code>getOutputStream</code> has
+     *                               already been called for this response
+     * @throws IOException           if an input/output error occurs
      */
     public PrintWriter getWriter() throws IOException {
 
@@ -220,7 +212,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
 
         stream = createOutputStream();
         if (debug > 1) {
-            System.out.println("stream is set to "+stream+" in getWriter");
+            System.out.println("stream is set to " + stream + " in getWriter");
         }
         //String charset = getCharsetFromContentType(contentType);
         String charEnc = origResponse.getCharacterEncoding();
@@ -234,7 +226,7 @@ public class CompressionServletResponseWrapper extends HttpServletResponseWrappe
         } else {
             writer = new PrintWriter(stream);
         }
-        
+
         return (writer);
 
     }

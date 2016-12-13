@@ -21,13 +21,11 @@
 
 /**
  * A sample calculator that we are going to test.
- * 
+ *
  * @version $Id$
  */
-public class Calculator
-{
-    public double add( double number1, double number2 )
-    {
+public class Calculator {
+    public double add(double number1, double number2) {
         return number1 + number2;
     }
 }

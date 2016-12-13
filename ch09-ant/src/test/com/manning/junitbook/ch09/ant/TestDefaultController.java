@@ -20,129 +20,107 @@
  */
 package com.manning.junitbook.ch09.ant;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * Test-case for the default controller.
- * 
+ *
  * @version $Id$
  */
-public class TestDefaultController
-{
-    private DefaultController controller;
-
-    private Request request;
-
-    private RequestHandler handler;
-
-    @Before
-    public void setUp()
-        throws Exception
-    {
-        controller = new DefaultController();
-        request = new TestRequest();
-        handler = new TestHandler();
-        controller.addHandler( request, handler );
-    }
-
+public class TestDefaultController {
     private class TestRequest
-        implements Request
-    {
+            implements Request {
         private static final String DEFAULT_NAME = "Test";
 
         private String name;
 
-        public TestRequest( String name )
-        {
+        public TestRequest(String name) {
             this.name = name;
         }
 
-        public TestRequest()
-        {
-            this( DEFAULT_NAME );
+        public TestRequest() {
+            this(DEFAULT_NAME);
         }
 
-        public String getName()
-        {
+        public String getName() {
             return this.name;
         }
     }
 
     private class TestHandler
-        implements RequestHandler
-    {
-        public Response process( Request request )
-            throws Exception
-        {
+            implements RequestHandler {
+        public Response process(Request request)
+                throws Exception {
             return new TestResponse();
         }
     }
 
     private class TestResponse
-        implements Response
-    {
+            implements Response {
         // empty
     }
 
-    @Test
-    public void testAddHandler()
-    {
-        RequestHandler handler2 = controller.getHandler( request );
-        assertSame( handler2, handler );
-    }
-
-    @Test
-    public void testProcessRequest()
-    {
-        Response response = controller.processRequest( request );
-        assertNotNull( "Must not return a null response", response );
-        assertEquals( TestResponse.class, response.getClass() );
-    }
-
     private class TestExceptionHandler
-        implements RequestHandler
-    {
-        public Response process( Request request )
-            throws Exception
-        {
-            throw new Exception( "error processing request" );
+            implements RequestHandler {
+        public Response process(Request request)
+                throws Exception {
+            throw new Exception("error processing request");
         }
     }
+    private DefaultController controller;
+    private Request request;
+    private RequestHandler handler;
+
+    @Before
+    public void setUp()
+            throws Exception {
+        controller = new DefaultController();
+        request = new TestRequest();
+        handler = new TestHandler();
+        controller.addHandler(request, handler);
+    }
 
     @Test
-    public void testProcessRequestAnswersErrorResponse()
-    {
-        TestRequest request = new TestRequest( "testError" );
+    public void testAddHandler() {
+        RequestHandler handler2 = controller.getHandler(request);
+        assertSame(handler2, handler);
+    }
+
+    @Test
+    public void testProcessRequest() {
+        Response response = controller.processRequest(request);
+        assertNotNull("Must not return a null response", response);
+        assertEquals(TestResponse.class, response.getClass());
+    }
+
+    @Test
+    public void testProcessRequestAnswersErrorResponse() {
+        TestRequest request = new TestRequest("testError");
         TestExceptionHandler handler = new TestExceptionHandler();
-        controller.addHandler( request, handler );
-        Response response = controller.processRequest( request );
-        assertNotNull( "Must not return a null response", response );
-        assertEquals( ErrorResponse.class, response.getClass() );
+        controller.addHandler(request, handler);
+        Response response = controller.processRequest(request);
+        assertNotNull("Must not return a null response", response);
+        assertEquals(ErrorResponse.class, response.getClass());
     }
 
-    @Test( expected = RuntimeException.class )
-    public void testGetHandlerNotDefined()
-    {
-        TestRequest request = new TestRequest( "testNotDefined" );
-        controller.getHandler( request );
+    @Test(expected = RuntimeException.class)
+    public void testGetHandlerNotDefined() {
+        TestRequest request = new TestRequest("testNotDefined");
+        controller.getHandler(request);
 
-        fail( "An exception should be raised if the requested " + "handler has not been registered" );
+        fail("An exception should be raised if the requested " + "handler has not been registered");
     }
 
-    @Test( expected = RuntimeException.class )
-    public void testAddRequestDuplicateName()
-    {
+    @Test(expected = RuntimeException.class)
+    public void testAddRequestDuplicateName() {
         TestRequest request = new TestRequest();
         TestHandler handler = new TestHandler();
-        controller.addHandler( request, handler );
+        controller.addHandler(request, handler);
 
-        fail( "An exception should be raised if the default " + "TestRequest has already been registered" );
+        fail("An exception should be raised if the default " + "TestRequest has already been registered");
 
     }
 }

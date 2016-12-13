@@ -24,33 +24,30 @@ import java.io.InputStream;
 
 /**
  * Mock implementation of the ConnectionFactory interface.
- * 
+ *
  * @version $Id: MockConnectionFactory.java 505 2009-08-16 17:58:38Z paranoid12 $
  */
-public class MockConnectionFactory implements ConnectionFactory
-{
+public class MockConnectionFactory implements ConnectionFactory {
     /**
      * The input stream for the connection.
      */
     private InputStream inputStream;
 
     /**
-     * Set the input stream.
-     * 
-     * @param stream
+     * Get the input stream.
+     *
+     * @throws Exception
      */
-    public void setData(InputStream stream)
-    {
-        this.inputStream = stream;
+    public InputStream getData() throws Exception {
+        return this.inputStream;
     }
 
     /**
-     * Get the input stream.
-     * 
-     * @throws Exception
+     * Set the input stream.
+     *
+     * @param stream
      */
-    public InputStream getData() throws Exception
-    {
-        return this.inputStream;
+    public void setData(InputStream stream) {
+        this.inputStream = stream;
     }
 }

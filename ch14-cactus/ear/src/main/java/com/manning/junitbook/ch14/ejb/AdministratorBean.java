@@ -20,43 +20,42 @@
  */
 package com.manning.junitbook.ch14.ejb;
 
+import org.apache.commons.beanutils.RowSetDynaClass;
+
+import javax.ejb.Stateless;
+import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-import javax.ejb.Stateless;
-import javax.naming.NamingException;
-
-import org.apache.commons.beanutils.RowSetDynaClass;
-
 /**
  * An EJB that we use to extract the necessary information from the database.
  */
 @Stateless
 public class AdministratorBean implements IAdministratorLocal {
-	/**
-	 * This mehtod extracts information from the database and constructs a
-	 * java.util.Collection from the rows.
-	 */
-	public Collection execute(String sql) throws Exception {
-		Connection connection = getConnection();
-		ResultSet resultSet = connection.createStatement().executeQuery(sql);
+    /**
+     * This mehtod extracts information from the database and constructs a
+     * java.util.Collection from the rows.
+     */
+    public Collection execute(String sql) throws Exception {
+        Connection connection = getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery(sql);
 
-		RowSetDynaClass rsdc = new RowSetDynaClass(resultSet);
-		resultSet.close();
-		connection.close();
-		return rsdc.getRows();
-	}
+        RowSetDynaClass rsdc = new RowSetDynaClass(resultSet);
+        resultSet.close();
+        connection.close();
+        return rsdc.getRows();
+    }
 
-	/**
-	 * A helper method to get the connection to the database.
-	 * 
-	 * @return the connection to the database
-	 * @throws NamingException
-	 * @throws SQLException
-	 */
+    /**
+     * A helper method to get the connection to the database.
+     *
+     * @return the connection to the database
+     * @throws NamingException
+     * @throws SQLException
+     */
     private Connection getConnection() throws NamingException, SQLException {
         try {
             Class.forName("org.hsqldb.jdbcDriver").newInstance();

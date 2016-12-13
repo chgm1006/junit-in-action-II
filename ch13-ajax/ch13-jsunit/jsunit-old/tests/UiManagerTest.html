@@ -16,11 +16,11 @@
             var exception = new JsUnit.Error("some error");
             exception.stack = "this is the stack trace";
             assertEquals("Error message is:\n" +
-                         "\"some error\"\n" +
-                         "\n" +
-                         "Stack trace follows:\n" +
-                         "this is the stack trace",
-                    manager.problemDetailMessageFor(exception));
+                "\"some error\"\n" +
+                "\n" +
+                "Stack trace follows:\n" +
+                "this is the stack trace",
+                manager.problemDetailMessageFor(exception));
         }
 
         function testProblemDetailMessageFor_WithAssertionFailure() {
@@ -28,11 +28,11 @@
             var exception = new JsUnit.Failure("some assertion failure", "accompanying message");
             exception.stackTrace = "this is the stack trace";
             assertEquals("\"some assertion failure\"\n" +
-                         "accompanying message\n" +
-                         "\n" +
-                         "Stack trace follows:\n" +
-                         "this is the stack trace",
-                    manager.problemDetailMessageFor(exception));
+                "accompanying message\n" +
+                "\n" +
+                "Stack trace follows:\n" +
+                "this is the stack trace",
+                manager.problemDetailMessageFor(exception));
         }
 
 

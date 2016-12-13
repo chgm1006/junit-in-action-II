@@ -17,8 +17,6 @@
 
 package com.manning.junitbook.ch12.selenium;
 
-import java.util.List;
-
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.internal.runners.model.EachTestNotifier;
 import org.junit.runner.Runner;
@@ -30,28 +28,17 @@ import org.junit.runners.model.RunnerBuilder;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.server.SeleniumServer;
 
+import java.util.List;
+
 /**
  * A JUnit Suite that manages a Selenium server. Use from
  * &#64;RunWith(ManagedSeleniumServerSuite.class)
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id$
  */
 public class ManagedSeleniumServerSuite extends Suite {
     private static SeleniumServer seleniumServer;
-
-    public static void startSeleniumServer() throws Exception {
-        ManagedSeleniumServerSuite.stopSeleniumServer();
-        seleniumServer = new SeleniumServer();
-        seleniumServer.start();
-    }
-
-    public static void stopSeleniumServer() {
-        if (seleniumServer != null) {
-            seleniumServer.stop();
-            seleniumServer = null;
-        }
-    }
 
     public ManagedSeleniumServerSuite(Class<?> klass, Class<?>[] suiteClasses) throws InitializationError {
         super(klass, suiteClasses);
@@ -88,6 +75,19 @@ public class ManagedSeleniumServerSuite extends Suite {
             testNotifier.addFailure(e);
         } finally {
             ManagedSeleniumServerSuite.stopSeleniumServer();
+        }
+    }
+
+    public static void startSeleniumServer() throws Exception {
+        ManagedSeleniumServerSuite.stopSeleniumServer();
+        seleniumServer = new SeleniumServer();
+        seleniumServer.start();
+    }
+
+    public static void stopSeleniumServer() {
+        if (seleniumServer != null) {
+            seleniumServer.stop();
+            seleniumServer = null;
         }
     }
 

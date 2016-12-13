@@ -20,15 +20,14 @@
  */
 package com.manning.junitbook.ch19.business;
 
+import com.manning.junitbook.ch19.dao.UserDao;
 import org.fest.reflect.core.Reflection;
 
-import com.manning.junitbook.ch19.dao.UserDao;
-
 public class UserFacadeEncapsulatedImplFESTReflectTest extends AbstractUserFacadeEncapsulatedImplTestCase {
-  
-  @Override
-  protected void injectDaoIntoFacade() {
-    Reflection.field("userDao").ofType(UserDao.class).in(facade).set(dao);
-  }
-  
+
+    @Override
+    protected void injectDaoIntoFacade() {
+        Reflection.field("userDao").ofType(UserDao.class).in(facade).set(dao);
+    }
+
 }

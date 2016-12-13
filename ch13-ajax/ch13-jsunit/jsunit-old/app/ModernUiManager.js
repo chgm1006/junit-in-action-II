@@ -1,11 +1,11 @@
-Function.prototype.bind = function() {
+Function.prototype.bind = function () {
     var __method = this, args = Array.prototype.slice.call(arguments, 1), object = arguments[0];
-    return function() {
-      return __method.apply(object, args.concat(Array.prototype.slice.call(arguments)));
+    return function () {
+        return __method.apply(object, args.concat(Array.prototype.slice.call(arguments)));
     }
 }
 
-JsUnit.ModernUiManager = function(testManager) {
+JsUnit.ModernUiManager = function (testManager) {
     this._testManager = testManager;
 
     this._recentlyUpdated = [];
@@ -14,7 +14,7 @@ JsUnit.ModernUiManager = function(testManager) {
 
 JsUnit.Util.inherit(JsUnit.BaseUiManager, JsUnit.ModernUiManager);
 
-JsUnit.ModernUiManager.prototype.onLoad = function(uiWindow) {
+JsUnit.ModernUiManager.prototype.onLoad = function (uiWindow) {
     this._uiWindow = uiWindow;
     this._uiDoc = uiWindow.document;
 
@@ -40,15 +40,15 @@ JsUnit.ModernUiManager.prototype.onLoad = function(uiWindow) {
     this.showPassed(false);
 }
 
-JsUnit.ModernUiManager.prototype.getUiFrameUrl = function() {
+JsUnit.ModernUiManager.prototype.getUiFrameUrl = function () {
     return './app/modernUi.html';
 }
 
-JsUnit.ModernUiManager.prototype.getTestFileName = function() {
+JsUnit.ModernUiManager.prototype.getTestFileName = function () {
     return this._testFileInput.value;
 }
 
-JsUnit.ModernUiManager.prototype.getTraceLevel = function() {
+JsUnit.ModernUiManager.prototype.getTraceLevel = function () {
     return JsUnitTraceLevel.NONE;
 }
 
@@ -66,31 +66,31 @@ JsUnit.ModernUiManager.prototype.showMessageForSelectedProblemTest = function ()
 JsUnit.ModernUiManager.prototype.showMessagesForAllProblemTests = function () {
 }
 
-JsUnit.ModernUiManager.prototype.showLog = function() {
+JsUnit.ModernUiManager.prototype.showLog = function () {
 }
 
-JsUnit.ModernUiManager.prototype.fatalError = function(aMessage) {
+JsUnit.ModernUiManager.prototype.fatalError = function (aMessage) {
     if (this._testManager._params.shouldSuppressDialogs()) // todo: huh?
         this.setStatus(aMessage);
     else
         alert(aMessage);
 }
 
-JsUnit.ModernUiManager.prototype.userConfirm = function(aMessage) {
+JsUnit.ModernUiManager.prototype.userConfirm = function (aMessage) {
     if (this._testManager._params.shouldSuppressDialogs()) // todo: huh?
         return false;
     else
         return confirm(aMessage);
 }
 
-Object.extend = function(obj, extendWith) {
+Object.extend = function (obj, extendWith) {
     for (var name in extendWith) {
         obj[name] = extendWith[name];
     }
 }
 
 Object.extend(JsUnit.ModernUiManager.prototype, {
-    _findTextNode: function(id) {
+    _findTextNode: function (id) {
         var element = this._uiDoc.getElementById(id);
         if (element.childNodes.length == 1) {
             return element.childNodes[0];
@@ -100,19 +100,19 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
         return node;
     },
 
-    _setSpanText: function(span, text) {
+    _setSpanText: function (span, text) {
         span.innerHTML = text;
     },
 
-    _setTextNode: function(textNode, text) {
+    _setTextNode: function (textNode, text) {
         textNode.data = text;
     },
 
-    setStatus: function(str) {
+    setStatus: function (str) {
         this._setTextNode(this._statusTextNode, str);
     },
 
-    _addRecentlyUpdated: function(element) {
+    _addRecentlyUpdated: function (element) {
         var cssClasses = element.getAttribute("class");
         if (cssClasses.indexOf(" recentlyUpdated") > -1) return;
 
@@ -122,7 +122,7 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
         this._testsInfoDiv.scrollTop = element.offsetTop - 30;
     },
 
-    _clearRecentlyUpdated: function(clearAll) {
+    _clearRecentlyUpdated: function (clearAll) {
         if (this._recentlyUpdated.length == 0) return;
 
         var time = new Date().getTime();
@@ -153,7 +153,7 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
     updateProgressIndicators: function (totalCount, errorCount, failureCount, progressBarProportion) {
         this._setTextNode(this._runCountTextNode, totalCount);
         this._setTextNode(this._errorCountTextNode, errorCount);
-        this._setTextNode(this._failureCountTextNode,  failureCount);
+        this._setTextNode(this._failureCountTextNode, failureCount);
         this._setProgressBarWidth(300 * progressBarProportion);
 
         if (errorCount > 0 || failureCount > 0)
@@ -164,7 +164,7 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
 //        this._setTextNode(this._elapsedTimeTextNode, this.elapsedTime());
     },
 
-    learnedOfTestPage: function(testPage) {
+    learnedOfTestPage: function (testPage) {
         testPage.headerElement = this._uiDoc.createElement("li");
         testPage.headerElement.innerHTML = testPage.url;
 
@@ -177,7 +177,7 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
         testPage.listen(this._testPageUpdate.bind(this));
     },
 
-    _testPageUpdate: function(testPage, event) {
+    _testPageUpdate: function (testPage, event) {
         if (event == JsUnit.TestPage.READY_EVENT) {
             for (var i = 0; i < testPage.tests.length; i++) {
                 var theTest = testPage.tests[i];
@@ -189,12 +189,12 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
         this._addRecentlyUpdated(testPage.headerElement);
     },
 
-    testCompleted: function(test) {
+    testCompleted: function (test) {
         this._updateTestResultStatus(test);
     },
 
 
-    _showDetails: function(theTest) {
+    _showDetails: function (theTest) {
         var div = theTest.div;
         this._testResultTestDiv.innerHTML = theTest.testPage.url + "." + theTest.testName;
         var text;
@@ -227,11 +227,11 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
         this._testResultDetailsDiv.innerHTML = text;
     },
 
-    _displayTestResult: function(theTest) {
+    _displayTestResult: function (theTest) {
         var timeTaken = theTest.timeTaken;
 
         var manager = this;
-        var clicked = function() {
+        var clicked = function () {
             manager._showDetails.call(manager, theTest);
         };
 
@@ -244,13 +244,13 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
         this._clearRecentlyUpdated(false);
     },
 
-    _updateTestResultStatus: function(theTest) {
+    _updateTestResultStatus: function (theTest) {
         var element = theTest.div;
         element.setAttribute("class", "testResult " + theTest.status);
         this._addRecentlyUpdated(element);
     },
 
-    _createItem: function(name, status, onClick) {
+    _createItem: function (name, status, onClick) {
         var div = this._uiDoc.createElement("li");
         if (div.addEventListener) {
             div.addEventListener("click", onClick, true);
@@ -263,15 +263,15 @@ Object.extend(JsUnit.ModernUiManager.prototype, {
         return div;
     },
 
-    _displayTestException: function(problemValue, problemMessage) {
+    _displayTestException: function (problemValue, problemMessage) {
         var listField = this.problemsListField;
         this._addOption(listField, problemValue, problemMessage);
     },
 
-    addedTraceData: function(theTest, traceMessage) {
+    addedTraceData: function (theTest, traceMessage) {
     },
 
-    showPassed: function(shouldShow) {
+    showPassed: function (shouldShow) {
         this._testsInfoCompleteDiv.setAttribute("class", shouldShow ? "showPassed" : "hidePassed");
     },
 

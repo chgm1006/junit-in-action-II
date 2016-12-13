@@ -24,19 +24,47 @@ import com.manning.junitbook.appD.custom.model.Interceptor;
 
 /**
  * A sample timing interceptor to test our custom runner.
- * 
+ *
  * @version $Id: SampleTimingInterceptor.java 201 2009-02-15 19:18:09Z paranoid12 $
  */
 public class SampleTimingInterceptor
-    implements Interceptor
-{
+        implements Interceptor {
+    /**
+     * Private class to use for timing purposes.
+     */
+    class Timer {
+        private long nanoStart = 0;
+        private long nanoEnd = 0;
+
+        /**
+         * Start the timer.
+         */
+        void start() {
+            nanoStart = System.currentTimeMillis();
+        }
+
+        /**
+         * Stop the timer.
+         */
+        void stop() {
+            nanoEnd = System.currentTimeMillis();
+        }
+
+        /**
+         * Get the time that passed.
+         *
+         * @return the time that passed
+         */
+        long time() {
+            return (nanoEnd - nanoStart) / 1000;
+        }
+    }
     Timer timer = new Timer();
 
     /**
      * The method to execute before the test.
      */
-    public void interceptBefore()
-    {
+    public void interceptBefore() {
         System.out.println("Interceptor started.");
         timer.start();
     }
@@ -44,40 +72,8 @@ public class SampleTimingInterceptor
     /**
      * The method to execute after the test.
      */
-    public void interceptAfter()
-    {
+    public void interceptAfter() {
         timer.stop();
         System.out.println("Interceptor ended. The test executed for " + timer.time() + " sec.");
-    }
-
-    /**
-     * Private class to use for timing purposes.
-     */
-    class Timer  {
-        private long nanoStart = 0;
-        private long nanoEnd = 0;
-        
-        /**
-         * Start the timer.
-         */
-        void start() {
-            nanoStart = System.currentTimeMillis();
-        }
-        
-        /**
-         * Stop the timer.
-         */
-        void stop() {
-            nanoEnd = System.currentTimeMillis();
-        }
-        
-        /**
-         * Get the time that passed.
-         * 
-         * @return the time that passed
-         */
-        long time() {
-            return (nanoEnd - nanoStart) / 1000;
-        }
     }
 }

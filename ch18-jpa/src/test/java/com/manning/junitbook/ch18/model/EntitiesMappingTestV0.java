@@ -20,32 +20,33 @@
  */
 package com.manning.junitbook.ch18.model;
 
-import static com.manning.junitbook.ch18.model.EntitiesHelper.*;
-
-import org.junit.Test;
-
 import com.manning.junitbook.ch18.AbstractJpaDbUnitELTemplateTestCaseJUnit44V0;
 import com.manning.junitbook.ch18.DataSets;
+import org.junit.Test;
+
+import static com.manning.junitbook.ch18.model.EntitiesHelper.assertUserWithTelephone;
+import static com.manning.junitbook.ch18.model.EntitiesHelper.newUserWithTelephone;
 
 public class EntitiesMappingTestV0 extends AbstractJpaDbUnitELTemplateTestCaseJUnit44V0 {
-  
-  @Test
-  @DataSets(assertDataSet="/user-with-telephone-v0.xml")
-  public void testSaveUserWithTelephone() throws Exception {
-    User user = newUserWithTelephone();
-    beginTransaction();
-    em.persist(user);
-    commitTransaction();
-  }
 
-  @Test
-  @DataSets(setUpDataSet="/user-with-telephone-v0.xml")
-  public void testLoadUserWithTelephone() {
-    beginTransaction();
-    User user = em.find(User.class, id);
-    commitTransaction();
-    assertUserWithTelephone(user);
-    id++; phoneId+=2;
-  }
-  
+    @Test
+    @DataSets(assertDataSet = "/user-with-telephone-v0.xml")
+    public void testSaveUserWithTelephone() throws Exception {
+        User user = newUserWithTelephone();
+        beginTransaction();
+        em.persist(user);
+        commitTransaction();
+    }
+
+    @Test
+    @DataSets(setUpDataSet = "/user-with-telephone-v0.xml")
+    public void testLoadUserWithTelephone() {
+        beginTransaction();
+        User user = em.find(User.class, id);
+        commitTransaction();
+        assertUserWithTelephone(user);
+        id++;
+        phoneId += 2;
+    }
+
 }

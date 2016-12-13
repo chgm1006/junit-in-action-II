@@ -20,41 +20,41 @@
  */
 package com.manning.junitbook.ch19.business;
 
-import static com.manning.junitbook.ch19.model.EntitiesHelper.*;
-import static org.easymock.EasyMock.*;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.manning.junitbook.ch19.dao.UserDao;
 import com.manning.junitbook.ch19.model.User;
 import com.manning.junitbook.ch19.model.UserDto;
 import com.mycila.testing.core.TestSetup;
 import com.mycila.testing.plugin.easymock.Mock;
+import org.junit.Before;
+import org.junit.Test;
+
+import static com.manning.junitbook.ch19.model.EntitiesHelper.assertUser;
+import static com.manning.junitbook.ch19.model.EntitiesHelper.newUserWithTelephones;
+import static org.easymock.EasyMock.*;
 
 public class UserFacadeImplMycilaEasyMockTest {
-  
-  private UserFacadeImpl facade;
-  
-  @Mock
-  private UserDao dao;
-  
-  @Before
-  public void setFixtures() {
-    facade = new UserFacadeImpl();
-    TestSetup.setup(this);
-    facade.setUserDao(dao);
-  }
 
-  @Test
-  public void testGetUserById() {
-    int id = 666;
-    User user = newUserWithTelephones();
-    expect(dao.getUserById(id)).andReturn(user);
-    replay(dao);
-    UserDto dto = facade.getUserById(id);
-    assertUser(dto);
-    verify(dao);
-  }
+    private UserFacadeImpl facade;
+
+    @Mock
+    private UserDao dao;
+
+    @Before
+    public void setFixtures() {
+        facade = new UserFacadeImpl();
+        TestSetup.setup(this);
+        facade.setUserDao(dao);
+    }
+
+    @Test
+    public void testGetUserById() {
+        int id = 666;
+        User user = newUserWithTelephones();
+        expect(dao.getUserById(id)).andReturn(user);
+        replay(dao);
+        UserDto dto = facade.getUserById(id);
+        assertUser(dto);
+        verify(dao);
+    }
 
 }

@@ -1,13 +1,9 @@
 package com.manning.junitbook.ch13;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.googlecode.jslint4java.Issue;
+import com.googlecode.jslint4java.JSLint;
+import com.googlecode.jslint4java.JSLintBuilder;
 import junit.framework.Assert;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.io.IOUtils;
@@ -15,9 +11,10 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.googlecode.jslint4java.Issue;
-import com.googlecode.jslint4java.JSLint;
-import com.googlecode.jslint4java.JSLintBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 public class TestJsonService {
 

@@ -21,58 +21,58 @@
 package com.manning.junitbook.ch17.dbunit;
 
 import org.dbunit.Assertion;
-import static org.junit.Assert.*;
-
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.SortedDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNull;
+
 public class NULLTest extends AbstractDbUnitTestCase {
 
-  @Ignore("this is exactly the situation where the problem arises")
-  @Test
-  public void testNULLIssue() throws Exception {
-    IDataSet okDataSet = getDataSet("/user-ok.xml");
-    DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, okDataSet);
-    User user = dao.getUserById(2);
-    assertNull(user.getFirstName());
-    assertNull(user.getLastName());
-    IDataSet actualDataSet = dbunitConnection.createDataSet();
-    Assertion.assertEquals(okDataSet, actualDataSet);
-    IDataSet revertedDataSet = getDataSet("/user-reverted.xml");
+    @Ignore("this is exactly the situation where the problem arises")
+    @Test
+    public void testNULLIssue() throws Exception {
+        IDataSet okDataSet = getDataSet("/user-ok.xml");
+        DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, okDataSet);
+        User user = dao.getUserById(2);
+        assertNull(user.getFirstName());
+        assertNull(user.getLastName());
+        IDataSet actualDataSet = dbunitConnection.createDataSet();
+        Assertion.assertEquals(okDataSet, actualDataSet);
+        IDataSet revertedDataSet = getDataSet("/user-reverted.xml");
 //    IDataSet revertedDataSet = getDataSet("/user-DTD.xml");
-    IDataSet sortedDataSet = new SortedDataSet(revertedDataSet);
-    Assertion.assertEquals(sortedDataSet, actualDataSet);
-  }
-  
-  @Test
-  public void testNULLReplacementDataset() throws Exception {
-    IDataSet okDataSet = getDataSet("/user-ok.xml");
-    DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, okDataSet);
-    User user = dao.getUserById(2);
-    assertNull(user.getFirstName());
-    assertNull(user.getLastName());
-    IDataSet actualDataSet = dbunitConnection.createDataSet();
-    Assertion.assertEquals( okDataSet, actualDataSet );
-    IDataSet revertedDataSet = getReplacedDataSet("/user-replacement.xml", -1);
-    IDataSet sortedDataSet = new SortedDataSet(revertedDataSet);
-    Assertion.assertEquals(sortedDataSet, actualDataSet);
-  }
-  
-  @Test
-  public void testNULLDTD() throws Exception {
-    IDataSet okDataSet = getDataSet("/user-ok.xml");
-    DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, okDataSet);
-    User user = dao.getUserById(2);
-    assertNull(user.getFirstName());
-    assertNull(user.getLastName());
-    IDataSet actualDataSet = dbunitConnection.createDataSet();
-    Assertion.assertEquals( okDataSet, actualDataSet );
-    IDataSet revertedDataSet = getDataSet("/user-DTD.xml");
-    IDataSet sortedDataSet = new SortedDataSet(revertedDataSet);
-    Assertion.assertEquals(sortedDataSet, actualDataSet);
-  }
-  
+        IDataSet sortedDataSet = new SortedDataSet(revertedDataSet);
+        Assertion.assertEquals(sortedDataSet, actualDataSet);
+    }
+
+    @Test
+    public void testNULLReplacementDataset() throws Exception {
+        IDataSet okDataSet = getDataSet("/user-ok.xml");
+        DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, okDataSet);
+        User user = dao.getUserById(2);
+        assertNull(user.getFirstName());
+        assertNull(user.getLastName());
+        IDataSet actualDataSet = dbunitConnection.createDataSet();
+        Assertion.assertEquals(okDataSet, actualDataSet);
+        IDataSet revertedDataSet = getReplacedDataSet("/user-replacement.xml", -1);
+        IDataSet sortedDataSet = new SortedDataSet(revertedDataSet);
+        Assertion.assertEquals(sortedDataSet, actualDataSet);
+    }
+
+    @Test
+    public void testNULLDTD() throws Exception {
+        IDataSet okDataSet = getDataSet("/user-ok.xml");
+        DatabaseOperation.CLEAN_INSERT.execute(dbunitConnection, okDataSet);
+        User user = dao.getUserById(2);
+        assertNull(user.getFirstName());
+        assertNull(user.getLastName());
+        IDataSet actualDataSet = dbunitConnection.createDataSet();
+        Assertion.assertEquals(okDataSet, actualDataSet);
+        IDataSet revertedDataSet = getDataSet("/user-DTD.xml");
+        IDataSet sortedDataSet = new SortedDataSet(revertedDataSet);
+        Assertion.assertEquals(sortedDataSet, actualDataSet);
+    }
+
 }

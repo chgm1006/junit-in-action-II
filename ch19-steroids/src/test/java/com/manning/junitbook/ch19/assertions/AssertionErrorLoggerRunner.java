@@ -28,39 +28,41 @@ import org.junit.runners.model.Statement;
 
 /**
  * Customer TestRunner that logs expected {@link AssertionError} exceptions.
- * 
+ * <p>
  * Useful to demonstrate the different messages produced by different assertion utilities.
- * 
- * @author felipeal
  *
+ * @author felipeal
  */
 public class AssertionErrorLoggerRunner extends BlockJUnit4ClassRunner {
 
-  public AssertionErrorLoggerRunner(Class<?> klass) throws InitializationError {
-    super(klass);
-  }
-  @Override
-  protected Statement methodInvoker(FrameworkMethod method, Object test) {
-    return new ExceptionCatcherInvoker(super.methodInvoker(method, test),
-        method.getName());
-  }
-  
-  static class ExceptionCatcherInvoker extends Statement {
-    private final Statement invoker;
-    private final String methodName;
-    public ExceptionCatcherInvoker(Statement invoker, String methodName) {
-      this.invoker = invoker;
-      this.methodName = methodName;
+    static class ExceptionCatcherInvoker extends Statement {
+        private final Statement invoker;
+        private final String methodName;
+
+        public ExceptionCatcherInvoker(Statement invoker, String methodName) {
+            this.invoker = invoker;
+            this.methodName = methodName;
+        }
+
+        @Override
+        public void evaluate() throws Throwable {
+            try {
+                invoker.evaluate();
+                throw new RuntimeException(methodName + " should have failed");
+            } catch (AssertionError e) {
+                System.out.println(methodName + ": " + e);
+            }
+        }
     }
+
+    public AssertionErrorLoggerRunner(Class<?> klass) throws InitializationError {
+        super(klass);
+    }
+
     @Override
-    public void evaluate() throws Throwable {
-      try {
-        invoker.evaluate();
-        throw new RuntimeException(methodName + " should have failed");
-      } catch (AssertionError e) {
-        System.out.println(methodName + ": " + e);
-      }
+    protected Statement methodInvoker(FrameworkMethod method, Object test) {
+        return new ExceptionCatcherInvoker(super.methodInvoker(method, test),
+                method.getName());
     }
-  }
 
 }

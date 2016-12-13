@@ -20,8 +20,9 @@
  */
 package com.manning.junitbook.ch16.client.mock;
 
-import static org.junit.Assert.assertEquals;
-
+import com.manning.junitbook.ch16.client.ClientBundleActivator;
+import com.manning.junitbook.ch16.service.CalculatorImpl;
+import com.manning.junitbook.ch16.service.CalculatorService;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -30,17 +31,14 @@ import org.junit.Test;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-import com.manning.junitbook.ch16.client.ClientBundleActivator;
-import com.manning.junitbook.ch16.service.CalculatorImpl;
-import com.manning.junitbook.ch16.service.CalculatorService;
+import static org.junit.Assert.assertEquals;
 
 /**
  * A test-case to test the Calculator service using the JMock framework.
- * 
+ *
  * @version $Id: TestClientCalculatorServiceMock.java 537 2009-08-17 09:06:49Z paranoid12 $
  */
-public class TestClientCalculatorServiceMock
-{
+public class TestClientCalculatorServiceMock {
 
     /**
      * The mockery context that we use to create our mocks.
@@ -58,46 +56,42 @@ public class TestClientCalculatorServiceMock
     private ServiceReference mockServiceReference;
 
     @Before
-    public void setUp()
-    {
-        mockBundleContext = context.mock( BundleContext.class );
-        mockServiceReference = context.mock( ServiceReference.class );
+    public void setUp() {
+        mockBundleContext = context.mock(BundleContext.class);
+        mockServiceReference = context.mock(ServiceReference.class);
         final CalculatorImpl service = new CalculatorImpl();
 
-        context.checking( new Expectations()
-        {
+        context.checking(new Expectations() {
             {
-                oneOf( mockBundleContext ).getServiceReference( CalculatorService.class.getName() );
-                will( returnValue( mockServiceReference ) );
+                oneOf(mockBundleContext).getServiceReference(CalculatorService.class.getName());
+                will(returnValue(mockServiceReference));
 
-                oneOf( mockBundleContext ).getService( mockServiceReference );
-                will( returnValue( service ) );
+                oneOf(mockBundleContext).getService(mockServiceReference);
+                will(returnValue(service));
 
-                oneOf( mockBundleContext ).ungetService( mockServiceReference );
+                oneOf(mockBundleContext).ungetService(mockServiceReference);
             }
-        } );
+        });
     }
 
     @Test
     public void testAddMethod()
-        throws Exception
-    {
+            throws Exception {
         ClientBundleActivator activator = new ClientBundleActivator();
-        activator.setOperation( "add" );
-        activator.setUserNumberInput( "1 2 3 4 5 6 7 8 9" );
-        activator.start( mockBundleContext );
-        assertEquals( "The result is not the same as expected", activator.getResult(), 45, 0 );
+        activator.setOperation("add");
+        activator.setUserNumberInput("1 2 3 4 5 6 7 8 9");
+        activator.start(mockBundleContext);
+        assertEquals("The result is not the same as expected", activator.getResult(), 45, 0);
     }
 
     @Test
     public void testMultiplyMethod()
-        throws Exception
-    {
+            throws Exception {
         ClientBundleActivator activator = new ClientBundleActivator();
 
-        activator.setOperation( "multiply" );
-        activator.setUserNumberInput( "1 2 3 4 5 6 7 8 9" );
-        activator.start( mockBundleContext );
-        assertEquals( "The result is not the same as expected", activator.getResult(), 362880, 0 );
+        activator.setOperation("multiply");
+        activator.setUserNumberInput("1 2 3 4 5 6 7 8 9");
+        activator.start(mockBundleContext);
+        assertEquals("The result is not the same as expected", activator.getResult(), 362880, 0);
     }
 }

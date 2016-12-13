@@ -17,25 +17,19 @@
 
 package com.manning.junitbook.ch12.htmlunit;
 
+import com.gargoylesoftware.htmlunit.*;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.gargoylesoftware.htmlunit.CollectingAlertHandler;
-import com.gargoylesoftware.htmlunit.ConfirmHandler;
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.MockWebConnection;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 /**
  * Demonstrates testing a confirmation handler.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: WindowConfirmTest.java 410 2009-05-20 21:37:55Z garydgregory $
  */
@@ -60,7 +54,7 @@ public class WindowConfirmTest extends ManagedWebClient {
         // go
         HtmlPage firstPage = webClient.getPage(testUrl);
         Assert.assertEquals("Hello", firstPage.getTitleText());
-        Assert.assertArrayEquals(new String[] { "Confirm Message" }, confirmMessages.toArray());
+        Assert.assertArrayEquals(new String[]{"Confirm Message"}, confirmMessages.toArray());
     }
 
     @Test
@@ -84,8 +78,8 @@ public class WindowConfirmTest extends ManagedWebClient {
         // go
         HtmlPage firstPage = webClient.getPage(testUrl);
         Assert.assertEquals("Hello", firstPage.getTitleText());
-        Assert.assertArrayEquals(new String[] { "Confirm Message" }, confirmMessages.toArray());
-        Assert.assertArrayEquals(new String[] { "true" }, ((CollectingAlertHandler) webClient.getAlertHandler()).getCollectedAlerts()
+        Assert.assertArrayEquals(new String[]{"Confirm Message"}, confirmMessages.toArray());
+        Assert.assertArrayEquals(new String[]{"true"}, ((CollectingAlertHandler) webClient.getAlertHandler()).getCollectedAlerts()
                 .toArray());
     }
 

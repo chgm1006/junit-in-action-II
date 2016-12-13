@@ -27,6 +27,6 @@ import java.io.IOException;
  */
 public class HelloWorldSimpleTag extends SimpleTagSupport {
     public void doTag() throws JspException, IOException {
-	getJspContext().getOut().write( "Hello, world!" );
+        getJspContext().getOut().write("Hello, world!");
     }
 }

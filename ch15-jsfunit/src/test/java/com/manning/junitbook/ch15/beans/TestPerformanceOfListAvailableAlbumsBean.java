@@ -20,35 +20,32 @@
  */
 package com.manning.junitbook.ch15.beans;
 
-import java.io.IOException;
-
-import javax.faces.event.PhaseId;
-
 import org.apache.cactus.ServletTestCase;
 import org.jboss.jsfunit.framework.JSFTimer;
 import org.jboss.jsfunit.jsfsession.JSFServerSession;
 import org.jboss.jsfunit.jsfsession.JSFSession;
 import org.xml.sax.SAXException;
 
+import javax.faces.event.PhaseId;
+import java.io.IOException;
+
 /**
  * Test the performance of the JSF application by using JSFUnit.
- * 
+ *
  * @version $Id: TestPerformanceOfListAvailableAlbumsBean.java 530 2009-08-16 19:01:19Z paranoid12 $
  */
 public class TestPerformanceOfListAvailableAlbumsBean
-    extends ServletTestCase
-{
+        extends ServletTestCase {
     public void testJSFPerformance()
-        throws SAXException, IOException
-    {
-        JSFSession jsfSession = new JSFSession( "/" );
+            throws SAXException, IOException {
+        JSFSession jsfSession = new JSFSession("/");
         JSFServerSession server = jsfSession.getJSFServerSession();
 
-        assertEquals( "/list_albums.jsp", server.getCurrentViewID() );
+        assertEquals("/list_albums.jsp", server.getCurrentViewID());
         JSFTimer timer = JSFTimer.getTimer();
-        assertTrue( "Total time of getting a response should not take more than 100 ms. ", timer.getTotalTime() < 100 );
+        assertTrue("Total time of getting a response should not take more than 100 ms. ", timer.getTotalTime() < 100);
 
         PhaseId appPhase = PhaseId.INVOKE_APPLICATION;
-        assertTrue( "Invoking of the application should not take more than 100 ms.", timer.getPhaseTime( appPhase ) < 100 );
+        assertTrue("Invoking of the application should not take more than 100 ms.", timer.getPhaseTime(appPhase) < 100);
     }
 }

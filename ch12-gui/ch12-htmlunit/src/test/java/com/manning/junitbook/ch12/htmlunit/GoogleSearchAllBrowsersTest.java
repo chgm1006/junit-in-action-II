@@ -17,42 +17,30 @@
 
 package com.manning.junitbook.ch12.htmlunit;
 
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Collection;
-
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.gargoylesoftware.htmlunit.WebAssert;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.*;
 import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.WebAssert;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Tests the Google search page with all browsers supported by HtmlUnit 2.5.
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id: GoogleSearchAllBrowsersTest.java 392 2009-04-28 23:38:33Z
  *          garydgregory $
  */
 @RunWith(value = Parameterized.class)
 public class GoogleSearchAllBrowsersTest {
-
-    @Parameters
-    public static Collection<BrowserVersion[]> getBrowserVersions() {
-        return Arrays.asList(new BrowserVersion[][] { { BrowserVersion.FIREFOX_2 }, { BrowserVersion.FIREFOX_3 },
-                { BrowserVersion.INTERNET_EXPLORER_6 }, { BrowserVersion.INTERNET_EXPLORER_7 } });
-    }
 
     private BrowserVersion browserVersion;
 
@@ -113,6 +101,12 @@ public class GoogleSearchAllBrowsersTest {
         webClient.setThrowExceptionOnScriptError(false);
         webClient.getPage("http://unknown_page");
         Assert.fail("Expected the previous line throws a ElementNotFoundException");
+    }
+
+    @Parameters
+    public static Collection<BrowserVersion[]> getBrowserVersions() {
+        return Arrays.asList(new BrowserVersion[][]{{BrowserVersion.FIREFOX_2}, {BrowserVersion.FIREFOX_3},
+                {BrowserVersion.INTERNET_EXPLORER_6}, {BrowserVersion.INTERNET_EXPLORER_7}});
     }
 
 }

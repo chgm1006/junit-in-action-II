@@ -18,22 +18,22 @@
  * 
  * ========================================================================
  */
-import static org.junit.Assert.*;
+
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Test-case for the calculator program.
- * 
+ *
  * @version $Id$
  */
-public class CalculatorTest
-{
+public class CalculatorTest {
 
     @Test
-    public void add()
-    {
+    public void add() {
         Calculator calculator = new Calculator();
-        double result = calculator.add( 10, 50 );
-        assertEquals( 60, result, 0 );
+        double result = calculator.add(10, 50);
+        assertEquals(60, result, 0);
     }
 }

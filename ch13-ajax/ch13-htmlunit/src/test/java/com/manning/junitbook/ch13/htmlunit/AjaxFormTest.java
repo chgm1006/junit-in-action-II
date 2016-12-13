@@ -17,16 +17,15 @@
 
 package com.manning.junitbook.ch13.htmlunit;
 
-import java.io.IOException;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.manning.junitbook.ch12.htmlunit.ManagedWebClient;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * Tests a form.
@@ -35,7 +34,7 @@ import com.manning.junitbook.ch12.htmlunit.ManagedWebClient;
  * wizard to grant default rights, and point your browser and tests to
  * http://localhost/webapp/formtest.html
  * </p>
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id$
  */

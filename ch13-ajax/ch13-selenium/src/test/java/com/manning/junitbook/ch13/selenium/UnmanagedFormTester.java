@@ -17,15 +17,14 @@
 
 package com.manning.junitbook.ch13.selenium;
 
-import java.io.IOException;
-
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.Selenium;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.Selenium;
+import java.io.IOException;
 
 /**
  * Tests a form. The Selenium server must be managed elsewhere.
@@ -37,7 +36,7 @@ import com.thoughtworks.selenium.Selenium;
  * To test the form in IE, create a virtual directory in IIS and point your
  * browser and tests to http://localhost/webapp/formtest.html
  * </p>
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id$
  */
@@ -55,20 +54,6 @@ public class UnmanagedFormTester {
     private static final String TEST_PAGE = "formtest.html";
 
     private static Selenium selenium;
-
-    @BeforeClass
-    public static void setUpOnce() throws Exception {
-        selenium = new DefaultSelenium("localhost", 4444, "*iexplore", TEST_URL);
-        selenium.start();
-    }
-
-    @AfterClass
-    public static void tearDownOnce() throws Exception {
-        if (selenium != null) {
-            selenium.stop();
-        }
-        selenium = null;
-    }
 
     @Test
     public void testFormBad() throws IOException {
@@ -94,6 +79,20 @@ public class UnmanagedFormTester {
         selenium.open(TEST_PAGE);
         selenium.click("name=getMsgBtn");
         selenium.waitForCondition(APP_WINDOW + ".document.helloForm.serverMessage.value=='" + EXPECTED_MSG + "'", "1000");
+    }
+
+    @BeforeClass
+    public static void setUpOnce() throws Exception {
+        selenium = new DefaultSelenium("localhost", 4444, "*iexplore", TEST_URL);
+        selenium.start();
+    }
+
+    @AfterClass
+    public static void tearDownOnce() throws Exception {
+        if (selenium != null) {
+            selenium.stop();
+        }
+        selenium = null;
     }
 
 }

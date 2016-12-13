@@ -25,40 +25,42 @@ import junitx.util.PrivateAccessor;
 
 public class TestingHelperJUnitAddons {
 
-  private TestingHelperJUnitAddons() {
-    throw new UnsupportedOperationException("this class only provides static methods");
-  }
-  
-  /**
-   * Sets an object's field, using reflection.
-   * @param object object to set the field 
-   * @param fieldName name of the field
-   * @param newValue new value of the field
-   */
-  public static void set( Object object, String fieldName, Object newValue ) {
-    try {
-      PrivateAccessor.setField(object, fieldName, newValue);
-    } catch (NoSuchFieldException e) {
-      throw new RuntimeException( "Could not set value of field '" + fieldName + "' on object "  + object + " to " + newValue, e );
+    private TestingHelperJUnitAddons() {
+        throw new UnsupportedOperationException("this class only provides static methods");
     }
-  }
 
-  /**
-   * Gets the value of object's field, using reflection.
-   * @param <T> type returned 
-   * @param object object to get the field from
-   * @param fieldName name of the field
-   * @return value of the field
-   */
-  public static <T> T get(Object object, String fieldName) {
-    try {
-      Object value = PrivateAccessor.getField(object, fieldName);
-      @SuppressWarnings("unchecked")
-      T castValue = (T) value;
-      return castValue;
-    } catch (Exception e) {
-      throw new RuntimeException( "Could not get value of field '" + fieldName + "' from object "  + object, e );
+    /**
+     * Sets an object's field, using reflection.
+     *
+     * @param object    object to set the field
+     * @param fieldName name of the field
+     * @param newValue  new value of the field
+     */
+    public static void set(Object object, String fieldName, Object newValue) {
+        try {
+            PrivateAccessor.setField(object, fieldName, newValue);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException("Could not set value of field '" + fieldName + "' on object " + object + " to " + newValue, e);
+        }
     }
-  }
+
+    /**
+     * Gets the value of object's field, using reflection.
+     *
+     * @param <T>       type returned
+     * @param object    object to get the field from
+     * @param fieldName name of the field
+     * @return value of the field
+     */
+    public static <T> T get(Object object, String fieldName) {
+        try {
+            Object value = PrivateAccessor.getField(object, fieldName);
+            @SuppressWarnings("unchecked")
+            T castValue = (T) value;
+            return castValue;
+        } catch (Exception e) {
+            throw new RuntimeException("Could not get value of field '" + fieldName + "' from object " + object, e);
+        }
+    }
 
 }

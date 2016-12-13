@@ -20,50 +20,50 @@
  */
 package com.manning.junitbook.ch19.business;
 
-import static com.manning.junitbook.ch19.model.EntitiesHelper.*;
-import static junit.framework.Assert.*;
-import static org.easymock.EasyMock.*;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.manning.junitbook.ch19.dao.UserDao;
 import com.manning.junitbook.ch19.model.User;
 import com.manning.junitbook.ch19.model.UserDto;
+import org.junit.Before;
+import org.junit.Test;
+
+import static com.manning.junitbook.ch19.model.EntitiesHelper.assertUser;
+import static com.manning.junitbook.ch19.model.EntitiesHelper.newUserWithTelephones;
+import static junit.framework.Assert.assertNull;
+import static org.easymock.EasyMock.*;
 
 public abstract class AbstractUserFacadeEncapsulatedImplTestCase {
-  
-  protected UserFacadeEncapsulatedImpl facade;
-  protected UserDao dao;
 
-  @Before
-  public void setFixtures() throws Exception {
-    facade = new UserFacadeEncapsulatedImpl();
-    dao = createMock(UserDao.class);
-    injectDaoIntoFacade();
-  }
-  
-  protected abstract void injectDaoIntoFacade() throws Exception;
+    protected UserFacadeEncapsulatedImpl facade;
+    protected UserDao dao;
 
-  @Test
-  public void testGetUserByIdUnkownId() {
-    int id = 666;
-    expect(dao.getUserById(id)).andReturn(null);
-    replay(dao);
-    UserDto dto = facade.getUserById(id);
-    assertNull(dto);
+    @Before
+    public void setFixtures() throws Exception {
+        facade = new UserFacadeEncapsulatedImpl();
+        dao = createMock(UserDao.class);
+        injectDaoIntoFacade();
+    }
+
+    protected abstract void injectDaoIntoFacade() throws Exception;
+
+    @Test
+    public void testGetUserByIdUnkownId() {
+        int id = 666;
+        expect(dao.getUserById(id)).andReturn(null);
+        replay(dao);
+        UserDto dto = facade.getUserById(id);
+        assertNull(dto);
 //    verify(dao);   // not necessary
-  }
+    }
 
-  @Test
-  public void testGetUserById() {
-    int id = 666;
-    User user = newUserWithTelephones();
-    expect(dao.getUserById(id)).andReturn(user);
-    replay(dao);
-    UserDto dto = facade.getUserById(id);
-    assertUser(dto);
+    @Test
+    public void testGetUserById() {
+        int id = 666;
+        User user = newUserWithTelephones();
+        expect(dao.getUserById(id)).andReturn(user);
+        replay(dao);
+        UserDto dto = facade.getUserById(id);
+        assertUser(dto);
 //    verify(dao);   // not necessary
-  }
-  
+    }
+
 }

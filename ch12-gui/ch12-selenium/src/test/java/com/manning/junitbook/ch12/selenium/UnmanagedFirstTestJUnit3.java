@@ -25,7 +25,7 @@ import com.thoughtworks.selenium.SeleneseTestCase;
  * <p>
  * Maven will pick up this test so it must be excluded in pom.xml.
  * </p>
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id$
  */

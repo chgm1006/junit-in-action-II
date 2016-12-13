@@ -20,8 +20,6 @@
  */
 package com.manning.junitbook.ch17.dbunit;
 
-import java.io.FileOutputStream;
-
 import org.dbunit.database.DatabaseSequenceFilter;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
@@ -29,28 +27,30 @@ import org.dbunit.dataset.filter.ITableFilter;
 import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 
+import java.io.FileOutputStream;
+
 public class DatasetExporter extends AbstractDbUnitTestCase {
 
-  private void export( String file) throws Exception {  
-    IDataSet fullDataSet = dbunitConnection.createDataSet();
-    FlatXmlDataSet.write(fullDataSet, new FileOutputStream(file+".xml"));    
-    FlatDtdDataSet.write(fullDataSet, new FileOutputStream(file+".dtd"));
-  }
-  
-  private void exportFK( String file) throws Exception {  
-    IDataSet fullDataSet = dbunitConnection.createDataSet();
-    ITableFilter filter = new DatabaseSequenceFilter(dbunitConnection);
-    FilteredDataSet filteredDatSet = new FilteredDataSet( filter, fullDataSet );
-    FlatXmlDataSet.write(filteredDatSet, new FileOutputStream(file+".xml"));    
-    FlatDtdDataSet.write(filteredDatSet, new FileOutputStream(file+".dtd"));
-  }
-  
-  public static void main(String[] args) throws Exception {
-    DatasetExporter exporter = new DatasetExporter();
-    DatasetExporter.setupDatabase();
-    exporter.export("exported-full");
-    exporter.exportFK("exported-fk");
-    DatasetExporter.closeDatabase();
-  }
-  
+    private void export(String file) throws Exception {
+        IDataSet fullDataSet = dbunitConnection.createDataSet();
+        FlatXmlDataSet.write(fullDataSet, new FileOutputStream(file + ".xml"));
+        FlatDtdDataSet.write(fullDataSet, new FileOutputStream(file + ".dtd"));
+    }
+
+    private void exportFK(String file) throws Exception {
+        IDataSet fullDataSet = dbunitConnection.createDataSet();
+        ITableFilter filter = new DatabaseSequenceFilter(dbunitConnection);
+        FilteredDataSet filteredDatSet = new FilteredDataSet(filter, fullDataSet);
+        FlatXmlDataSet.write(filteredDatSet, new FileOutputStream(file + ".xml"));
+        FlatDtdDataSet.write(filteredDatSet, new FileOutputStream(file + ".dtd"));
+    }
+
+    public static void main(String[] args) throws Exception {
+        DatasetExporter exporter = new DatasetExporter();
+        DatasetExporter.setupDatabase();
+        exporter.export("exported-full");
+        exporter.exportFK("exported-fk");
+        DatasetExporter.closeDatabase();
+    }
+
 }

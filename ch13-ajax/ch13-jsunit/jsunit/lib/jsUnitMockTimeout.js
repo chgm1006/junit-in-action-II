@@ -12,7 +12,8 @@
  * @class
  * Clock stores callbacks and executes them when it is told to simulate the advancing of time
  */
-function Clock() { }
+function Clock() {
+}
 /**
  * The number of timeouts executed
  */
@@ -29,7 +30,7 @@ Clock.nowMillis = 0;
 /**
  * Resets the clock - clears the scheduledFunctions, the current milliseconds, and the timeouts made count
  */
-Clock.reset = function() {
+Clock.reset = function () {
     Clock.scheduledFunctions = {};
     Clock.nowMillis = 0;
     Clock.timeoutsMade = 0;
@@ -39,7 +40,7 @@ Clock.reset = function() {
  * Simulate the advancing of time.  Any functions scheduled in the given interval will be executed
  * @param millis the number of milliseconds by which to advance time
  */
-Clock.tick = function(millis) {
+Clock.tick = function (millis) {
     var oldMillis = Clock.nowMillis;
     var newMillis = oldMillis + millis;
     Clock._runFunctionsWithinRange(oldMillis, newMillis);
@@ -51,7 +52,7 @@ Clock.tick = function(millis) {
  * @param oldMillis
  * @param nowMillis
  */
-Clock._runFunctionsWithinRange = function(oldMillis, nowMillis) {
+Clock._runFunctionsWithinRange = function (oldMillis, nowMillis) {
     var scheduledFunc;
     var funcsToRun = [];
     for (var timeoutKey in Clock.scheduledFunctions) {
@@ -65,7 +66,7 @@ Clock._runFunctionsWithinRange = function(oldMillis, nowMillis) {
     }
 
     if (funcsToRun.length > 0) {
-        funcsToRun.sort(function(a, b) {
+        funcsToRun.sort(function (a, b) {
             return a.runAtMillis - b.runAtMillis;
         });
         for (var i = 0; i < funcsToRun.length; ++i) {
@@ -74,11 +75,11 @@ Clock._runFunctionsWithinRange = function(oldMillis, nowMillis) {
                 funcsToRun[i].funcToCall();
                 if (funcsToRun[i].recurring) {
                     Clock.scheduleFunction(funcsToRun[i].timeoutKey,
-                            funcsToRun[i].funcToCall,
-                            funcsToRun[i].millis,
-                            true);
+                        funcsToRun[i].funcToCall,
+                        funcsToRun[i].millis,
+                        true);
                 }
-            } catch(e) {
+            } catch (e) {
             }
         }
         Clock._runFunctionsWithinRange(oldMillis, nowMillis);
@@ -92,7 +93,7 @@ Clock._runFunctionsWithinRange = function(oldMillis, nowMillis) {
  * @param millis - the number of milliseconds before the callback
  * @param recurring - whether the callback recurs - if true, then the callback will be re-registered after it executes
  */
-Clock.scheduleFunction = function(timeoutKey, funcToCall, millis, recurring) {
+Clock.scheduleFunction = function (timeoutKey, funcToCall, millis, recurring) {
     Clock.scheduledFunctions[timeoutKey] = {
         runAtMillis: Clock.nowMillis + millis,
         funcToCall: funcToCall,

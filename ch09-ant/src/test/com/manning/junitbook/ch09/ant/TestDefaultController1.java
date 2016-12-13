@@ -23,21 +23,18 @@ package com.manning.junitbook.ch09.ant;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestDefaultController1
-{
+public class TestDefaultController1 {
     @SuppressWarnings("unused")
     private Controller controller;
 
     @Before
     public void setUp()
-        throws Exception
-    {
+            throws Exception {
         controller = new DefaultController();
     }
 
     @Test
-    public void testMethod()
-    {
-        throw new RuntimeException( "implement me" );
+    public void testMethod() {
+        throw new RuntimeException("implement me");
     }
 }

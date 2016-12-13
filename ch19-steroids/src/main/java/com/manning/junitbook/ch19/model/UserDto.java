@@ -25,49 +25,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class UserDto implements Serializable {
-  
-  private static final long serialVersionUID = 1L;
-  private long id;
-  private String username;
-  private String firstName;
-  private String lastName;
 
-  private final List<String> telephones = new ArrayList<String>();
-  
-  public long getId() {
-    return id;
-  }
+    private static final long serialVersionUID = 1L;
+    private final List<String> telephones = new ArrayList<String>();
+    private long id;
+    private String username;
+    private String firstName;
+    private String lastName;
 
-  public void setId(long id) {
-    this.id = id;
-  }
-  
-  public String getUsername() {
-    return username;
-  }
+    public long getId() {
+        return id;
+    }
 
-  public void setUsername(String login) {
-    this.username = login;
-  }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-  public String getFirstName() {
-    return firstName;
-  }
-  
-  public void setFirstName(String name) {
-    this.firstName = name;
-  }
+    public String getUsername() {
+        return username;
+    }
 
-  public String getLastName() {
-    return lastName;
-  }
+    public void setUsername(String login) {
+        this.username = login;
+    }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-  
-  public List<String> getTelephones() {
-    return telephones;
-  }
-  
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String name) {
+        this.firstName = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public List<String> getTelephones() {
+        return telephones;
+    }
+
 }

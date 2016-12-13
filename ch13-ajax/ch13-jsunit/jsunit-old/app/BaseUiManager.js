@@ -1,4 +1,4 @@
-JsUnit.BaseUiManager = function() {
+JsUnit.BaseUiManager = function () {
 }
 
 JsUnit.BaseUiManager.prototype.makeHTMLSafe = function (string) {

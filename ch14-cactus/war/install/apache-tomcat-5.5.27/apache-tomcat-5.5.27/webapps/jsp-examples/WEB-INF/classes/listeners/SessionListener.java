@@ -39,8 +39,8 @@ import javax.servlet.http.HttpSessionListener;
  */
 
 public final class SessionListener
-    implements ServletContextListener,
-	       HttpSessionAttributeListener, HttpSessionListener {
+        implements ServletContextListener,
+        HttpSessionAttributeListener, HttpSessionListener {
 
 
     // ----------------------------------------------------- Instance Variables
@@ -62,8 +62,8 @@ public final class SessionListener
      */
     public void attributeAdded(HttpSessionBindingEvent event) {
 
-	log("attributeAdded('" + event.getSession().getId() + "', '" +
-	    event.getName() + "', '" + event.getValue() + "')");
+        log("attributeAdded('" + event.getSession().getId() + "', '" +
+                event.getName() + "', '" + event.getValue() + "')");
 
     }
 
@@ -75,8 +75,8 @@ public final class SessionListener
      */
     public void attributeRemoved(HttpSessionBindingEvent event) {
 
-	log("attributeRemoved('" + event.getSession().getId() + "', '" +
-	    event.getName() + "', '" + event.getValue() + "')");
+        log("attributeRemoved('" + event.getSession().getId() + "', '" +
+                event.getName() + "', '" + event.getValue() + "')");
 
     }
 
@@ -88,8 +88,8 @@ public final class SessionListener
      */
     public void attributeReplaced(HttpSessionBindingEvent event) {
 
-	log("attributeReplaced('" + event.getSession().getId() + "', '" +
-	    event.getName() + "', '" + event.getValue() + "')");
+        log("attributeReplaced('" + event.getSession().getId() + "', '" +
+                event.getName() + "', '" + event.getValue() + "')");
 
     }
 
@@ -101,8 +101,8 @@ public final class SessionListener
      */
     public void contextDestroyed(ServletContextEvent event) {
 
-	log("contextDestroyed()");
-	this.context = null;
+        log("contextDestroyed()");
+        this.context = null;
 
     }
 
@@ -114,8 +114,8 @@ public final class SessionListener
      */
     public void contextInitialized(ServletContextEvent event) {
 
-	this.context = event.getServletContext();
-	log("contextInitialized()");
+        this.context = event.getServletContext();
+        log("contextInitialized()");
 
     }
 
@@ -127,7 +127,7 @@ public final class SessionListener
      */
     public void sessionCreated(HttpSessionEvent event) {
 
-	log("sessionCreated('" + event.getSession().getId() + "')");
+        log("sessionCreated('" + event.getSession().getId() + "')");
 
     }
 
@@ -139,7 +139,7 @@ public final class SessionListener
      */
     public void sessionDestroyed(HttpSessionEvent event) {
 
-	log("sessionDestroyed('" + event.getSession().getId() + "')");
+        log("sessionDestroyed('" + event.getSession().getId() + "')");
 
     }
 
@@ -154,10 +154,10 @@ public final class SessionListener
      */
     private void log(String message) {
 
-	if (context != null)
-	    context.log("SessionListener: " + message);
-	else
-	    System.out.println("SessionListener: " + message);
+        if (context != null)
+            context.log("SessionListener: " + message);
+        else
+            System.out.println("SessionListener: " + message);
 
     }
 
@@ -166,17 +166,17 @@ public final class SessionListener
      * Log a message and associated exception to the servlet context
      * application log.
      *
-     * @param message Message to be logged
+     * @param message   Message to be logged
      * @param throwable Exception to be logged
      */
     private void log(String message, Throwable throwable) {
 
-	if (context != null)
-	    context.log("SessionListener: " + message, throwable);
-	else {
-	    System.out.println("SessionListener: " + message);
-	    throwable.printStackTrace(System.out);
-	}
+        if (context != null)
+            context.log("SessionListener: " + message, throwable);
+        else {
+            System.out.println("SessionListener: " + message);
+            throwable.printStackTrace(System.out);
+        }
 
     }
 

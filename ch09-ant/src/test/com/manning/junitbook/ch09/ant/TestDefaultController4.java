@@ -20,67 +20,58 @@
  */
 package com.manning.junitbook.ch09.ant;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * A test-case for the defaultController4.
- * 
+ *
  * @version $Id$
  */
-public class TestDefaultController4
-{
-    private DefaultController controller;
-
-    @Before
-    public void setUp()
-        throws Exception
-    {
-        controller = new DefaultController();
-    }
-
+public class TestDefaultController4 {
     private class TestRequest
-        implements Request
-    {
-        public String getName()
-        {
+            implements Request {
+        public String getName() {
             return "Test";
         }
     }
 
     private class TestHandler
-        implements RequestHandler
-    {
-        public Response process( Request request )
-            throws Exception
-        {
+            implements RequestHandler {
+        public Response process(Request request)
+                throws Exception {
             return new TestResponse();
         }
     }
 
     private class TestResponse
-        implements Response
-    {
+            implements Response {
         // empty
+    }
+    private DefaultController controller;
+
+    @Before
+    public void setUp()
+            throws Exception {
+        controller = new DefaultController();
     }
 
     @Test
-    public void testAddAndProcess()
-    {
+    public void testAddAndProcess() {
         Request request = new TestRequest();
         RequestHandler handler = new TestHandler();
-        controller.addHandler( request, handler );
+        controller.addHandler(request, handler);
 
-        RequestHandler handler2 = controller.getHandler( request );
-        assertEquals( handler2, handler );
+        RequestHandler handler2 = controller.getHandler(request);
+        assertEquals(handler2, handler);
 
         // DO NOT COMBINE TEST METHODS THIS WAY
-        Response response = controller.processRequest( request );
-        assertNotNull( "Must not return a null response", response );
-        assertEquals( TestResponse.class, response.getClass() );
+        Response response = controller.processRequest(request);
+        assertNotNull("Must not return a null response", response);
+        assertEquals(TestResponse.class, response.getClass());
     }
 
 }

@@ -1,24 +1,24 @@
-JsUnit.TestGroup = function() {
+JsUnit.TestGroup = function () {
     this._testPages = [];
     this._index = 0;
 }
 
-JsUnit.TestGroup.prototype.addTestPage = function(testPageUrl) {
+JsUnit.TestGroup.prototype.addTestPage = function (testPageUrl) {
     var testPage = new JsUnit.TestPage(testPageUrl);
     JsUnit.Util.push(this._testPages, testPage);
     return testPage;
 }
 
-JsUnit.TestGroup.prototype.hasMorePages = function() {
+JsUnit.TestGroup.prototype.hasMorePages = function () {
     return this._index < this._testPages.length;
 }
 
-JsUnit.TestGroup.prototype.nextPage = function() {
+JsUnit.TestGroup.prototype.nextPage = function () {
     return this._testPages[this._index++];
 }
 
 
-JsUnit.TestPage = function(url) {
+JsUnit.TestPage = function (url) {
     this.url = url;
     this.tests = [];
 
@@ -34,23 +34,23 @@ JsUnit.TestPage = function(url) {
 JsUnit.TestPage.STATUS_CHANGE_EVENT = "statusChange";
 JsUnit.TestPage.READY_EVENT = "ready";
 
-JsUnit.TestPage.prototype.addTest = function(testName) {
+JsUnit.TestPage.prototype.addTest = function (testName) {
     var test = new JsUnit.Test(this, testName);
     JsUnit.Util.push(this.tests, test);
     return test;
 }
 
-JsUnit.TestPage.prototype.listen = function(callback) {
+JsUnit.TestPage.prototype.listen = function (callback) {
     JsUnit.Util.push(this._listeners, callback);
 }
 
-JsUnit.TestPage.prototype.notify = function(event) {
+JsUnit.TestPage.prototype.notify = function (event) {
     for (var i = 0; i < this._listeners.length; i++) {
         this._listeners[i].call(null, this, event);
     }
 }
 
-JsUnit.TestPage.prototype.getStatus = function(testName) {
+JsUnit.TestPage.prototype.getStatus = function (testName) {
     if (this.tests.length == 0) return 'noTestsYet';
     if (this.running) return 'running';
 
@@ -60,7 +60,7 @@ JsUnit.TestPage.prototype.getStatus = function(testName) {
     return 'ready';
 }
 
-JsUnit.Test = function(testPage, testName) {
+JsUnit.Test = function (testPage, testName) {
     this.testPage = testPage;
     this.testName = testName;
     this.traceMessages = [];
@@ -69,22 +69,22 @@ JsUnit.Test = function(testPage, testName) {
     this._listeners = [];
 }
 
-JsUnit.Test.prototype.addTraceMessage = function(traceMessage) {
+JsUnit.Test.prototype.addTraceMessage = function (traceMessage) {
     this.traceMessages.push(traceMessage);
 }
 
-JsUnit.Test.prototype.listen = function(callback) {
+JsUnit.Test.prototype.listen = function (callback) {
     JsUnit.Util.push(this._listeners, callback);
 }
 
-JsUnit.Test.prototype.notify = function(event) {
+JsUnit.Test.prototype.notify = function (event) {
     for (var i = 0; i < this._listeners.length; i++) {
         this._listeners[i].call(null, this, event);
     }
 }
 
 
-JsUnit.TraceMessage = function(message, value, traceLevel) {
+JsUnit.TraceMessage = function (message, value, traceLevel) {
     this.message = message;
     this.value = value;
     this.traceLevel = traceLevel;
@@ -106,16 +106,16 @@ function JsUnitTestManager(params) {
     }
 }
 
-JsUnitTestManager.prototype.getUiManager = function() {
+JsUnitTestManager.prototype.getUiManager = function () {
     return this._uiManager;
 }
 
-JsUnitTestManager.prototype.getUiFrameUrl = function() {
+JsUnitTestManager.prototype.getUiFrameUrl = function () {
     return this._uiManager.getUiFrameUrl();
 }
 
 // call after all frames have loaded
-JsUnitTestManager.prototype.onLoad = function() {
+JsUnitTestManager.prototype.onLoad = function () {
     var topLevelFrames = top.frames;
 
     this.container = topLevelFrames.testContainer;
@@ -174,7 +174,7 @@ JsUnitTestManager.prototype.maybeRun = function () {
     }
 }
 
-JsUnitTestManager.prototype.addTestSuite = function(testSuite) {
+JsUnitTestManager.prototype.addTestSuite = function (testSuite) {
     var testGroup = new JsUnit.TestGroup();
 
     while (testSuite.hasMorePages()) {
@@ -185,7 +185,7 @@ JsUnitTestManager.prototype.addTestSuite = function(testSuite) {
     JsUnit.Util.push(this._testGroupStack, testGroup);
 }
 
-JsUnitTestManager.prototype.kickOffTests = function() {
+JsUnitTestManager.prototype.kickOffTests = function () {
     if (JsUnit.Util.isBlank(this.getTestFileName())) {
         this.fatalError('No Test Page specified.');
         return;
@@ -227,20 +227,19 @@ JsUnitTestManager.prototype.getBaseURL = function () {
     return this._baseURL;
 }
 
-JsUnitTestManager.prototype.notifyUiOfTestPage = function(testPage) {
+JsUnitTestManager.prototype.notifyUiOfTestPage = function (testPage) {
     if (testPage.alreadyNotifiedUi) return;
 
     this._uiManager.learnedOfTestPage(testPage);
     testPage.alreadyNotifiedUi = true;
 }
 
-JsUnitTestManager.prototype.doneLoadingPage = function(testPage) {
+JsUnitTestManager.prototype.doneLoadingPage = function (testPage) {
     this.notifyUiOfTestPage(testPage);
     this._currentTestPage = testPage;
     if (this.isTestPageSuite())
         this._handleNewSuite();
-    else
-    {
+    else {
         this._testIndex = 0;
         var testNames = this.getTestFunctionNames();
         for (var i = 0; i < testNames.length; i++) {
@@ -255,7 +254,7 @@ JsUnitTestManager.prototype.doneLoadingPage = function(testPage) {
 JsUnitTestManager.prototype._handleNewSuite = function () {
     var allegedSuite = this.testFrame.suite();
     if (allegedSuite.isJsUnitTestSuite) {
- 		var newSuite = this._cloneTestSuite(allegedSuite);
+        var newSuite = this._cloneTestSuite(allegedSuite);
         if (newSuite.containsTestPages())
             this.addTestSuite(newSuite);
         this._nextPage();
@@ -267,12 +266,12 @@ JsUnitTestManager.prototype._handleNewSuite = function () {
 }
 
 /**
-* This function handles cloning of a jsUnitTestSuite object.  This was added to replace the clone method of the jsUnitTestSuite class due to an IE bug in cross frame scripting. (See also jsunit bug 1522271)
-**/
-JsUnitTestManager.prototype._cloneTestSuite = function(suite) {
-	var clone = new jsUnitTestSuite();
-	clone._testPages = suite._testPages.concat(new Array(0));
-	return clone;
+ * This function handles cloning of a jsUnitTestSuite object.  This was added to replace the clone method of the jsUnitTestSuite class due to an IE bug in cross frame scripting. (See also jsunit bug 1522271)
+ **/
+JsUnitTestManager.prototype._cloneTestSuite = function (suite) {
+    var clone = new jsUnitTestSuite();
+    clone._testPages = suite._testPages.concat(new Array(0));
+    return clone;
 }
 
 JsUnitTestManager.prototype._runTest = function () {
@@ -339,11 +338,11 @@ JsUnitTestManager.prototype._runTest = function () {
     setTimeout('if (top.testManager) top.testManager._runTest()', JsUnitTestManager.TIMEOUT_LENGTH);
 }
 
-JsUnitTestManager.prototype.setWindowStatus = function(string) {
+JsUnitTestManager.prototype.setWindowStatus = function (string) {
     top.status = string;
 }
 
-JsUnitTestManager.prototype._populateHeaderFields = function(id, browserId, userAgent, jsUnitVersion, baseURL) {
+JsUnitTestManager.prototype._populateHeaderFields = function (id, browserId, userAgent, jsUnitVersion, baseURL) {
     this.resultsForm.id.value = id;
     this.resultsForm.browserId.value = browserId;
     this.resultsForm.userAgent.value = userAgent;
@@ -352,7 +351,7 @@ JsUnitTestManager.prototype._populateHeaderFields = function(id, browserId, user
     this.resultsForm.cacheBuster.value = new Date().getTime();
 }
 
-JsUnitTestManager.prototype._submitResultsForm = function() {
+JsUnitTestManager.prototype._submitResultsForm = function () {
     var testCasesField = this.testCaseResultsField;
     for (var i = 0; i < testCasesField.length; i++) {
         testCasesField[i].selected = true;
@@ -362,7 +361,7 @@ JsUnitTestManager.prototype._submitResultsForm = function() {
     this.resultsForm.submit();
 }
 
-JsUnitTestManager.prototype.submitResults = function() {
+JsUnitTestManager.prototype.submitResults = function () {
     this._uiManager.submittingResults();
     this._populateHeaderFields(this._params.getResultId(), this._params.getBrowserId(), navigator.userAgent, JSUNIT_VERSION, this.resolveUserEnteredTestFileName());
     this._submitResultsForm();
@@ -373,7 +372,7 @@ JsUnitTestManager.prototype._done = function () {
     this.setStatus('Done (' + secondsSinceRunBegan + ' seconds)');
 
     // call the suite teardown function, if defined
-    if( typeof top.suiteTearDown === 'function' ) {
+    if (typeof top.suiteTearDown === 'function') {
         top.suiteTearDown();
     }
 
@@ -455,14 +454,13 @@ JsUnitTestManager.prototype.getsetUpPageTimeout = function () {
 
 JsUnitTestManager.prototype.isTestPageSuite = function () {
     var result = false;
-    if (typeof(this.testFrame.suite) == 'function')
-    {
+    if (typeof(this.testFrame.suite) == 'function') {
         result = true;
     }
     return result;
 }
 
-JsUnitTestManager.prototype.isTestFunction = function(propertyName, obj) {
+JsUnitTestManager.prototype.isTestFunction = function (propertyName, obj) {
     return propertyName.substring(0, 4) == 'test' && typeof(obj[propertyName]) == 'function';
 }
 
@@ -632,11 +630,11 @@ JsUnitTestManager.prototype.executeTestFunction = function (theTest) {
         serializedTestCaseString += this._uiManager.problemDetailMessageFor(exception);
     }
     this._addOption(this.testCaseResultsField,
-            serializedTestCaseString,
-            serializedTestCaseString);
+        serializedTestCaseString,
+        serializedTestCaseString);
 }
 
-JsUnitTestManager.prototype._currentTestFunctionNameWithTestPageName = function(useFullyQualifiedTestPageName) {
+JsUnitTestManager.prototype._currentTestFunctionNameWithTestPageName = function (useFullyQualifiedTestPageName) {
     var testURL = this.testFrame.location.href;
     var testQuery = testURL.indexOf("?");
     if (testQuery >= 0) {
@@ -649,9 +647,9 @@ JsUnitTestManager.prototype._currentTestFunctionNameWithTestPageName = function(
     return testURL + ':' + this._testFunctionName;
 }
 
-JsUnitTestManager.prototype._addOption = function(listField, problemValue, problemMessage) {
+JsUnitTestManager.prototype._addOption = function (listField, problemValue, problemMessage) {
     if (typeof(listField.ownerDocument) != 'undefined'
-            && typeof(listField.ownerDocument.createElement) != 'undefined') {
+        && typeof(listField.ownerDocument.createElement) != 'undefined') {
         // DOM Level 2 HTML method.
         // this is required for Opera 7 since appending to the end of the
         // options array does not work, and adding an Option created by new Option()
@@ -671,7 +669,7 @@ JsUnitTestManager.prototype._addOption = function(listField, problemValue, probl
             // DOM 2 HTML
             try {
                 listField.add(errOption, null);
-            } catch(err) {
+            } catch (err) {
                 listField.add(errOption); // IE 5.5
             }
 
@@ -721,11 +719,11 @@ JsUnitTestManager.prototype.setStatus = function (str) {
 
 JsUnitTestManager.prototype.updateProgressIndicators = function () {
     this._uiManager.updateProgressIndicators(
-            this.totalCount,
-            this.errorCount,
-            this.failureCount,
-            this.calculateProgressBarProportion()
-            );
+        this.totalCount,
+        this.errorCount,
+        this.failureCount,
+        this.calculateProgressBarProportion()
+    );
 }
 
 JsUnitTestManager.prototype.initialize = function () {
@@ -768,17 +766,17 @@ JsUnitTestManager.prototype.storeRestoredHTML = function () {
         this._restoredHTML = this.testFrame.document.getElementById(JsUnitTestManager.RESTORED_HTML_DIV_ID).innerHTML;
 }
 
-JsUnitTestManager.prototype.fatalError = function(aMessage) {
+JsUnitTestManager.prototype.fatalError = function (aMessage) {
     this._uiManager.fatalError(aMessage);
 }
 
-JsUnitTestManager.prototype.userConfirm = function(aMessage) {
+JsUnitTestManager.prototype.userConfirm = function (aMessage) {
     return this._uiManager.userConfirm(aMessage);
 }
 
 JsUnitTestManager.DEFAULT_SUBMIT_WEBSERVER = "localhost:8080";
 
-JsUnitTestManager.prototype._submitUrlFromSpecifiedUrl = function() {
+JsUnitTestManager.prototype._submitUrlFromSpecifiedUrl = function () {
     var result = "";
     var specifiedUrl = this._params.getSpecifiedResultUrl();
     if (specifiedUrl.indexOf("http://") != 0)
@@ -787,7 +785,7 @@ JsUnitTestManager.prototype._submitUrlFromSpecifiedUrl = function() {
     return result;
 }
 
-JsUnitTestManager.prototype._submitUrlFromTestRunnerLocation = function() {
+JsUnitTestManager.prototype._submitUrlFromTestRunnerLocation = function () {
     var result = "http://";
     var webserver = this.getWebserver();
     var runningOverFileProtocol = webserver == null;
@@ -798,7 +796,7 @@ JsUnitTestManager.prototype._submitUrlFromTestRunnerLocation = function() {
     return result;
 }
 
-JsUnitTestManager.prototype.getSubmitUrl = function() {
+JsUnitTestManager.prototype.getSubmitUrl = function () {
     if (this._params.wasResultUrlSpecified()) {
         return this._submitUrlFromSpecifiedUrl();
     } else {
@@ -806,11 +804,11 @@ JsUnitTestManager.prototype.getSubmitUrl = function() {
     }
 }
 
-JsUnitTestManager.prototype.isFileProtocol = function() {
+JsUnitTestManager.prototype.isFileProtocol = function () {
     return this.getTestFileProtocol() == 'file:///';
 }
 
-JsUnitTestManager.prototype.getTestPageString = function() {
+JsUnitTestManager.prototype.getTestPageString = function () {
     var testPageParameter = this._params.getTestPage();
     var isFileProtocol = this.isFileProtocol();
     var testPageString = "";
@@ -835,7 +833,7 @@ JsUnitTestManager.prototype.getTestPageString = function() {
 }
 
 
-JsUnitTestManager.prototype.getTestFileProtocol = function() {
+JsUnitTestManager.prototype.getTestFileProtocol = function () {
     var protocol = top.document.location.protocol;
 
     if (protocol == "file:")
@@ -853,31 +851,31 @@ JsUnitTestManager.prototype.getTestFileProtocol = function() {
     return null;
 }
 
-JsUnitTestManager.prototype.browserSupportsReadingFullPathFromFileField = function() {
+JsUnitTestManager.prototype.browserSupportsReadingFullPathFromFileField = function () {
     return false; //pretty much all modern browsers disallow this now
 }
 
-JsUnitTestManager.prototype.isOpera = function() {
+JsUnitTestManager.prototype.isOpera = function () {
     return navigator.userAgent.toLowerCase().indexOf("opera") != -1;
 }
 
-JsUnitTestManager.prototype.isIE7 = function() {
+JsUnitTestManager.prototype.isIE7 = function () {
     return navigator.userAgent.toLowerCase().indexOf("msie 7") != -1;
 }
 
-JsUnitTestManager.prototype.isFirefox3 = function() {
+JsUnitTestManager.prototype.isFirefox3 = function () {
     return navigator.userAgent.toLowerCase().indexOf("firefox/3") != -1;
 }
 
-JsUnitTestManager.prototype.isSafari4 = function() {
+JsUnitTestManager.prototype.isSafari4 = function () {
     return navigator.userAgent.toLowerCase().indexOf("4.0 safari") != -1;
 }
 
-JsUnitTestManager.prototype.isBeingRunOverHTTP = function() {
+JsUnitTestManager.prototype.isBeingRunOverHTTP = function () {
     return this.getTestFileProtocol() == "http://";
 }
 
-JsUnitTestManager.prototype.getWebserver = function() {
+JsUnitTestManager.prototype.getWebserver = function () {
     if (this.isBeingRunOverHTTP()) {
         var myUrl = location.href;
         var myUrlWithProtocolStripped = myUrl.substring(myUrl.indexOf("/") + 2);
@@ -886,7 +884,7 @@ JsUnitTestManager.prototype.getWebserver = function() {
     return null;
 }
 
-JsUnitTestManager.prototype.addTraceData = function(message, value, traceLevel) {
+JsUnitTestManager.prototype.addTraceData = function (message, value, traceLevel) {
     var traceMessage = new JsUnit.TraceMessage(message, value, traceLevel);
     this._currentTest.addTraceMessage(traceMessage);
 

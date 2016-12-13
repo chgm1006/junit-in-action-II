@@ -26,21 +26,19 @@ import org.mortbay.jetty.servlet.Context;
 
 /**
  * A class that demonstrates how to create a sample Jetty embedded server.
- * 
+ *
  * @version $Id$
  */
-public class JettySample
-{
-    public static void main( String[] args )
-        throws Exception
-    {
-        Server server = new Server( 8080 );
+public class JettySample {
+    public static void main(String[] args)
+            throws Exception {
+        Server server = new Server(8080);
 
-        Context root = new Context( server, "/" );
-        root.setResourceBase( "./pom.xml" );
-        root.setHandler( new ResourceHandler() );
+        Context root = new Context(server, "/");
+        root.setResourceBase("./pom.xml");
+        root.setHandler(new ResourceHandler());
 
-        server.setStopAtShutdown( true );
+        server.setStopAtShutdown(true);
         server.start();
     }
 }

@@ -21,61 +21,55 @@
 package com.manning.junitbook.appD.custom.test;
 
 import org.junit.Test;
-import static org.junit.Assert.assertThat;
 
-import static org.hamcrest.core.Is.is;
 import static com.manning.junitbook.appD.custom.matchers.IsStrongPassword.isStrongPassword;
 import static com.manning.junitbook.appD.custom.matchers.IsStrongPassword.strongPassword;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * A test-case for the custom hamcrest matcher we made.
- * 
+ *
  * @version $Id: TestIsPasswordStrongUsingMatcher.java 201 2009-02-15 19:18:09Z paranoid12 $
  */
-public class TestIsPasswordStrongUsingMatcher
-{
+public class TestIsPasswordStrongUsingMatcher {
     @Test
-    public void testIsPasswordStrongIsStrong()
-    {
+    public void testIsPasswordStrongIsStrong() {
         final String pass = "!abcde0";
 
-        assertThat( pass, isStrongPassword() );
-        assertThat( pass, is( strongPassword() ) );
+        assertThat(pass, isStrongPassword());
+        assertThat(pass, is(strongPassword()));
     }
 
-    @Test( expected = java.lang.AssertionError.class )
-    public void testIsPasswordStrongTooShort()
-    {
+    @Test(expected = java.lang.AssertionError.class)
+    public void testIsPasswordStrongTooShort() {
         final String shortPass = "abcde";
 
-        assertThat( shortPass, isStrongPassword() );
-        assertThat( shortPass, is( strongPassword() ) );
+        assertThat(shortPass, isStrongPassword());
+        assertThat(shortPass, is(strongPassword()));
     }
 
-    @Test( expected = java.lang.AssertionError.class )
-    public void testIsPasswordStrongContainsNoSpecialCharacter()
-    {
+    @Test(expected = java.lang.AssertionError.class)
+    public void testIsPasswordStrongContainsNoSpecialCharacter() {
         final String noSpecialCharacterPass = "abcdef0";
 
-        assertThat( noSpecialCharacterPass, isStrongPassword() );
-        assertThat( noSpecialCharacterPass, is( strongPassword() ) );
+        assertThat(noSpecialCharacterPass, isStrongPassword());
+        assertThat(noSpecialCharacterPass, is(strongPassword()));
     }
 
-    @Test( expected = java.lang.AssertionError.class )
-    public void testIsPasswordStrongContainsNoDigit()
-    {
+    @Test(expected = java.lang.AssertionError.class)
+    public void testIsPasswordStrongContainsNoDigit() {
         final String noDigitPass = "abcdef!";
 
-        assertThat( noDigitPass, isStrongPassword() );
-        assertThat( noDigitPass, is( strongPassword() ) );
+        assertThat(noDigitPass, isStrongPassword());
+        assertThat(noDigitPass, is(strongPassword()));
     }
-    
-    @Test( expected = java.lang.AssertionError.class )
-    public void testIsPasswordStrongIsNull()
-    {
+
+    @Test(expected = java.lang.AssertionError.class)
+    public void testIsPasswordStrongIsNull() {
         final String nullPass = null;
 
-        assertThat( nullPass, isStrongPassword() );
-        assertThat( nullPass, is( strongPassword() ) );
+        assertThat(nullPass, isStrongPassword());
+        assertThat(nullPass, is(strongPassword()));
     }
 }

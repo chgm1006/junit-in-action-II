@@ -25,29 +25,31 @@ import org.fest.reflect.core.Reflection;
 
 public class TestingHelperFESTReflect {
 
-  private TestingHelperFESTReflect() {
-    throw new UnsupportedOperationException("this class only provides static methods");
-  }
-  
-  /**
-   * Sets an object's field, using reflection.
-   * @param object object to set the field 
-   * @param fieldName name of the field
-   * @param newValue new value of the field
-   */
-  public static <T> void set( Object object, String fieldName, Class<T> fieldClass, T newValue ) {
-    Reflection.field(fieldName).ofType(fieldClass).in(object).set(newValue);
-  }
+    private TestingHelperFESTReflect() {
+        throw new UnsupportedOperationException("this class only provides static methods");
+    }
 
-  /**
-   * Gets the value of object's field, using reflection.
-   * @param <T> type returned 
-   * @param object object to get the field from
-   * @param fieldName name of the field
-   * @return value of the field
-   */
-  public static <T> T get(Object object, String fieldName, Class<T> fieldClass) {
-    return Reflection.field(fieldName).ofType(fieldClass).in(object).get();
-  }
+    /**
+     * Sets an object's field, using reflection.
+     *
+     * @param object    object to set the field
+     * @param fieldName name of the field
+     * @param newValue  new value of the field
+     */
+    public static <T> void set(Object object, String fieldName, Class<T> fieldClass, T newValue) {
+        Reflection.field(fieldName).ofType(fieldClass).in(object).set(newValue);
+    }
+
+    /**
+     * Gets the value of object's field, using reflection.
+     *
+     * @param <T>       type returned
+     * @param object    object to get the field from
+     * @param fieldName name of the field
+     * @return value of the field
+     */
+    public static <T> T get(Object object, String fieldName, Class<T> fieldClass) {
+        return Reflection.field(fieldName).ofType(fieldClass).in(object).get();
+    }
 
 }

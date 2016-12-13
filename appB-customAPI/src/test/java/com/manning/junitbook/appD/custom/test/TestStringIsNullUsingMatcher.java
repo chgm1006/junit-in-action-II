@@ -24,40 +24,35 @@ import org.junit.Test;
 
 import static com.manning.junitbook.appD.custom.matchers.IsNotNullOrEmpty.isNotNullOrEmpty;
 import static com.manning.junitbook.appD.custom.matchers.IsNotNullOrEmpty.notNullOrEmpty;
-import static org.junit.Assert.assertThat;
-
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * This test-case is used to demonstrate the hamcrest matcher that we tested.
- * 
+ *
  * @version $Id: TestStringIsNullUsingMatcher.java 201 2009-02-15 19:18:09Z paranoid12 $
  */
-public class TestStringIsNullUsingMatcher
-{
-    @Test(expected=java.lang.AssertionError.class)
-    public void testIsNotNullOrEmptyButIsNull()
-    {
+public class TestStringIsNullUsingMatcher {
+    @Test(expected = java.lang.AssertionError.class)
+    public void testIsNotNullOrEmptyButIsNull() {
         String str = null;
 
-        assertThat( str, isNotNullOrEmpty() );
-        assertThat( str, is( notNullOrEmpty() ) );
+        assertThat(str, isNotNullOrEmpty());
+        assertThat(str, is(notNullOrEmpty()));
     }
 
-    @Test(expected=java.lang.AssertionError.class)
-    public void testIsNotNullOrEmptyButIsEmpty()
-    {
+    @Test(expected = java.lang.AssertionError.class)
+    public void testIsNotNullOrEmptyButIsEmpty() {
         String str = "";
 
-        assertThat( str, isNotNullOrEmpty() );
-        assertThat( str, is( notNullOrEmpty() ) );
+        assertThat(str, isNotNullOrEmpty());
+        assertThat(str, is(notNullOrEmpty()));
     }
 
     @Test
-    public void testIsNotNullOrEmptyIsNotNull()
-    {
+    public void testIsNotNullOrEmptyIsNotNull() {
         String str = "test";
-        assertThat( str, isNotNullOrEmpty() );
-        assertThat( str, is( notNullOrEmpty() ) );
+        assertThat(str, isNotNullOrEmpty());
+        assertThat(str, is(notNullOrEmpty()));
     }
 }

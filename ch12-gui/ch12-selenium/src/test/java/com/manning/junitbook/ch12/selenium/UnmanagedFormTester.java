@@ -17,25 +17,23 @@
 
 package com.manning.junitbook.ch12.selenium;
 
-import java.io.IOException;
-
-import junit.framework.Assert;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.SeleneseTestCase;
 import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
+import junit.framework.Assert;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * Tests a form. The Selenium server must be managed elsewhere.
  * <p>
  * Maven will pick up this test so it must be excluded in pom.xml.
  * </p>
- * 
+ *
  * @author <a href="mailto:ggregory@apache.org">Gary Gregory</a>
  * @version $Id$
  */
@@ -47,20 +45,6 @@ public class UnmanagedFormTester {
     private static final String TEST_URL = new java.io.File("").toURI() + "src/main/webapp/formtest.html";
 
     private static Selenium selenium;
-
-    @BeforeClass
-    public static void setUpOnce() throws Exception {
-        selenium = new DefaultSelenium("localhost", 4444, "*iexplore", TEST_URL);
-        selenium.start();
-    }
-
-    @AfterClass
-    public static void tearDownOnce() throws Exception {
-        if (selenium != null) {
-            selenium.stop();
-        }
-        selenium = null;
-    }
 
     @Test
     public void testForm() throws IOException {
@@ -106,6 +90,20 @@ public class UnmanagedFormTester {
             SeleneseTestCase.assertEquals("ERROR: There were no alerts", e.getMessage());
         }
         SeleneseTestCase.assertEquals("Result", selenium.getTitle());
+    }
+
+    @BeforeClass
+    public static void setUpOnce() throws Exception {
+        selenium = new DefaultSelenium("localhost", 4444, "*iexplore", TEST_URL);
+        selenium.start();
+    }
+
+    @AfterClass
+    public static void tearDownOnce() throws Exception {
+        if (selenium != null) {
+            selenium.stop();
+        }
+        selenium = null;
     }
 
 }

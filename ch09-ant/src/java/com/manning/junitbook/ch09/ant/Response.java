@@ -22,9 +22,8 @@ package com.manning.junitbook.ch09.ant;
 
 /**
  * Response interface.
- * 
+ *
  * @version $Id$
  */
-public interface Response
-{
+public interface Response {
 }

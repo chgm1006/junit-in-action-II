@@ -20,112 +20,93 @@
  */
 package com.manning.junitbook.ch09.ant;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * A test-case for the defaultController7
- * 
+ *
  * @version $Id$
  */
-public class TestDefaultController7
-{
-    private Controller controller;
-
-    private Request request;
-
-    private RequestHandler handler;
-
-    @Before
-    public void setUp()
-        throws Exception
-    {
-        controller = new DefaultController();
-        request = new TestRequest();
-        handler = new TestHandler();
-        controller.addHandler( request, handler );
-    }
-
+public class TestDefaultController7 {
     private class TestRequest
-        implements Request
-    {
+            implements Request {
         private static final String DEFAULT_NAME = "Test";
 
         private String name;
 
-        public TestRequest( String name )
-        {
+        public TestRequest(String name) {
             this.name = name;
         }
 
-        public TestRequest()
-        {
-            this( DEFAULT_NAME );
+        public TestRequest() {
+            this(DEFAULT_NAME);
         }
 
-        public String getName()
-        {
+        public String getName() {
             return this.name;
         }
     }
 
     private class TestHandler
-        implements RequestHandler
-    {
-        public Response process( Request request )
-            throws Exception
-        {
+            implements RequestHandler {
+        public Response process(Request request)
+                throws Exception {
             return new TestResponse();
         }
     }
 
     private class TestResponse
-        implements Response
-    {
+            implements Response {
         private static final String NAME = "Test";
 
-        public String getName()
-        {
+        public String getName() {
             return NAME;
         }
 
-        public boolean equals( Object object )
-        {
+        public boolean equals(Object object) {
             boolean result = false;
-            if ( object instanceof TestResponse )
-            {
-                result = ( (TestResponse) object ).getName().equals( getName() );
+            if (object instanceof TestResponse) {
+                result = ((TestResponse) object).getName().equals(getName());
             }
             return result;
         }
 
-        public int hashCode()
-        {
+        public int hashCode() {
             return NAME.hashCode();
         }
     }
 
     private class TestExceptionHandler
-        implements RequestHandler
-    {
-        public Response process( Request request )
-            throws Exception
-        {
-            throw new Exception( "error processing request" );
+            implements RequestHandler {
+        public Response process(Request request)
+                throws Exception {
+            throw new Exception("error processing request");
         }
+    }
+    private Controller controller;
+    private Request request;
+    private RequestHandler handler;
+
+    @Before
+    public void setUp()
+            throws Exception {
+        controller = new DefaultController();
+        request = new TestRequest();
+        handler = new TestHandler();
+        controller.addHandler(request, handler);
     }
 
     @Test
-    public void testProcessRequestAnswersErrorResponse()
-    {
-        TestRequest request = new TestRequest( "testError" );
+    public void testProcessRequestAnswersErrorResponse() {
+        TestRequest request = new TestRequest("testError");
         TestExceptionHandler handler = new TestExceptionHandler();
-        controller.addHandler( request, handler );
-        Response response = controller.processRequest( request );
-        assertNotNull( "Must not return a null response", response );
-        assertEquals( ErrorResponse.class, response.getClass() );
+        controller.addHandler(request, handler);
+        Response response = controller.processRequest(request);
+        assertNotNull("Must not return a null response", response);
+        assertEquals(ErrorResponse.class, response.getClass());
     }
 }

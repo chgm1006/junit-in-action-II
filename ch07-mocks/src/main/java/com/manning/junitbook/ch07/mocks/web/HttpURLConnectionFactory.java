@@ -26,12 +26,11 @@ import java.net.URL;
 
 /**
  * HTTP implementation of the connection factory.
- * 
+ *
  * @version $Id: HttpURLConnectionFactory.java 503 2009-08-16 17:47:12Z paranoid12 $
  */
 public class HttpURLConnectionFactory
-    implements ConnectionFactory
-{
+        implements ConnectionFactory {
     /**
      * URL for the connection.
      */
@@ -39,22 +38,20 @@ public class HttpURLConnectionFactory
 
     /**
      * Constructor with the url as a parameter.
-     * 
+     *
      * @param url
      */
-    public HttpURLConnectionFactory( URL url )
-    {
+    public HttpURLConnectionFactory(URL url) {
         this.url = url;
     }
 
     /**
      * Read the data from the HTTP input stream.
-     * 
+     *
      * @return
      */
     public InputStream getData()
-        throws Exception
-    {
+            throws Exception {
         HttpURLConnection connection = (HttpURLConnection) this.url.openConnection();
         return connection.getInputStream();
     }

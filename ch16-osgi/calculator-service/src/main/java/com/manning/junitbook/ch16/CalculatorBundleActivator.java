@@ -20,32 +20,28 @@
  */
 package com.manning.junitbook.ch16;
 
+import com.manning.junitbook.ch16.service.CalculatorImpl;
+import com.manning.junitbook.ch16.service.CalculatorService;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import com.manning.junitbook.ch16.service.CalculatorImpl;
-import com.manning.junitbook.ch16.service.CalculatorService;
-
 /**
  * Bundle activator for the Calculator service.
- * 
+ *
  * @version $Id: CalculatorBundleActivator.java 538 2009-08-17 09:08:14Z paranoid12 $
  */
 public class CalculatorBundleActivator
-    implements BundleActivator
-{
+        implements BundleActivator {
 
-    public void start( BundleContext bundleContext )
-        throws Exception
-    {
-        System.out.println( "Starting calculator service ..." );
-        bundleContext.registerService( CalculatorService.class.getName(), new CalculatorImpl(), null );
+    public void start(BundleContext bundleContext)
+            throws Exception {
+        System.out.println("Starting calculator service ...");
+        bundleContext.registerService(CalculatorService.class.getName(), new CalculatorImpl(), null);
     }
 
-    public void stop( BundleContext bundleContext )
-        throws Exception
-    {
-        System.out.println( "Stopping calculator service ..." );
+    public void stop(BundleContext bundleContext)
+            throws Exception {
+        System.out.println("Stopping calculator service ...");
         // BLANK
     }
 }

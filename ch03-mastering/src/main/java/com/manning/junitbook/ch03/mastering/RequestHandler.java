@@ -22,10 +22,9 @@ package com.manning.junitbook.ch03.mastering;
 
 /**
  * The request-handler interface.
- * 
+ *
  * @version $Id: RequestHandler.java 553 2010-03-06 12:29:58Z paranoid12 $
  */
-public interface RequestHandler
-{
-    Response process( Request request ) throws Exception;
+public interface RequestHandler {
+    Response process(Request request) throws Exception;
 }
