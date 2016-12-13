@@ -62,7 +62,7 @@
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -79,7 +79,7 @@
             <groupId>geronimo-spec</groupId>
             <artifactId>geronimo-spec-jta</artifactId>
             <version>1.0.1B-rc4</version>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <!--
            - testing dependencies
@@ -88,26 +88,26 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.6</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
             <version>2.4.3</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.7</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <!-- used by Unitils -->
             <groupId>org.springframework</groupId>
             <artifactId>spring</artifactId>
             <version>2.5.6</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <!-- switch dependencies below to use simple-logging
         <dependency>
@@ -121,7 +121,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.4.3</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <!-- Unitils and dependencies -->
@@ -130,19 +130,19 @@
             <groupId>org.unitils</groupId>
             <artifactId>unitils</artifactId>
             <version>2.2</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.3</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>ognl</groupId>
             <artifactId>ognl</artifactId>
             <version>2.6.9</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <!--  FEST and dependencies -->
@@ -184,13 +184,13 @@
             <groupId>com.mycila.testing.plugins</groupId>
             <artifactId>mycila-testing-jmock</artifactId>
             <version>1.2</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>com.mycila.testing.plugins</groupId>
             <artifactId>mycila-testing-easymock</artifactId>
             <version>1.2</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
         <!--
         <dependency>
@@ -210,7 +210,7 @@
         <dependency>
             <groupId>junit-addons</groupId>
             <artifactId>junit-addons</artifactId>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
             <version>1.4</version>
 
         </dependency>
