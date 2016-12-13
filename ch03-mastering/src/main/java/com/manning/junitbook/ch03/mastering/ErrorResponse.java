@@ -36,6 +36,7 @@ public class ErrorResponse
         this.originalException = exception;
     }
 
+
     public Request getOriginalRequest() {
         return this.originalRequest;
     }
